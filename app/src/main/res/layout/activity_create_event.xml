@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.CreateEvent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/event"
+            style="@style/SectionTitle"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            style="@style/SectionField"
+            />
+
+        <EditText
+            android:id="@+id/eventName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterEventName"
+            android:inputType="text"
+            android:autofillHints="name"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            style="@style/SectionField"
+            />
+
+        <EditText
+            android:id="@+id/eventDate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="date"
+            android:hint="@string/dateFormat"
+            android:autofillHints="date"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/duration"
+            style="@style/SectionField"
+            />
+
+        <EditText
+            android:id="@+id/eventDuration"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="time"
+            android:hint="@string/durationFormat"
+            android:autofillHints="time"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/musicalGenre"
+            style="@style/SectionField"
+            />
+
+        <Spinner
+            android:id="@+id/musicalGenres"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ageRestriction"
+            style="@style/SectionField"
+            />
+
+        <Spinner
+            android:id="@+id/ageRestrictions"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            style="@style/SectionField"
+            />
+
+        <EditText
+            android:id="@+id/eventDescription"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterDescription"
+            android:inputType="text"
+            android:autofillHints="description"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+            style="@style/SectionField"
+            />
+
+        <EditText
+            android:id="@+id/eventLocation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterLocation"
+            android:inputType="text"
+            android:autofillHints="location"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bandsAndArtists"
+            style="@style/SectionTitle"
+            />
+
+        <Button
+            android:id="@+id/btnAddBandOrArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/addBandOrArtist"
+            app:icon="@drawable/baseline_add_circle_outline_24"
+            app:iconGravity="textStart"
+            style="@style/BasicButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/btnCreateEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/createEvent"
+            style="@style/BasicButtonStyle"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

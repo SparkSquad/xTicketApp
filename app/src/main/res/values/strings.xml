@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">xTicket</string>
+    <string name="event">Evento</string>
+    <string name="name">Nombre</string>
+    <string name="enterEventName">Ingrese el nombre del evento</string>
+    <string name="date">Fecha</string>
+    <string name="dateFormat">DD/MM/AAAA</string>
+    <string name="duration">Duración (horas)</string>
+    <string name="durationFormat">00:00</string>
+    <string name="musicalGenre">Género musical</string>
+    <string name="select">Seleccionar</string>
+    <string name="ageRestriction">Restricción de edad</string>
+    <string name="description">Descripción</string>
+    <string name="enterDescription">Ingrese una descripción del evento</string>
+    <string name="location">Ubicación</string>
+    <string name="enterLocation">Ingrese la ubicación del evento</string>
+    <string name="bandsAndArtists">Bandas y artistas</string>
+    <string name="addBandOrArtist">Agregar banda o artista</string>
+    <string name="createEvent">Crear evento</string>
 </resources>
