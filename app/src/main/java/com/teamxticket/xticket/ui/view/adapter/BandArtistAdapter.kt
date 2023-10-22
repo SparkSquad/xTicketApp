@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.ui.view.BandArtist
 
-class BandArtistAdapter(private val bandArtistList: List<BandArtist>): RecyclerView.Adapter<BandArtistViewHolder>() {
+class BandArtistAdapter(private val bandArtistList: ArrayList<BandArtist>): RecyclerView.Adapter<BandArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BandArtistViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return BandArtistViewHolder(layoutInflater.inflate(R.layout.item_band_artist, parent, false))

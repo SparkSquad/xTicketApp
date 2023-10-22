@@ -19,6 +19,9 @@
     <string name="location">Ubicación</string>
     <string name="enterLocation">Ingrese la ubicación del evento</string>
     <string name="bandsAndArtists">Bandas y artistas</string>
+    <string name="enterBandOrArtist">Ingresar banda o artista</string>
     <string name="addBandOrArtist">Agregar banda o artista</string>
     <string name="createEvent">Crear evento</string>
+
+    <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
 </resources>
