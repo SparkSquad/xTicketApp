@@ -32,7 +32,7 @@
             android:layout_height="50dp"
             android:hint="@string/enterEventName"
             android:inputType="text"
-            android:autofillHints="name"
+            android:autofillHints=""
             />
 
         <TextView
@@ -42,30 +42,68 @@
             style="@style/SectionField"
             />
 
-        <EditText
-            android:id="@+id/eventDate"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="date"
-            android:hint="@string/dateFormat"
-            android:autofillHints="date"
-            />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnPickDate"
+                style="@style/BasicButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pickDate"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/eventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unassigned"
+                style="@style/SectionField"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPickDate"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/duration"
             style="@style/SectionField"
             />
 
-        <EditText
-            android:id="@+id/eventDuration"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="time"
-            android:hint="@string/durationFormat"
-            android:autofillHints="time"
-            />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnPickDuration"
+                style="@style/BasicButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pickDuration"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/eventDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unassigned"
+                style="@style/SectionField"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPickDuration"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -130,6 +168,12 @@
             android:layout_height="wrap_content"
             android:text="@string/bandsAndArtists"
             style="@style/SectionTitle"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerBandsAndArtists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
         <Button

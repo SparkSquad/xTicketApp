@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">xTicket</string>
+    <string name="unassigned">Sin asignar</string>
     <string name="event">Evento</string>
     <string name="name">Nombre</string>
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
-    <string name="dateFormat">DD/MM/AAAA</string>
-    <string name="duration">Duración (horas)</string>
-    <string name="durationFormat">00:00</string>
+    <string name="eventDate">Fecha del evento</string>
+    <string name="pickDate">Seleccionar fecha</string>
+    <string name="duration">Duración</string>
+    <string name="eventDuration">Duración del evento</string>
+    <string name="pickDuration">Seleccionar duración</string>
+    <string name="minDuration">La duración mínima es de 2 horas</string>
     <string name="musicalGenre">Género musical</string>
     <string name="select">Seleccionar</string>
     <string name="ageRestriction">Restricción de edad</string>
