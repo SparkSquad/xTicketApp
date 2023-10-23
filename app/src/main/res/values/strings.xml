@@ -26,4 +26,12 @@
 
     <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
     <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
+    <string name="sale_date">Fecha de evento</string>
+    <string name="only_adults">Solo adultos</string>
+    <string name="number_of_tickets">Cantidad de boletos</string>
+    <string name="price">Precio</string>
+    <string name="max_tickets">Max. boletos por usuario</string>
+    <string name="end_hour">Hora de fin</string>
+    <string name="start_hour">Hora de inicio</string>
+    <string name="create_sale_date">Crear fecha</string>
 </resources>
