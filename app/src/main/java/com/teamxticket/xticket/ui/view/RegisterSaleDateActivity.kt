@@ -26,13 +26,6 @@ class RegisterSaleDateActivity : AppCompatActivity() {
 
     private fun initListeners() {
         binding.btnCreateSaleDate.setOnClickListener {
-            val eventDate = binding.eventDate.text.toString()
-            val startTime = binding.tpStart.toString()
-            val endTime = binding.tpEnd.toString()
-            val numberOfTickets = binding.etNumberOfTickets.text.toString().toInt()
-            val price = binding.etPrice.text.toString().toFloat()
-            val maxTickets = binding.etMaxTickets.text.toString().toInt()
-            val onlyAdults = binding.switchOnlyAdults.isChecked
 
 
             if (validateForm()) {
@@ -69,17 +62,17 @@ class RegisterSaleDateActivity : AppCompatActivity() {
             println("validacion fallida 1")
         }
 
-        if (numberOfTickets <= 0) {
+        if (binding.etNumberOfTickets.text.toString().toInt() <= 0) {
             println("validacion fallida 2")
             return false
         }
 
-        if (price <= 0.0) {
+        if (binding.etPrice.text.toString().toFloat() <= 0.0) {
             println("validacion fallida 3")
             return false
         }
 
-        if (maxTickets <= 0) {
+        if (binding.etMaxTickets.text.toString().toInt() <= 0) {
             println("validacion fallida 4")
             return false
         }
@@ -92,24 +85,21 @@ class RegisterSaleDateActivity : AppCompatActivity() {
     }
 
     private fun isEndTimeAfterStartTime(): Boolean {
-        val startTimeParts = binding.tpStart.toString.split(":")
-        val endTimeParts = endTime.split(":")
+        val timeStart = binding.tpStart
+        val timeEnd = binding.tpEnd
 
-        if (startTimeParts.size != 2 || endTimeParts.size != 2) {
+        val hour = timeStart.hour
+        val minute = timeStart.minute
+        val hour2 = timeEnd.hour
+        val minute2 = timeEnd.minute
+
+
+        if (hour2 < hour || (hour2 == hour && minute2 <= minute)) {
+           Toast.makeText(this, "La hora de finalización debe ser posterior a la hora de inicio", Toast.LENGTH_SHORT).show()
+            return true
+        } else {
+            Toast.makeText(this, "validacion hecha", Toast.LENGTH_SHORT).show()
             return false
         }
-
-        val startHour = startTimeParts[0].toInt()
-        val startMinute = startTimeParts[1].toInt()
-        val endHour = endTimeParts[0].toInt()
-        val endMinute = endTimeParts[1].toInt()
-
-        if (endHour < startHour) {
-            return false
-        } else if (endHour == startHour && endMinute <= startMinute) {
-            return false
-        }
-        println("validacion hecha")
-        return true
     }
 }
