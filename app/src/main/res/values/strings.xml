@@ -6,12 +6,13 @@
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
     <string name="eventDate">Fecha del evento</string>
-    <string name="pickDate">Seleccionar fecha</string>
+    <string name="pickDate">Seleccione la fecha del evento</string>
     <string name="duration">Duración</string>
     <string name="eventDuration">Duración del evento</string>
-    <string name="pickDuration">Seleccionar duración</string>
+    <string name="pickDuration">Seleccione la duración del evento</string>
     <string name="minDuration">La duración mínima es de 2 horas</string>
     <string name="musicalGenre">Género musical</string>
+    <string name="pickMusicalGenre">Seleccione un género musical</string>
     <string name="select">Seleccionar</string>
     <string name="ageRestriction">Restricción de edad</string>
     <string name="description">Descripción</string>
@@ -19,7 +20,7 @@
     <string name="location">Ubicación</string>
     <string name="enterLocation">Ingrese la ubicación del evento</string>
     <string name="bandsAndArtists">Bandas y artistas</string>
-    <string name="enterBandOrArtist">Ingresar banda o artista</string>
+    <string name="enterBandOrArtist">Ingrese una banda o artista</string>
     <string name="addBandOrArtist">Agregar banda o artista</string>
     <string name="createEvent">Crear evento</string>
 

@@ -2,6 +2,9 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
@@ -16,7 +19,8 @@ class CreateEvent : AppCompatActivity() {
         binding = ActivityCreateEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initRecyclerView()
+        initSpinnerMusicalGenres()
+        initRecyclerViewBandsAndArtists()
 
         binding.btnAddBandOrArtist.setOnClickListener {
             val bandArtistName = binding.bandOrArtist.text.toString()
@@ -30,7 +34,17 @@ class CreateEvent : AppCompatActivity() {
         }
     }
 
-    private fun initRecyclerView() {
+    private fun initSpinnerMusicalGenres() {
+        val musicalGenres: ArrayList<String> = ArrayList()
+        musicalGenres.add(getString(R.string.pickMusicalGenre))
+
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, musicalGenres)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        binding.musicalGenres.adapter = arrayAdapter
+    }
+
+    private fun initRecyclerViewBandsAndArtists() {
         binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
         binding.recyclerBandsAndArtists.adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
     }

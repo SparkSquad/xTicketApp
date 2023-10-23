@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/event"
             style="@style/SectionTitle"
+            android:layout_marginBottom="15dp"
             />
 
         <TextView
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/name"
             style="@style/SectionField"
+            android:layout_marginBottom="5dp"
             />
 
         <EditText
@@ -32,7 +34,11 @@
             android:layout_height="50dp"
             android:hint="@string/enterEventName"
             android:inputType="text"
+            android:maxLength="45"
             android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
             />
 
         <TextView
@@ -40,25 +46,17 @@
             android:layout_height="wrap_content"
             android:text="@string/musicalGenre"
             style="@style/SectionField"
+            android:layout_marginBottom="5dp"
             />
 
         <Spinner
             android:id="@+id/musicalGenres"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ageRestriction"
-            style="@style/SectionField"
-            />
-
-        <Spinner
-            android:id="@+id/ageRestrictions"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:prompt="@string/select"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/spinner_border"
             />
 
         <TextView
@@ -66,22 +64,29 @@
             android:layout_height="wrap_content"
             android:text="@string/description"
             style="@style/SectionField"
+            android:layout_marginBottom="5dp"
             />
 
         <EditText
             android:id="@+id/eventDescription"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="90dp"
+            android:layout_marginBottom="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
             android:hint="@string/enterDescription"
-            android:inputType="text"
-            android:autofillHints="description"
-            />
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            android:maxLength="300"
+            android:maxLines="5"
+            android:padding="10dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/location"
             style="@style/SectionField"
+            android:layout_marginBottom="5dp"
             />
 
         <EditText
@@ -90,7 +95,11 @@
             android:layout_height="50dp"
             android:hint="@string/enterLocation"
             android:inputType="text"
-            android:autofillHints="location"
+            android:maxLength="100"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
             />
 
         <TextView
@@ -98,6 +107,8 @@
             android:layout_height="wrap_content"
             android:text="@string/bandsAndArtists"
             style="@style/SectionTitle"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -105,32 +116,48 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:itemCount="10"
-            />
+            tools:itemCount="10" />
 
-        <EditText
-            android:id="@+id/bandOrArtist"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enterBandOrArtist"
-            android:inputType="text"
-            android:autofillHints=""
-            />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
 
-        <Button
-            android:id="@+id/btnAddBandOrArtist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/addBandOrArtist"
-            app:icon="@drawable/baseline_add_circle_outline_24"
-            app:iconGravity="textStart"
-            style="@style/BasicButtonStyle"
-            />
+            <EditText
+                android:id="@+id/bandOrArtist"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:hint="@string/enterBandOrArtist"
+                android:inputType="text"
+                android:maxLength="100"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border_no_right_side"
+                android:padding="10dp"
+                />
+
+            <ImageButton
+                android:id="@+id/btnAddBandOrArtist"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_add_circle_outline_24"
+                android:contentDescription="@string/addBandOrArtist"
+                android:layout_gravity="center"
+                style="@style/BasicButtonStyle"
+                android:background="@drawable/round_corners_no_left_side"
+                />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnCreateEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/createEvent"
             style="@style/BasicButtonStyle"
             />
