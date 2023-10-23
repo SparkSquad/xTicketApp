@@ -15,7 +15,7 @@ import com.teamxticket.xticket.ui.viewModel.RegisterSaleDateViewModel
 class RegisterSaleDateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterSaleDateBinding
-    private val saleDateViewModel: RegisterSaleDateViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSaleDateBinding.inflate(layoutInflater)
@@ -34,16 +34,8 @@ class RegisterSaleDateActivity : AppCompatActivity() {
             val maxTickets = binding.etMaxTickets.text.toString().toInt()
             val onlyAdults = binding.switchOnlyAdults.isChecked
 
-            val saleDate = SaleDate (
-                eventDate,
-                numberOfTickets,
-                price,
-                maxTickets,
-                onlyAdults,
-                startTime,
-                endTime)
 
-            if (saleDateViewModel.registerSaleDate(saleDate) ) {
+            if (validateForm()) {
                 Toast.makeText(this, "Fecha de venta registrada", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Error al registrar la fecha de venta", Toast.LENGTH_SHORT).show()
@@ -69,5 +61,55 @@ class RegisterSaleDateActivity : AppCompatActivity() {
             }
 
         datePicker.show(supportFragmentManager, "Fecha del evento")
+    }
+
+    fun validateForm(): Boolean {
+        if (binding.eventDate.text.isEmpty()) {
+            return false
+            println("validacion fallida 1")
+        }
+
+        if (numberOfTickets <= 0) {
+            println("validacion fallida 2")
+            return false
+        }
+
+        if (price <= 0.0) {
+            println("validacion fallida 3")
+            return false
+        }
+
+        if (maxTickets <= 0) {
+            println("validacion fallida 4")
+            return false
+        }
+
+        if (!isEndTimeAfterStartTime()) {
+            return false
+        }
+        println("validacion hecha")
+        return true
+    }
+
+    private fun isEndTimeAfterStartTime(): Boolean {
+        val startTimeParts = binding.tpStart.toString.split(":")
+        val endTimeParts = endTime.split(":")
+
+        if (startTimeParts.size != 2 || endTimeParts.size != 2) {
+            return false
+        }
+
+        val startHour = startTimeParts[0].toInt()
+        val startMinute = startTimeParts[1].toInt()
+        val endHour = endTimeParts[0].toInt()
+        val endMinute = endTimeParts[1].toInt()
+
+        if (endHour < startHour) {
+            return false
+        } else if (endHour == startHour && endMinute <= startMinute) {
+            return false
+        }
+        println("validacion hecha")
+        return true
     }
 }
