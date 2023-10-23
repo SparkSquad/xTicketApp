@@ -16,6 +16,18 @@ class BandArtistAdapter(private val bandArtistList: ArrayList<BandArtist>): Recy
 
     override fun onBindViewHolder(holder: BandArtistViewHolder, position: Int) {
         val item = bandArtistList[position]
+        holder.linkAdapter(this)
         holder.render(item)
+    }
+
+    fun addItem(bandArtist: BandArtist) {
+        bandArtistList.add(bandArtist)
+        notifyItemInserted(bandArtistList.size - 1)
+    }
+
+    fun removeItem(position: Int) {
+        bandArtistList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, bandArtistList.size)
     }
 }

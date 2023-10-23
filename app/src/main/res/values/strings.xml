@@ -25,4 +25,5 @@
     <string name="createEvent">Crear evento</string>
 
     <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
+    <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
 </resources>

@@ -2,8 +2,6 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,17 +17,42 @@ class CreateEvent : AppCompatActivity() {
         binding = ActivityCreateEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+
         initSpinnerMusicalGenres()
-        initRecyclerViewBandsAndArtists()
+        initRecyclerViewBandsAndArtists(adapter)
 
         binding.btnAddBandOrArtist.setOnClickListener {
-            val bandArtistName = binding.bandOrArtist.text.toString()
+            var bandArtistName = binding.bandOrArtist.text.toString()
+            bandArtistName = bandArtistName.replace("\\s+".toRegex(), " ").uppercase().trim()
+
             if (bandArtistName.isNotEmpty()) {
-                BandArtistProvider.bandArtistList.add(BandArtist(bandArtistName))
-                binding.recyclerBandsAndArtists.adapter?.notifyItemInserted(BandArtistProvider.bandArtistList.size - 1)
-                binding.bandOrArtist.text.clear()
+                if(BandArtistProvider.bandArtistList.isEmpty()) {
+                    adapter.addItem(BandArtist(bandArtistName))
+                    binding.bandOrArtist.text.clear()
+
+                } else {
+                    var sameBandArtist = false
+                    for(bandArtist in BandArtistProvider.bandArtistList) {
+                        if (bandArtist.name == bandArtistName) {
+                            sameBandArtist = true
+                            break
+
+                        }
+                    }
+
+                    if (sameBandArtist) {
+                        Toast.makeText(this, getString(R.string.bandOrArtistAlreadyAdded), Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        adapter.addItem(BandArtist(bandArtistName))
+                        binding.bandOrArtist.text.clear()
+
+                    }
+                }
             } else {
                 Toast.makeText(this, getString(R.string.emptyBandOrArtist), Toast.LENGTH_SHORT).show()
+
             }
         }
     }
@@ -44,8 +67,8 @@ class CreateEvent : AppCompatActivity() {
         binding.musicalGenres.adapter = arrayAdapter
     }
 
-    private fun initRecyclerViewBandsAndArtists() {
+    private fun initRecyclerViewBandsAndArtists(adapter: BandArtistAdapter) {
         binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
-        binding.recyclerBandsAndArtists.adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+        binding.recyclerBandsAndArtists.adapter = adapter
     }
 }
