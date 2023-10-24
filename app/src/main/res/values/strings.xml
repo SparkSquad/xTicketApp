@@ -34,4 +34,5 @@
     <string name="end_hour">Hora de fin</string>
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
+    <string name="add_sale_date">Añadir nueva fecha</string>
 </resources>

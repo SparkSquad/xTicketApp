@@ -2,15 +2,12 @@ package com.teamxticket.xticket.ui.view
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityRegisterSaleDateBinding
-import com.teamxticket.xticket.ui.viewModel.RegisterSaleDateViewModel
 
 class RegisterSaleDateActivity : AppCompatActivity() {
 
@@ -58,29 +55,28 @@ class RegisterSaleDateActivity : AppCompatActivity() {
 
     fun validateForm(): Boolean {
         if (binding.eventDate.text.isEmpty()) {
+            Toast.makeText(this, "Debe seleccionar una fecha", Toast.LENGTH_SHORT).show()
             return false
-            println("validacion fallida 1")
         }
 
         if (binding.etNumberOfTickets.text.toString().toInt() <= 0) {
-            println("validacion fallida 2")
+            Toast.makeText(this, "Debe ingresar un número de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (binding.etPrice.text.toString().toFloat() <= 0.0) {
-            println("validacion fallida 3")
+            Toast.makeText(this, "Debe ingresar un precio válido", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (binding.etMaxTickets.text.toString().toInt() <= 0) {
-            println("validacion fallida 4")
+            Toast.makeText(this, "Debe ingresar un número máximo de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (!isEndTimeAfterStartTime()) {
             return false
         }
-        println("validacion hecha")
         return true
     }
 
@@ -92,6 +88,9 @@ class RegisterSaleDateActivity : AppCompatActivity() {
         val minute = timeStart.minute
         val hour2 = timeEnd.hour
         val minute2 = timeEnd.minute
+
+        Toast.makeText(this, "hora de inicio: $hour:$minute", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "hora de finalización: $hour2:$minute2", Toast.LENGTH_SHORT).show()
 
 
         if (hour2 < hour || (hour2 == hour && minute2 <= minute)) {
