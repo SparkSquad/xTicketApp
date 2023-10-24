@@ -68,7 +68,7 @@ class CreateEvent : AppCompatActivity() {
             setElementView(binding.musicalGenres, (musicalGenre == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.eventLocation, eventLocation.isEmpty(), getString(R.string.emptyField))
-            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandAndArtists.isEmpty(), getString(R.string.emptyField))
+            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
             if (eventName.isEmpty() || musicalGenre == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandAndArtists.isEmpty()) {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
@@ -85,6 +85,7 @@ class CreateEvent : AppCompatActivity() {
         val errorColor = if (isError) Color.RED else Color.BLACK
 
         editText.error = if (isError) message else null
+        editText.setHintTextColor(errorColor)
         editText.backgroundTintList = ColorStateList.valueOf(errorColor)
     }
 
@@ -102,6 +103,7 @@ class CreateEvent : AppCompatActivity() {
         val errorColor = if (isError) Color.RED else Color.BLACK
 
         editText.error = if (isError) message else null
+        editText.setHintTextColor(if (!isError) Color.GRAY else errorColor)
         editText.backgroundTintList = ColorStateList.valueOf(errorColor)
         button.backgroundTintList = ColorStateList.valueOf(errorColor)
     }
