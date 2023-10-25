@@ -11,6 +11,6 @@ class SaleDateRepository {
     suspend fun getAllSalesDates(eventId: Int): List<SaleDate> {
         val response = api.getSalesDates(eventId)
         SaleDateProvider.salesDates = response
-        return response
+        return response.saleDates
     }
 }

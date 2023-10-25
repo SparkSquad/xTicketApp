@@ -5,5 +5,5 @@ import com.teamxticket.xticket.data.model.SaleDate
 
 class GetSalesDatesUseCase {
     private val repository = SaleDateRepository()
-    suspend fun getallDateSales(eventId: Int): List<SaleDate>? = repository.getAllSalesDates(eventId)
+    suspend fun getAllDateSales(eventId: Int): List<SaleDate>? = repository.getAllSalesDates(eventId)
 }
