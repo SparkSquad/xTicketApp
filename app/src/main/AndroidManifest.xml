@@ -17,7 +17,16 @@
         android:theme="@style/Theme.XTicket"
         tools:targetApi="31">
         <activity
+            android:name=".LandingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.RegisterSaleDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.ManageSaleSateActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.CreateEvent"

@@ -64,4 +64,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    //CardView
+    implementation ("androidx.cardview:cardview:1.0.0")
 }
