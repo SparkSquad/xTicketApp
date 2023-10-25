@@ -31,7 +31,9 @@ class ManageSaleSateActivity : AppCompatActivity() {
 
     private fun initListeners() {
         binding.btnAddSaleDate.setOnClickListener {
-           
+    val intent = Intent(this, RegisterSaleDateActivity::class.java)
+                intent.putExtra("eventId", eventId)
+                startActivity(intent)
         }
     }
 
