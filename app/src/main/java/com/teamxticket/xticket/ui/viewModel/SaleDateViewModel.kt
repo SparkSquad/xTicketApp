@@ -1,7 +1,5 @@
 package com.teamxticket.xticket.ui.viewModel
 
-import android.content.Intent
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,26 +10,18 @@ import kotlinx.coroutines.launch
 class SaleDateViewModel : ViewModel() {
 
     var saleDateModel = MutableLiveData<List<SaleDate>?>()
-
     val showLoader = MutableLiveData<Boolean>()
+    private var getSaleDatesUseCase = GetSalesDatesUseCase()
 
-    var getSaleDatesUseCase = GetSalesDatesUseCase()
-
-    fun onCreate(eventId : Int) {
+    fun loadSaleDates(eventId : Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = getSaleDatesUseCase.getallDateSales(1)
+            val result = getSaleDatesUseCase.getAllDateSales(1)
 
             if (!result.isNullOrEmpty()) {
                 saleDateModel.postValue(result)
                 showLoader.postValue(false)
             }
         }
-    }
-    fun onItemClick(view: View) {
-        /*val context = view.context
-        val intent = Intent(context, NextActivity::class.java)
-        intent.putExtra("itemId", item.id) // Puedes pasar el ID u otra información aquí
-        context.startActivity(intent)*/
     }
 }
