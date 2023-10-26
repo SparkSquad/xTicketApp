@@ -25,8 +25,8 @@ class SaleDateRepository {
         return response
     }
 
-    suspend fun putSaleDate(eventId: Int, newSaleDate: NewSaleDate): Int {
-        val response = api.putSaleDate(eventId, newSaleDate)
+    suspend fun putSaleDate(saleDateId: Int, newSaleDate: NewSaleDate): Int {
+        val response = api.putSaleDate(saleDateId, newSaleDate)
         return response
     }
 }

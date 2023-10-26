@@ -21,7 +21,7 @@ interface SaleDateApiClient {
     @POST("saleDate/addSaleDate")
     suspend fun postSaleDate(@Body newSaleDate: NewSaleDate): Response<ApiResponse>
 
-    @PUT("saleDate/putSaleDate")
+    @PUT("saleDate/putSaleDate/{saleDateId}")
     suspend fun putSaleDate(
         @Path("saleDateId") saleDateId: Int,
         @Body newSaleDate: NewSaleDate): Response<ApiResponse>

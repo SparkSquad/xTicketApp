@@ -19,17 +19,9 @@ class SaleDateService {
     }
 
     suspend fun postSaleDate(newSaleDate: NewSaleDate): Int {
-        try {
-            return withContext(Dispatchers.IO) {
-                try {
-                    val response = retrofit.create(SaleDateApiClient::class.java).postSaleDate(newSaleDate)
-                    response.code()
-                } catch (e: IOException) {
-                    throw e
-                }
-            }
-        } catch (e: Exception) {
-            return 1000
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(SaleDateApiClient::class.java).postSaleDate(newSaleDate)
+            response.code()
         }
     }
 
@@ -41,9 +33,9 @@ class SaleDateService {
         }
     }
 
-    suspend fun putSaleDate(eventId: Int, newSaleDate: NewSaleDate): Int {
+    suspend fun putSaleDate(saleDateId: Int, newSaleDate: NewSaleDate): Int {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(SaleDateApiClient::class.java).putSaleDate(eventId, newSaleDate)
+            val response = retrofit.create(SaleDateApiClient::class.java).putSaleDate(saleDateId, newSaleDate)
             response.code()
         }
     }

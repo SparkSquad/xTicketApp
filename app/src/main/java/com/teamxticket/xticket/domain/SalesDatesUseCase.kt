@@ -12,5 +12,5 @@ class SalesDatesUseCase {
 
     suspend fun deleteSaleDate(saleDateId: Int): Int = repository.deleteSaleDate(saleDateId)
 
-    suspend fun updateSaleDate(eventId: Int, newSaleDate: NewSaleDate): Int = repository.putSaleDate(eventId, newSaleDate)
+    suspend fun updateSaleDate(saleDateId: Int, newSaleDate: NewSaleDate): Int = repository.putSaleDate(saleDateId, newSaleDate)
 }

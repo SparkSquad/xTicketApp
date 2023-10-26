@@ -42,4 +42,6 @@
     <string name="_1000">1000</string>
     <string name="_1200">1200</string>
     <string name="_3">3</string>
+    <string name="delete">Eliminar</string>
+    <string name="update">Actualizar</string>
 </resources>

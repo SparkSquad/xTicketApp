@@ -26,7 +26,7 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentSaleDate = datesList[position]
         with(holder.binding) {
-            val saleDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(currentSaleDate.sale_date)
+            val saleDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentSaleDate.sale_date)
             val calendar = Calendar.getInstance()
             if (saleDate != null) {
                 calendar.time = saleDate

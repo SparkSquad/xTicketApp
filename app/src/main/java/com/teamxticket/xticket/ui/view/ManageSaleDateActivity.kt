@@ -24,8 +24,8 @@ class ManageSaleDateActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
 
-        //eventId = intent.getIntExtra("eventId", 0)
-        saleDateViewModel.loadSaleDates(1)
+        eventId = intent.getIntExtra("eventId", 1)
+        saleDateViewModel.loadSaleDates(eventId)
         initListeners()
     }
 
@@ -56,8 +56,9 @@ class ManageSaleDateActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(saleDate: SaleDate) {
-        val idString = saleDate.sale_date_id.toString()
-        Toast.makeText(this, idString, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, UpdateDeleteSaleDateActivity::class.java)
+        intent.putExtra("saleDate", saleDate)
+        startActivity(intent)
     }
 
 }
