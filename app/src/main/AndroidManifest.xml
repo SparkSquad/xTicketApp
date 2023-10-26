@@ -26,7 +26,7 @@
             android:name=".ui.view.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.ManageSaleSateActivity"
+            android:name=".ui.view.ManageSaleDateActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

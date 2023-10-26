@@ -5,7 +5,7 @@ data class SaleDate(
     val end_time: String,
     val event_id: Int,
     val max_tickets: Int,
-    val price: Int,
+    val price: Double,
     val sale_date: String,
     val sale_date_id: Int,
     val start_time: String,

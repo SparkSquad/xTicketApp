@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.ManageSaleSateActivity"
+    tools:context=".ui.view.ManageSaleDateActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,9 +18,10 @@
                 android:layout_margin="10dp" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnAddSaleDate"
+                style="@style/BasicButtonStyle"
                 android:text="@string/add_sale_date"
                 android:layout_gravity="center"/>
 
