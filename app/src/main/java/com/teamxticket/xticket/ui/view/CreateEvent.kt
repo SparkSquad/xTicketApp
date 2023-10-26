@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.data.model.BandArtist
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 

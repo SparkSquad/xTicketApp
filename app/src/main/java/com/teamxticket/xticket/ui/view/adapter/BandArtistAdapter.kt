@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.ui.view.BandArtist
+import com.teamxticket.xticket.data.model.BandArtist
 
 class BandArtistAdapter(private val bandArtistList: ArrayList<BandArtist>): RecyclerView.Adapter<BandArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BandArtistViewHolder {
