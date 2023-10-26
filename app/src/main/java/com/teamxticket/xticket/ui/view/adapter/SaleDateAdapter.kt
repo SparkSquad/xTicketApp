@@ -1,6 +1,5 @@
 package com.teamxticket.xticket.ui.view.adapter
 
-import android.content.DialogInterface.OnClickListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,9 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
         with(holder.binding) {
             val saleDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(currentSaleDate.sale_date)
             val calendar = Calendar.getInstance()
-            calendar.time = saleDate
+            if (saleDate != null) {
+                calendar.time = saleDate
+            }
 
             val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
@@ -40,21 +41,26 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
             val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.start_time)
             val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.end_time)
 
-            val startTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(startTime)
-            val endTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(endTime)
+            val startTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(startTime!!)
+            val endTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(endTime!!)
 
             tvStartHour.text = startTimeFormatted
             tvEndHour.text = endTimeFormatted
 
-            tvPrice.text = "Precio: " + currentSaleDate.price.toString()
-            tvTotalTickets.text = "Total de tickets: " + currentSaleDate.tickets.toString()
+
+            tvPrice.text = "Precio:" + currentSaleDate.price.toString()
+
+            tvTotalTickets.text = "Boletos disponibles: "+ currentSaleDate.tickets.toString()
+
+            if (currentSaleDate.adults == 1) {
+                tvOnlyAdults.visibility = ViewGroup.VISIBLE
+            }
+
+            tvMaxTickets.text = "Maximo de tickets por persona: " + currentSaleDate.max_tickets.toString()
 
             holder.binding.root.setOnClickListener {
                 onClickListener(currentSaleDate)
             }
         }
-
     }
-
-
 }

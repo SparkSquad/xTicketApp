@@ -31,11 +31,15 @@
     <string name="emptyBandOrArtistList">Ingrese al menos una banda o artista</string>
     <string name="sale_date">Fecha de evento</string>
     <string name="only_adults">Solo adultos</string>
-    <string name="number_of_tickets">Cantidad de boletos</string>
-    <string name="price">Precio</string>
+    <string name="number_of_tickets">Cantidad de boletos: </string>
+    <string name="price">Precio: </string>
     <string name="end_hour">Hora de fin</string>
-    <string name="max_tickets">Max. boletos por usuario</string>
+    <string name="max_tickets">Max. boletos por usuario: </string>
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
     <string name="add_sale_date">Añadir nueva fecha</string>
+    <string name="adults">Adultos</string>
+    <string name="_1000">1000</string>
+    <string name="_1200">1200</string>
+    <string name="_3">3</string>
 </resources>

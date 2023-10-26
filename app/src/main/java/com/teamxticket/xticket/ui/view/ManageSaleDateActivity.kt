@@ -8,32 +8,32 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.data.model.SaleDate
-import com.teamxticket.xticket.databinding.ActivityManageSaleSateBinding
+import com.teamxticket.xticket.databinding.ActivityManageSaleDateBinding
 import com.teamxticket.xticket.ui.view.adapter.SaleDateAdapter
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
 
-class ManageSaleSateActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityManageSaleSateBinding
+class ManageSaleDateActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityManageSaleDateBinding
     private val saleDateViewModel : SaleDateViewModel by viewModels()
     private var eventId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = ActivityManageSaleSateBinding.inflate(layoutInflater)
+        binding = ActivityManageSaleDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
 
         //eventId = intent.getIntExtra("eventId", 0)
-        saleDateViewModel.loadSaleDates(eventId)
+        saleDateViewModel.loadSaleDates(1)
         initListeners()
     }
 
     private fun initListeners() {
         binding.btnAddSaleDate.setOnClickListener {
-    val intent = Intent(this, RegisterSaleDateActivity::class.java)
-                intent.putExtra("eventId", eventId)
-                startActivity(intent)
+            val intent = Intent(this, RegisterSaleDateActivity::class.java)
+            intent.putExtra("eventId", eventId)
+            startActivity(intent)
         }
     }
 
