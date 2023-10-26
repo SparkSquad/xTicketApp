@@ -4,7 +4,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.teamxticket.xticket.databinding.ItemBandArtistBinding
-import com.teamxticket.xticket.ui.view.BandArtist
+import com.teamxticket.xticket.data.model.BandArtist
 
 class BandArtistViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemBandArtistBinding.bind(view)

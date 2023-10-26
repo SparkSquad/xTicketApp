@@ -1,6 +1,6 @@
 package com.teamxticket.xticket.data.model
 
-import com.teamxticket.xticket.ui.view.BandArtist
+import com.teamxticket.xticket.data.model.BandArtist
 
 data class Event (
     val eventName: String,
