@@ -13,12 +13,10 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.data.model.NewSaleDate
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityUpdateDeleteSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -43,21 +41,21 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun setSaleDate() {
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(saleDate?.sale_date)
-        val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(date)
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(saleDate?.saleDate.toString())
+        val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(date!!)
 
         selectedDate = date
         binding.tvEventDate.text = formattedDate
 
-        val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(saleDate!!.start_time)
-        val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(saleDate!!.end_time)
+        val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(saleDate!!.startTime)
+        val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(saleDate!!.endTime)
 
-        binding.tpStart.hour = startTime.hours
-        binding.tpStart.minute = startTime.minutes
-        binding.tpEnd.hour = endTime.hours
-        binding.tpEnd.minute = endTime.minutes
+        binding.tpStart.hour = startTime?.hours ?: 0
+        binding.tpStart.minute = startTime?.minutes ?: 0
+        binding.tpEnd.hour = endTime?.hours?: 0
+        binding.tpEnd.minute = endTime?.minutes?:0
         binding.etPrice.setText(saleDate!!.price.toString())
-        binding.etMaxTickets.setText(saleDate!!.max_tickets.toString())
+        binding.etMaxTickets.setText(saleDate!!.maxTickets.toString())
         binding.etNumberOfTickets.setText(saleDate!!.tickets.toString())
 
         if (saleDate!!.adults == 1) {
@@ -102,24 +100,25 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
             val maxTickets = binding.etMaxTickets.text.toString().toInt()
             val adults = if (binding.switchOnlyAdults.isChecked) 1 else 0
 
-            var newSaleDate = NewSaleDate(
-                selectedDate,
-                price,
-                numberOfTickets,
-                maxTickets,
+            val newSaleDate = SaleDate(
                 adults,
-                startTime,
                 endTime,
-                saleDate!!.event_id
+                saleDate!!.eventId,
+                maxTickets,
+                price,
+                selectedDate.toString(),
+                0,
+                startTime,
+                numberOfTickets,
             )
-            saleDateViewModel.updateSaleDate(saleDate!!.sale_date_id, newSaleDate)
+            saleDateViewModel.updateSaleDate(saleDate!!.saleDateId, newSaleDate)
         } else {
             Toast.makeText(this, "Error al registrar la fecha de venta", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun deleteSaleDate() {
-        saleDateViewModel.deleteSaleDate(saleDate!!.sale_date_id)
+        saleDateViewModel.deleteSaleDate(saleDate!!.saleDateId)
     }
 
     private fun validateForm(): Boolean {

@@ -1,6 +1,5 @@
 package com.teamxticket.xticket.data
 
-import com.teamxticket.xticket.data.model.NewSaleDate
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.data.model.SaleDateProvider
 import com.teamxticket.xticket.data.network.SaleDateService
@@ -12,21 +11,18 @@ class SaleDateRepository {
     suspend fun getAllSalesDates(eventId: Int): List<SaleDate> {
         val response = api.getSalesDates(eventId)
         SaleDateProvider.salesDates = response
-        return response.saleDates
+        return response.saleDate
     }
 
-    suspend fun postSaleDate(newSaleDate: NewSaleDate): Int {
-        val response = api.postSaleDate(newSaleDate)
-        return response
+    suspend fun postSaleDate(newSaleDate: SaleDate): Int {
+        return api.postSaleDate(newSaleDate)
     }
 
     suspend fun deleteSaleDate(saleDateId: Int): Int {
-        val response = api.deleteSaleDate(saleDateId)
-        return response
+        return api.deleteSaleDate(saleDateId)
     }
 
-    suspend fun putSaleDate(saleDateId: Int, newSaleDate: NewSaleDate): Int {
-        val response = api.putSaleDate(saleDateId, newSaleDate)
-        return response
+    suspend fun putSaleDate(saleDateId: Int, newSaleDate: SaleDate): Int {
+        return api.putSaleDate(saleDateId, newSaleDate)
     }
 }
