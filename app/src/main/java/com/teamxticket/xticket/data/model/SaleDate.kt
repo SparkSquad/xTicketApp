@@ -5,13 +5,13 @@ import android.os.Parcelable
 
 data class SaleDate(
     val adults: Int,
-    val end_time: String,
-    val event_id: Int,
-    val max_tickets: Int,
+    val endTime: String,
+    val eventId: Int,
+    val maxTickets: Int,
     val price: Double,
-    val sale_date: String,
-    val sale_date_id: Int,
-    val start_time: String,
+    val saleDate: String,
+    val saleDateId: Int,
+    val startTime: String,
     val tickets: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -28,13 +28,13 @@ data class SaleDate(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(adults)
-        parcel.writeString(end_time)
-        parcel.writeInt(event_id)
-        parcel.writeInt(max_tickets)
+        parcel.writeString(endTime)
+        parcel.writeInt(eventId)
+        parcel.writeInt(maxTickets)
         parcel.writeDouble(price)
-        parcel.writeString(sale_date)
-        parcel.writeInt(sale_date_id)
-        parcel.writeString(start_time)
+        parcel.writeString(saleDate)
+        parcel.writeInt(saleDateId)
+        parcel.writeString(startTime)
         parcel.writeInt(tickets)
     }
 

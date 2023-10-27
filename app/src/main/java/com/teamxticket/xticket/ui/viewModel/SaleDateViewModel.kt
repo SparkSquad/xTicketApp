@@ -3,7 +3,6 @@ package com.teamxticket.xticket.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamxticket.xticket.data.model.NewSaleDate
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.domain.SalesDatesUseCase
 import kotlinx.coroutines.launch
@@ -24,12 +23,14 @@ class SaleDateViewModel : ViewModel() {
             val result = saleDatesUseCase.getSaleDates(1)
             if (!result.isNullOrEmpty()) {
                 saleDateModel.postValue(result)
-                showLoader.postValue(false)
+            } else {
+                saleDateModel.postValue(null)
             }
+            showLoader.postValue(false)
         }
     }
 
-    fun registerSaleDate(newSaleDate: NewSaleDate) {
+    fun registerSaleDate(newSaleDate: SaleDate) {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
             val result = saleDatesUseCase.postSaleDate(newSaleDate)
@@ -47,7 +48,7 @@ class SaleDateViewModel : ViewModel() {
         }
     }
 
-    fun updateSaleDate(saleDateId: Int, newSaleDate: NewSaleDate) {
+    fun updateSaleDate(saleDateId: Int, newSaleDate: SaleDate) {
         viewModelScope.launch {
             showLoaderUpdate.postValue(true)
             val result = saleDatesUseCase.updateSaleDate(saleDateId, newSaleDate)
