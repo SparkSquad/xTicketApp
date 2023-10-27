@@ -5,19 +5,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.data.model.NewSaleDate
+import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityRegisterSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
 import java.io.IOException
@@ -71,18 +67,19 @@ class RegisterSaleDateActivity : AppCompatActivity() {
                 val maxTickets = binding.etMaxTickets.text.toString().toInt()
                 val adults = if (binding.switchOnlyAdults.isChecked) 1 else 0
 
-                val newSaleDate = NewSaleDate(
-                    selectedDate,
-                    price,
-                    numberOfTickets,
-                    maxTickets,
+                val saleDate = SaleDate (
                     adults,
-                    startTime,
                     endTime,
-                    eventId
+                    eventId,
+                    maxTickets,
+                    price,
+                    selectedDate.toString(),
+                    0,
+                    startTime,
+                    numberOfTickets
                 )
                 try {
-                    saleDateViewModel.registerSaleDate(newSaleDate)
+                    saleDateViewModel.registerSaleDate(saleDate)
                 } catch (e: IOException) {
                     Toast.makeText(this, "Error al conectar con los servicios de xTicket", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {

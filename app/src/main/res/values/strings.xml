@@ -58,4 +58,7 @@
     <string name="_3">3</string>
     <string name="delete">Eliminar</string>
     <string name="update">Actualizar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="buy">Comprar</string>
+    <string name="space">"  -  "</string>
 </resources>
