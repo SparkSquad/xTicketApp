@@ -13,7 +13,7 @@
         android:autofillHints=""
         android:background="@drawable/edit_text_border"
         android:hint="@string/password"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:padding="10dp"
         tools:layout_editor_absoluteX="50dp"
         tools:layout_editor_absoluteY="400dp" />
