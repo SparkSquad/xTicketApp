@@ -3,51 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_margin="10dp"
     android:elevation="8dp"
-    app:cardCornerRadius="20dp"
-    android:gravity="center">
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/saleMonth"
-                android:text="OCT"
-                android:textSize="20dp"/>
+            android:orientation="vertical">
 
             <TextView
-                android:layout_height="wrap_content"
+                android:id="@+id/tvSaleMonth"
                 android:layout_width="wrap_content"
-                android:id="@+id/saleDay"
-                android:text="12"
-                android:textSize="40dp"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                tools:text="OCT" />
+
+            <TextView
+                android:id="@+id/tvSaleDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="40dp"
+                tools:text="12" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/startHour"
-                    android:text="12:00"
+                    android:id="@+id/tvStartHour"
+                    tools:text="12:00"
                     android:textSize="20dp"/>
 
                 <TextView
@@ -59,19 +63,42 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/endHour"
-                    android:text="12:00"
+                    android:id="@+id/tvEndHour"
+                    tools:text="12:00"
                     android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/tvOnlyAdults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"
+                    android:text="@string/adults"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
-                android:text="Precio:  "/>
-        </LinearLayout>
+                tools:text="Precio:  "/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTotalTickets"
+                tools:text="Total tickets:  "
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/tvMaxTickets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/max_tickets"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

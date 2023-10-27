@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".ui.view.RegisterSaleDateActivity">
+    tools:context=".ui.view.UpdateDeleteSaleDateActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +37,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/eventDate"
+                    android:id="@+id/tvEventDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -120,8 +118,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text=""
-                        style="@style/SectionField" />
+                        android:text="" />
 
                 </TableRow>
 
@@ -192,12 +189,29 @@
 
             </TableLayout>
 
-            <Button
-                android:id="@+id/btnCreateSaleDate"
-                style="@style/BasicButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_sale_date" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnUpdateSaleDate"
+                    style="@style/BasicButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/update" />
+
+                <Button
+                    android:id="@+id/btnDeleteSaleSale"
+                    style="@style/BadButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:layout_weight="1"
+                    />
+            </TableRow>
+
+
         </LinearLayout>
 
     </ScrollView>

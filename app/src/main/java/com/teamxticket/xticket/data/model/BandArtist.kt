@@ -1,4 +1,3 @@
 package com.teamxticket.xticket.data.model
 
-class Even {
-}
+data class BandArtist(val name: String)

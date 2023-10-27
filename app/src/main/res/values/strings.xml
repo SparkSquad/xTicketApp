@@ -37,13 +37,25 @@
     <string name="create_sign_up">Registrarse</string>
 
     <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
+    <string name="eventCreated">Evento creado</string>
+    <string name="emptyField">Este campo no puede estar vacío</string>
+    <string name="emptyFields">No puede haber campos vacíos</string>
+    <string name="emptyBandOrArtist">Por favor, ingrese una banda o artista válido</string>
     <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
+    <string name="emptyBandOrArtistList">Ingrese al menos una banda o artista</string>
     <string name="sale_date">Fecha de evento</string>
     <string name="only_adults">Solo adultos</string>
-    <string name="number_of_tickets">Cantidad de boletos</string>
-    <string name="price">Precio</string>
-    <string name="max_tickets">Max. boletos por usuario</string>
+    <string name="number_of_tickets">Cantidad de boletos: </string>
+    <string name="price">Precio: </string>
     <string name="end_hour">Hora de fin</string>
+    <string name="max_tickets">Max. boletos por usuario: </string>
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
+    <string name="add_sale_date">Añadir nueva fecha</string>
+    <string name="adults">Adultos</string>
+    <string name="_1000">1000</string>
+    <string name="_1200">1200</string>
+    <string name="_3">3</string>
+    <string name="delete">Eliminar</string>
+    <string name="update">Actualizar</string>
 </resources>

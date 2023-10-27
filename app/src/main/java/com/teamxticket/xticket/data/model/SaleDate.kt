@@ -1,11 +1,54 @@
 package com.teamxticket.xticket.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class SaleDate(
-    val eventDate: String,
-    val numberOfTickets: Int,
-    val price: Float,
-    val maxTickets: Int,
-    val onlyAdults: Boolean,
-    val startTime: String,
-    val endTime: String
-)
+    val adults: Int,
+    val end_time: String,
+    val event_id: Int,
+    val max_tickets: Int,
+    val price: Double,
+    val sale_date: String,
+    val sale_date_id: Int,
+    val start_time: String,
+    val tickets: Int
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readDouble(),
+        parcel.readString() ?: "",
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readInt()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(adults)
+        parcel.writeString(end_time)
+        parcel.writeInt(event_id)
+        parcel.writeInt(max_tickets)
+        parcel.writeDouble(price)
+        parcel.writeString(sale_date)
+        parcel.writeInt(sale_date_id)
+        parcel.writeString(start_time)
+        parcel.writeInt(tickets)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<SaleDate> {
+        override fun createFromParcel(parcel: Parcel): SaleDate {
+            return SaleDate(parcel)
+        }
+
+        override fun newArray(size: Int): Array<SaleDate?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
