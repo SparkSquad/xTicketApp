@@ -26,7 +26,7 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentSaleDate = datesList[position]
         with(holder.binding) {
-            val saleDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentSaleDate.sale_date)
+            val saleDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentSaleDate.saleDate)
             val calendar = Calendar.getInstance()
             if (saleDate != null) {
                 calendar.time = saleDate
@@ -38,8 +38,8 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
             tvSaleMonth.text = month
             tvSaleDay.text = day
 
-            val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.start_time)
-            val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.end_time)
+            val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.startTime)
+            val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.endTime)
 
             val startTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(startTime!!)
             val endTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(endTime!!)
@@ -56,7 +56,7 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
                 tvOnlyAdults.visibility = ViewGroup.VISIBLE
             }
 
-            tvMaxTickets.text = "Maximo de tickets por persona: " + currentSaleDate.max_tickets.toString()
+            tvMaxTickets.text = "Maximo de tickets por persona: " + currentSaleDate.maxTickets.toString()
 
             holder.binding.root.setOnClickListener {
                 onClickListener(currentSaleDate)

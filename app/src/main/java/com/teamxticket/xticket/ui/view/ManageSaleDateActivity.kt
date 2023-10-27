@@ -18,14 +18,17 @@ class ManageSaleDateActivity : AppCompatActivity() {
     private var eventId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityManageSaleDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
 
         eventId = intent.getIntExtra("eventId", 1)
-        saleDateViewModel.loadSaleDates(eventId)
+        try {
+            saleDateViewModel.loadSaleDates(eventId)
+        } catch (e: Exception) {
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+        }
         initListeners()
     }
 
