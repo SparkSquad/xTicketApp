@@ -3,6 +3,8 @@
     <string name="unassigned">Sin asignar</string>
     <string name="event">Evento</string>
     <string name="name">Nombre</string>
+    <string name="lastname">Apellido(S)</string>
+    <string name="numberphone">Numero Telefonico</string>
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
     <string name="eventDate">Fecha del evento</string>
@@ -23,6 +25,16 @@
     <string name="enterBandOrArtist">Ingrese una banda o artista</string>
     <string name="addBandOrArtist">Agregar banda o artista</string>
     <string name="createEvent">Crear evento</string>
+    <string name="SignUp">Registrarse</string>
+    <string name="enterName">Ingrese su nombre</string>
+    <string name="enterLastName">Ingrese sus apellidos</string>
+    <string name="enterNumberphone">Ingrese su numero telefonico</string>
+    <string name="enterEmail">Ingrese su email</string>
+    <string name="password">Contraseña</string>
+    <string name="enterPassword">Ingrese una contraseña</string>
+    <string name="confirmPassword">Confirme su contraseña</string>
+    <string name="enterCPassword">Ingrese de nuevo la contraseña</string>
+    <string name="create_sign_up">Registrarse</string>
 
     <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
     <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
