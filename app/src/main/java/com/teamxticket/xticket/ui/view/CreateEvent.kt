@@ -17,7 +17,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.data.model.BandArtist
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
@@ -51,12 +50,12 @@ class CreateEvent : AppCompatActivity() {
             if (bandArtistName.isEmpty()) {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, true, getString(R.string.emptyField))
 
-            } else if(BandArtistProvider.bandArtistList.any { it.name == bandArtistName }) {
+            } else if(BandArtistProvider.bandArtistList.any { it == bandArtistName }) {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, true, getString(R.string.bandOrArtistAlreadyAdded))
 
             } else {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, false, "")
-                adapter.addItem(BandArtist(bandArtistName))
+                adapter.addItem(bandArtistName)
                 binding.bandOrArtist.text.clear()
 
             }
@@ -69,28 +68,23 @@ class CreateEvent : AppCompatActivity() {
             val musicalGenre = binding.musicalGenres.selectedItemPosition
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val eventLocation = binding.eventLocation.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
-            val bandAndArtists = BandArtistProvider.bandArtistList
+            val bandsAndArtists = BandArtistProvider.bandArtistList
 
             setElementView(binding.eventName, eventName.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.musicalGenres, (musicalGenre == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.eventLocation, eventLocation.isEmpty(), getString(R.string.emptyField))
-            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
+            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandsAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
-            if (eventName.isEmpty() || musicalGenre == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandAndArtists.isEmpty()) {
+            if (eventName.isEmpty() || musicalGenre == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-
                 // TODO: Mandar id de usuario usando Shingleton
-
-                val event = Event(0, eventName, "ROCK", eventDescription, eventLocation, 1, bandAndArtists)
+                val event = Event(0, eventName, musicalGenre, eventDescription, eventLocation, 1, bandsAndArtists)
                 eventViewModel.registerEvent(event)
-
                 BandArtistProvider.bandArtistList.clear()
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
-                finish()
-
+                
             }
         }
     }
@@ -103,10 +97,11 @@ class CreateEvent : AppCompatActivity() {
 
         eventViewModel.successfulRegister.observe(this) { successful ->
             if (successful == 200) {
-                Toast.makeText(this, "Evento registrado exitosamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
                 finish()
+
             } else {
-                Toast.makeText(this, "Error al registrar el evento", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
             }
         }
     }

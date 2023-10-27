@@ -3,9 +3,9 @@ package com.teamxticket.xticket.data.model
 data class Event (
     val eventId: Int?,
     val name: String,
-    val genre: String,
+    val genre: Int,
     val description: String,
     val location: String,
     val userId: Int,
-    val bandAndArtists: ArrayList<BandArtist>
+    val bandsAndArtists: MutableList<String>
 )

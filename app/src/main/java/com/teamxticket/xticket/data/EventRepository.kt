@@ -18,6 +18,7 @@ class EventRepository {
     }
 
     suspend fun getGenres(): List<String> {
-        return api.getGenres()
+        val response = api.getGenres()
+        return response.genres
     }
 }

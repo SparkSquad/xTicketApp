@@ -3,6 +3,7 @@ package com.teamxticket.xticket.data.network
 import com.teamxticket.xticket.core.RetrofitHelper
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
+import com.teamxticket.xticket.data.model.GenreResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -23,10 +24,11 @@ class EventService {
         }
     }
 
-    suspend fun getGenres(): List<String> {
+    suspend fun getGenres(): GenreResponse {
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(EventApiClient::class.java).getGenres()
-            response.body() ?: emptyList()
+            response.body() ?: GenreResponse("", emptyList())
+
         }
     }
 }

@@ -2,6 +2,7 @@ package com.teamxticket.xticket.data.network
 
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
+import com.teamxticket.xticket.data.model.GenreResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,5 +17,5 @@ interface EventApiClient {
     suspend fun postEvent(@Body newEvent: Event): Response<Int>
 
     @GET("event/getGenres")
-    suspend fun getGenres(): Response<List<String>>
+    suspend fun getGenres(): Response<GenreResponse>
 }

@@ -24,6 +24,7 @@
     <string name="addBandOrArtist">Agregar banda o artista</string>
     <string name="createEvent">Crear evento</string>
     <string name="eventCreated">Evento creado</string>
+    <string name="eventWasNotCreated">Error al registrar el evento</string>
     <string name="emptyField">Este campo no puede estar vacío</string>
     <string name="emptyFields">No puede haber campos vacíos</string>
     <string name="emptyBandOrArtist">Por favor, ingrese una banda o artista válido</string>
