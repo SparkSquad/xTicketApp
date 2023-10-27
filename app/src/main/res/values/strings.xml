@@ -40,7 +40,7 @@
     <string name="eventCreated">Evento creado</string>
     <string name="emptyField">Este campo no puede estar vacío</string>
     <string name="emptyFields">No puede haber campos vacíos</string>
-    <string name="emptyBandOrArtist">Por favor, ingrese una banda o artista válido</string>
+    <string name="isEventPlanner">¿Eres Organizador?</string>
     <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
     <string name="emptyBandOrArtistList">Ingrese al menos una banda o artista</string>
     <string name="sale_date">Fecha de evento</string>
