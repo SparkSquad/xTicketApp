@@ -23,7 +23,6 @@ class SaleDateService {
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(SaleDateApiClient::class.java).postSaleDate(newSaleDate)
             response.code()
-
         }
     }
 
