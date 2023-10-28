@@ -5,17 +5,22 @@ import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.net.SocketTimeoutException
 
 class SaleDateService {
     private val retrofit = RetrofitHelper.getRetrofit()
 
     suspend fun getSalesDates(eventId: Int): SaleDateResponse {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(SaleDateApiClient::class.java).getAllSalesDates(eventId)
-            if (!response.isSuccessful) {
-                throw Exception("Error al conectar con el servidor")
+            try {
+                val response = retrofit.create(SaleDateApiClient::class.java).getAllSalesDates(eventId)
+                if (!response.isSuccessful) {
+                    throw Exception("Error al conectar con el servidor")
+                }
+                response.body() ?: SaleDateResponse("", emptyList())
+            } catch (e: SocketTimeoutException) {
+                SaleDateResponse(e.message, emptyList())
             }
-            response.body() ?: SaleDateResponse("", emptyList())
         }
     }
 

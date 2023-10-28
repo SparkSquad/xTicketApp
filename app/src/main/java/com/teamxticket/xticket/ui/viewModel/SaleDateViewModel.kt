@@ -20,7 +20,7 @@ class SaleDateViewModel : ViewModel() {
     fun loadSaleDates(eventId : Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = saleDatesUseCase.getSaleDates(1)
+            val result = saleDatesUseCase.getSaleDates(eventId)
             if (!result.isNullOrEmpty()) {
                 saleDateModel.postValue(result)
             } else {
