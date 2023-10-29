@@ -29,7 +29,7 @@
             android:name=".ui.view.signup"
             android:exported="false" />
         <activity
-            android:name=".ui.view.CreateEvent"
+            android:name=".ui.view.CreateEventActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.MainActivity"

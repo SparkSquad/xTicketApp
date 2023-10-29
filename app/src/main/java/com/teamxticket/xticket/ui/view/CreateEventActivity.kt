@@ -23,7 +23,7 @@ import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
-class CreateEvent : AppCompatActivity() {
+class CreateEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateEventBinding
     private val eventViewModel : EventViewModel by viewModels()
 
@@ -195,7 +195,7 @@ class CreateEvent : AppCompatActivity() {
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEvent, R.drawable.spinner_border)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
