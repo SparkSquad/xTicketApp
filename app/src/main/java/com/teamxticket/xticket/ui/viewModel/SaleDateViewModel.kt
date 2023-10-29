@@ -1,37 +1,72 @@
 package com.teamxticket.xticket.ui.viewModel
 
-import android.content.Intent
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.model.SaleDate
-import com.teamxticket.xticket.domain.GetSalesDatesUseCase
+import com.teamxticket.xticket.domain.SalesDatesUseCase
 import kotlinx.coroutines.launch
 
 class SaleDateViewModel : ViewModel() {
 
     var saleDateModel = MutableLiveData<List<SaleDate>?>()
+    var showLoader = MutableLiveData<Boolean>()
+    var showLoaderRegister = MutableLiveData<Boolean>()
+    var showLoaderUpdate = MutableLiveData<Boolean>()
+    var successfulUpdate = MutableLiveData<Int>()
+    var successfulRegister = MutableLiveData<Int>()
+    var errorCode = MutableLiveData<String>()
+    private var saleDatesUseCase = SalesDatesUseCase()
 
-    val showLoader = MutableLiveData<Boolean>()
-
-    var getSaleDatesUseCase = GetSalesDatesUseCase()
-
-    fun onCreate(eventId : Int) {
+    fun loadSaleDates(eventId : Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = getSaleDatesUseCase.getallDateSales(1)
-
-            if (!result.isNullOrEmpty()) {
+            try {
+                val result = saleDatesUseCase.getSaleDates(eventId)
                 saleDateModel.postValue(result)
-                showLoader.postValue(false)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
             }
+            showLoader.postValue(false)
         }
     }
-    fun onItemClick(view: View) {
-        /*val context = view.context
-        val intent = Intent(context, NextActivity::class.java)
-        intent.putExtra("itemId", item.id) // Puedes pasar el ID u otra información aquí
-        context.startActivity(intent)*/
+
+    fun registerSaleDate(newSaleDate: SaleDate) {
+        viewModelScope.launch {
+            showLoaderRegister.postValue(true)
+            try {
+                val result = saleDatesUseCase.postSaleDate(newSaleDate)
+                successfulRegister.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderRegister.postValue(false)
+        }
+    }
+
+   fun deleteSaleDate(saleDateId: Int) {
+        viewModelScope.launch {
+            showLoaderUpdate.postValue(true)
+            try {
+                val result = saleDatesUseCase.deleteSaleDate(saleDateId)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderUpdate.postValue(false)
+        }
+    }
+
+    fun updateSaleDate(saleDateId: Int, newSaleDate: SaleDate) {
+        viewModelScope.launch {
+            showLoaderUpdate.postValue(true)
+            try {
+                val result = saleDatesUseCase.updateSaleDate(saleDateId, newSaleDate)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderUpdate.postValue(false)
+        }
     }
 }

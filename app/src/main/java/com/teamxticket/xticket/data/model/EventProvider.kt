@@ -1,7 +1,7 @@
 package com.teamxticket.xticket.data.model
 
-class SaleDateProvider {
+class EventProvider {
     companion object {
-        var salesDates: SaleDateResponse? = null
+        var events: EventResponse? = null
     }
 }
