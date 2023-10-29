@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.data
 
+import com.teamxticket.xticket.data.model.CodeResponse
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.data.network.EventService
@@ -14,7 +15,7 @@ class EventRepository {
     }
 
     suspend fun postEvent(newEvent: Event): Int {
-        return api.postEvent(newEvent)
+        return api.postEvent(newEvent).code
     }
 
     suspend fun getGenres(): List<String> {

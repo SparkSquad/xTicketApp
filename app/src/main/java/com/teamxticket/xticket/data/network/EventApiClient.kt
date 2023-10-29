@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.data.network
 
+import com.teamxticket.xticket.data.model.CodeResponse
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
 import com.teamxticket.xticket.data.model.GenreResponse
@@ -14,7 +15,7 @@ interface EventApiClient {
     suspend fun getAllEvents(@Path("userId") userId: Int): Response<EventResponse>
 
     @POST("event/addEvent")
-    suspend fun postEvent(@Body newEvent: Event): Response<Int>
+    suspend fun postEvent(@Body newEvent: Event): Response<CodeResponse>
 
     @GET("event/getGenres")
     suspend fun getGenres(): Response<GenreResponse>
