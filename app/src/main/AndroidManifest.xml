@@ -18,6 +18,9 @@
             android:name=".ui.view.RegisterSaleDateActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.view.signup"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.CreateEvent"
             android:exported="false" />
         <activity
