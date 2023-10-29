@@ -12,11 +12,11 @@ import retrofit2.http.Path
 
 interface TicketApiClient {
 
-    @GET("ticket/getAll/{userId}")
+    @GET("fullTickets/getAll/{userId}")
     suspend fun getUserTickets(@Path("userId") userId: Int): Response<TicketResponse>
 
     @GET("ticket/getByUuid/{uuid}")
-    suspend fun getUuidTicket(@Path("uuid") uuid: Int): Response<TicketResponse>
+    suspend fun getUuidTicket(@Path("uuid") uuid: String): Response<Ticket>
 
     @POST("ticket/create")
     suspend fun postTicket(@Body newTicket: Ticket): Response<ApiResponse>

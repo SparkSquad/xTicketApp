@@ -14,23 +14,29 @@ class TicketService {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(TicketApiClient::class.java).getUserTickets(userId)
+                if (response.code() >= 500) {
+                    throw Exception("No se pudo conectar con el servidor, intente más tarde")
+                } else if (response.code() >= 400) {
+                    throw Exception("Hubo un erro de nuestra parte, intente más tarde")
+                }
                 response.body() ?: TicketResponse("", emptyList())
             } catch (e: SocketTimeoutException) {
-                throw Exception("Error al conectar con el servidor")
-            } catch (e: Exception) {
                 throw Exception("Error al conectar con el servidor")
             }
         }
     }
 
-    suspend fun getAvailableTicket (uuid: Int): TicketResponse {
+    suspend fun getTicketUuid (uuid: String): Ticket {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(TicketApiClient::class.java).getUuidTicket(uuid)
-                response.body() ?: TicketResponse("", emptyList())
+                if (response.code() >= 500) {
+                    throw Exception("No se pudo conectar con el servidor, intente más tarde")
+                } else if (response.code() >= 400) {
+                    throw Exception("Hubo un erro de nuestra parte, intente más tarde")
+                }
+                response.body() ?: Ticket(0, "", 0, 0, 0, 0, "")
             } catch (e: SocketTimeoutException) {
-                throw Exception("Error al conectar con el servidor")
-            } catch (e: Exception) {
                 throw Exception("Error al conectar con el servidor")
             }
         }
@@ -40,11 +46,14 @@ class TicketService {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(TicketApiClient::class.java).postTicket(newTicket)
+                if (response.code() >= 500) {
+                    throw Exception("No se pudo conectar con el servidor, intente más tarde")
+                } else if (response.code() >= 400) {
+                    throw Exception("Hubo un erro de nuestra parte, intente más tarde")
+                }
                 response.code()
             } catch (e: SocketTimeoutException) {
                 throw SocketTimeoutException("Error al conectar con el servidor")
-            } catch (e: Exception) {
-                throw Exception("Error al conectar con el servidor")
             }
         }
     }
@@ -53,11 +62,14 @@ class TicketService {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(TicketApiClient::class.java).deleteTicket(ticketId)
+                if (response.code() >= 500) {
+                    throw Exception("No se pudo conectar con el servidor, intente más tarde")
+                } else if (response.code() >= 400) {
+                    throw Exception("Hubo un erro de nuestra parte, intente más tarde")
+                }
                 response.code()
             } catch (e: SocketTimeoutException) {
                 throw SocketTimeoutException("Error al conectar con el servidor")
-            } catch (e: Exception) {
-                throw Exception("Error al conectar con el servidor")
             }
         }
     }
