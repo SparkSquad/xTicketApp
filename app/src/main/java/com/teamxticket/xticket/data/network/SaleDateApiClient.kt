@@ -16,15 +16,15 @@ interface SaleDateApiClient {
     @GET("saleDate/getAll/{eventId}")
     suspend fun getAllSalesDates(@Path("eventId") eventId: Int): Response<SaleDateResponse>
 
-    @POST("saleDate/addSaleDate")
+    @POST("saleDate/create")
     suspend fun postSaleDate(@Body newSaleDate: SaleDate): Response<ApiResponse>
 
-    @PUT("saleDate/putSaleDate/{saleDateId}")
+    @PUT("saleDate/update/{saleDateId}")
     suspend fun putSaleDate(
         @Path("saleDateId") saleDateId: Int,
         @Body newSaleDate: SaleDate): Response<ApiResponse>
 
-    @DELETE("saleDate/deleteSaleDate/{saleDateId}")
+    @DELETE("saleDate/delete/{saleDateId}")
     suspend fun deleteSaleDate(@Path("saleDateId") saleDateId: Int): Response<ApiResponse>
 
 }

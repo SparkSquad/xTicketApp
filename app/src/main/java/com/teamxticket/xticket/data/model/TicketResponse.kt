@@ -1,6 +1,6 @@
 package com.teamxticket.xticket.data.model
 
-data class SaleDateResponse(
+data class TicketResponse (
     val message: String?,
-    val saleDate: List<SaleDate>?
+    val saleDate: List<Ticket>?
 )
