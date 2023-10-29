@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -100,8 +101,10 @@ class CreateEvent : AppCompatActivity() {
 
             } else {
                 Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
-                BandArtistProvider.bandArtistList.clear()
-                finish()
+                Intent(this, ManageSaleDateActivity::class.java).apply {
+                    putExtra("eventId", result)
+                    startActivity(this)
+                }
 
             }
         }
@@ -110,9 +113,11 @@ class CreateEvent : AppCompatActivity() {
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
         val errorColor = if (isError) Color.RED else Color.BLACK
 
-        editText.error = if (isError) message else null
-        editText.setHintTextColor(errorColor)
-        editText.backgroundTintList = ColorStateList.valueOf(errorColor)
+        editText.apply {
+            error = if (isError) message else null
+            setHintTextColor(errorColor)
+            backgroundTintList = ColorStateList.valueOf(errorColor)
+        }
     }
 
     private fun setElementView(spinner: Spinner, isError: Boolean, message: String) {
@@ -120,18 +125,29 @@ class CreateEvent : AppCompatActivity() {
         val errorColor = if (isError) Color.RED else Color.BLACK
         val backgroundResource = if (isError) R.drawable.spinner_border_on_error else R.drawable.spinner_border
 
-        selectedView.error = if (isError) message else null
-        selectedView.setTextColor(errorColor)
+        selectedView.apply {
+            error = if (isError) message else null
+            setTextColor(errorColor)
+        }
         spinner.background = AppCompatResources.getDrawable(this, backgroundResource)
     }
 
     private fun setElementView(editText: EditText, button: ImageButton, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-
-        editText.error = if (isError) message else null
-        editText.setHintTextColor(if (!isError) Color.GRAY else errorColor)
-        editText.backgroundTintList = ColorStateList.valueOf(errorColor)
-        button.backgroundTintList = ColorStateList.valueOf(errorColor)
+        if(isError) {
+            editText.apply {
+                error = message
+                setHintTextColor(Color.RED)
+                backgroundTintList = ColorStateList.valueOf(Color.RED)
+            }
+            button.backgroundTintList = ColorStateList.valueOf(Color.RED)
+        } else {
+            editText.apply {
+                error = null
+                setHintTextColor(Color.GRAY)
+                backgroundTintList = ColorStateList.valueOf(Color.BLACK)
+            }
+            button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.darkBlue, null))
+        }
     }
 
     private fun setupValidationOnFocusChange(editText: EditText) {
@@ -147,6 +163,12 @@ class CreateEvent : AppCompatActivity() {
         super.onResume()
         eventViewModel.loadGenres()
         initSpinnerMusicalGenres()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BandArtistProvider.bandArtistList.clear()
+        finish()
     }
 
     private fun initSpinnerMusicalGenres() {
@@ -169,11 +191,14 @@ class CreateEvent : AppCompatActivity() {
         binding.musicalGenres.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 (binding.musicalGenres.selectedView as TextView).error = null
+                if(position == 0)
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
+                else
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
                 binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEvent, R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
-                (binding.musicalGenres.selectedView as TextView).error = getString(R.string.emptyField)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEvent, R.drawable.spinner_border_on_error)
+
             }
         }
     }
