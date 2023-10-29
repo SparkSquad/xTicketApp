@@ -83,7 +83,6 @@ class CreateEvent : AppCompatActivity() {
                 // TODO: Mandar id de usuario usando Shingleton
                 val event = Event(0, eventName, musicalGenre, eventDescription, eventLocation, 1, bandsAndArtists)
                 eventViewModel.registerEvent(event)
-                BandArtistProvider.bandArtistList.clear()
                 
             }
         }
@@ -95,13 +94,15 @@ class CreateEvent : AppCompatActivity() {
             binding.overlayView.isVisible = visible
         }
 
-        eventViewModel.successfulRegister.observe(this) { successful ->
-            if (successful == 200) {
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
-                finish()
+        eventViewModel.successfulRegister.observe(this) { result ->
+            if (result == -1) {
+                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
 
             } else {
-                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                BandArtistProvider.bandArtistList.clear()
+                finish()
+
             }
         }
     }
