@@ -18,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
@@ -66,23 +67,23 @@ class CreateEventActivity : AppCompatActivity() {
     private fun setupBtnCreateEvent() {
         binding.btnCreateEvent.setOnClickListener {
             val eventName = binding.eventName.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
-            val musicalGenre = binding.musicalGenres.selectedItemPosition
+            val musicalGenres = binding.musicalGenres
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val eventLocation = binding.eventLocation.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val bandsAndArtists = BandArtistProvider.bandArtistList
 
             setElementView(binding.eventName, eventName.isEmpty(), getString(R.string.emptyField))
-            setElementView(binding.musicalGenres, (musicalGenre == 0), getString(R.string.emptyField))
+            setElementView(binding.musicalGenres, (musicalGenres.selectedItemPosition == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.eventLocation, eventLocation.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandsAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
-            if (eventName.isEmpty() || musicalGenre == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
+            if (eventName.isEmpty() || musicalGenres.selectedItemPosition == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
                 // TODO: Mandar id de usuario usando Shingleton
-                val event = Event(0, eventName, musicalGenre, eventDescription, eventLocation, 1, bandsAndArtists)
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, 1, bandsAndArtists)
                 eventViewModel.registerEvent(event)
                 
             }
