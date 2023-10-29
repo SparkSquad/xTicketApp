@@ -8,10 +8,10 @@ class SaleDateRepository {
 
     private val api = SaleDateService()
 
-    suspend fun getAllSalesDates(eventId: Int): List<SaleDate> {
+    suspend fun getAllSalesDates(eventId: Int): List<SaleDate>? {
         val response = api.getSalesDates(eventId)
         SaleDateProvider.salesDates = response
-        return listOf<SaleDate>() //response.saleDate
+        return response.saleDate
     }
 
     suspend fun postSaleDate(newSaleDate: SaleDate): Int {

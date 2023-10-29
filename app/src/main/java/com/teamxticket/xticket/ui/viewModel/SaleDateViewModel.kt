@@ -15,16 +15,17 @@ class SaleDateViewModel : ViewModel() {
     var showLoaderUpdate = MutableLiveData<Boolean>()
     var successfulUpdate = MutableLiveData<Int>()
     var successfulRegister = MutableLiveData<Int>()
+    var errorCode = MutableLiveData<String>()
     private var saleDatesUseCase = SalesDatesUseCase()
 
     fun loadSaleDates(eventId : Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = saleDatesUseCase.getSaleDates(eventId)
-            if (!result.isNullOrEmpty()) {
+            try {
+                val result = saleDatesUseCase.getSaleDates(eventId)
                 saleDateModel.postValue(result)
-            } else {
-                saleDateModel.postValue(null)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
             }
             showLoader.postValue(false)
         }
@@ -33,8 +34,12 @@ class SaleDateViewModel : ViewModel() {
     fun registerSaleDate(newSaleDate: SaleDate) {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
-            val result = saleDatesUseCase.postSaleDate(newSaleDate)
-            successfulRegister.postValue(result)
+            try {
+                val result = saleDatesUseCase.postSaleDate(newSaleDate)
+                successfulRegister.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
             showLoaderRegister.postValue(false)
         }
     }
@@ -42,18 +47,26 @@ class SaleDateViewModel : ViewModel() {
    fun deleteSaleDate(saleDateId: Int) {
         viewModelScope.launch {
             showLoaderUpdate.postValue(true)
-            val result = saleDatesUseCase.deleteSaleDate(saleDateId)
+            try {
+                val result = saleDatesUseCase.deleteSaleDate(saleDateId)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
             showLoaderUpdate.postValue(false)
-            successfulUpdate.postValue(result)
         }
     }
 
     fun updateSaleDate(saleDateId: Int, newSaleDate: SaleDate) {
         viewModelScope.launch {
             showLoaderUpdate.postValue(true)
-            val result = saleDatesUseCase.updateSaleDate(saleDateId, newSaleDate)
+            try {
+                val result = saleDatesUseCase.updateSaleDate(saleDateId, newSaleDate)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
             showLoaderUpdate.postValue(false)
-            successfulUpdate.postValue(result)
         }
     }
 }
