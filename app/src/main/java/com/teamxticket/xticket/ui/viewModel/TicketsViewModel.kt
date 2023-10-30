@@ -17,6 +17,7 @@ class TicketsViewModel: ViewModel() {
     var successfulPurchase = MutableLiveData<Int>()
     var successfulRefund = MutableLiveData<Int>()
     var error = MutableLiveData<String>()
+    var refundList = MutableLiveData<List<TicketData>?>()
     private var ticketsUseCase = TicketsUseCase()
 
     fun loadTickets(userId: Int) {
@@ -30,7 +31,6 @@ class TicketsViewModel: ViewModel() {
             }
             showLoader.postValue(false)
         }
-        showLoader.postValue(true)
     }
 
     fun purchaseTicket(newTicket: Ticket) {
@@ -56,6 +56,19 @@ class TicketsViewModel: ViewModel() {
                 error.postValue(e.message)
             }
             showLoaderRefund.postValue(false)
+        }
+    }
+
+    fun loadRefundTickets() {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            val result = ticketsUseCase.getRefundTicket()
+            if (result != null) {
+                refundList.postValue(result)
+            } else {
+                error.postValue("No tickets to refund")
+            }
+            showLoader.postValue(false)
         }
     }
 

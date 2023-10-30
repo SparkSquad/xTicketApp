@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.TicketsListActivity">
+    tools:context=".ui.view.RefundActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,16 +14,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTicketsList"
             android:layout_width="match_parent"
-            android:layout_height="600dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnRefund"
-            style="@style/BasicButtonStyle"
-            android:text="@string/get_refund"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

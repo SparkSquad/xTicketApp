@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.TicketQrFragment">
+    tools:context=".ui.view.TicketQrFragment"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="20dp"
+    android:layout_gravity="center"
+    android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/show_qr"
-            android:textSize="20sp"/>
+            android:orientation="vertical"
+            android:background="@color/beige"
+            android:layout_gravity="center">
 
-        <ImageView
-            android:id="@+id/qr_image"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            tools:background="@color/red" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_qr"
+                android:textSize="20sp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BasicButtonStyle"
-            android:text="@string/close"
-            android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/qr_image"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                tools:background="@color/red" />
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BasicButtonStyle"
+                android:id="@+id/btnClose"
+                android:text="@string/close"
+                android:layout_gravity="center"
+                android:onClick="closeDialog"/>
+        </LinearLayout>
 
-</FrameLayout>
+</androidx.cardview.widget.CardView>
