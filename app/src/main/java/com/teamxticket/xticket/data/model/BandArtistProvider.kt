@@ -1,4 +1,4 @@
-package com.teamxticket.xticket.ui.view
+package com.teamxticket.xticket.data.model
 
 class BandArtistProvider {
     companion object {
