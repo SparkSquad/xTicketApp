@@ -25,6 +25,7 @@ class ManageSaleDateActivity : AppCompatActivity() {
 
         eventId = intent.getIntExtra("eventId", 1)
         saleDateViewModel.loadSaleDates(eventId)
+        initObservables()
         initListeners()
     }
 
@@ -58,8 +59,9 @@ class ManageSaleDateActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(saleDate: SaleDate) {
-        val intent = Intent(this, UpdateDeleteSaleDateActivity::class.java)
-        intent.putExtra("saleDate", saleDate)
-        startActivity(intent)
+        Intent(this, UpdateDeleteSaleDateActivity::class.java).apply {
+            putExtra("saleDate", saleDate)
+            startActivity(this)
+        }
     }
 }
