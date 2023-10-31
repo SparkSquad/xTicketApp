@@ -4,11 +4,14 @@ import com.teamxticket.xticket.data.model.CodeResponse
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
 import com.teamxticket.xticket.data.model.GenreResponse
+import com.teamxticket.xticket.data.model.SearchEventsResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.FieldMap
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.QueryMap
 
 interface EventApiClient {
     @GET("event/getAll/{userId}")
@@ -19,4 +22,7 @@ interface EventApiClient {
 
     @GET("event/getGenres")
     suspend fun getGenres(): Response<GenreResponse>
+
+    @GET("event/search/{query}")
+    suspend fun searchEvents(@Path("query") query: String, @QueryMap params: Map<String, String>) : Response<SearchEventsResponse>
 }

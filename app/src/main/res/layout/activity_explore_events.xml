@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.ExploreEventsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="6dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            app:drawableEndCompat="@drawable/baseline_star_24"
+            android:gravity="center"
+            android:text="@string/followedEventsLabel"
+            tools:ignore="RtlCompat" />
+
+        <EditText
+            android:id="@+id/etSearchEvents"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/searchEventInputHint"
+            android:inputType="text"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@color/white"
+            android:padding="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            style="@style/SectionFieldEditableArea" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSearchResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/overlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80292727"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:ignore="MissingConstraints"
+        android:indeterminateTint="@color/cherryRed"
+        android:visibility="invisible"/>
+
+</FrameLayout>

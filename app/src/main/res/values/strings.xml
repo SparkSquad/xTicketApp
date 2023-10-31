@@ -69,4 +69,6 @@
     <string name="close">Cerrar</string>
     <string name="show_qr">Muestre el QR al personal del evento</string>
     <string name="get_refund">Solicitar reembolso</string>
+    <string name="searchEventInputHint">Buscar evento...</string>
+    <string name="followedEventsLabel">Seguidos</string>
 </resources>
