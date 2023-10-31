@@ -14,6 +14,7 @@ class SaleDateViewModel : ViewModel() {
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderUpdate = MutableLiveData<Boolean>()
     var successfulUpdate = MutableLiveData<Int>()
+    var successfulDelete = MutableLiveData<Int>()
     var successfulRegister = MutableLiveData<Int>()
     var errorCode = MutableLiveData<String>()
     private var saleDatesUseCase = SalesDatesUseCase()
@@ -49,7 +50,7 @@ class SaleDateViewModel : ViewModel() {
             showLoaderUpdate.postValue(true)
             try {
                 val result = saleDatesUseCase.deleteSaleDate(saleDateId)
-                successfulUpdate.postValue(result)
+                successfulDelete.postValue(result)
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
             }

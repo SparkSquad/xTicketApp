@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.databinding.ActivityManageEventBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
@@ -43,13 +44,21 @@ class ManageEventActivity : AppCompatActivity() {
         eventViewModel.eventModel.observe(this) {
             val adapter = EventAdapter(EventProvider.eventsList, onItemClick = { event ->
                 // TODO: Open event details
-                Toast.makeText(this, "Clicked on ${event.name}", Toast.LENGTH_SHORT).show()
+                onEventClick(event)
             })
             binding.recyclerEvents.adapter = adapter
         }
+
         eventViewModel.showLoader.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
+        }
+    }
+
+    private fun onEventClick(event: Event) {
+        Intent(this, ManageSaleDateActivity::class.java).apply {
+            putExtra("eventId", event.eventId)
+            startActivity(this)
         }
     }
 }
