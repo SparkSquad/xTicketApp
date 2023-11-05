@@ -3,13 +3,13 @@ package com.teamxticket.xticket.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
+import com.teamxticket.xticket.domain.CreateEventUseCase
 import kotlinx.coroutines.launch
 
 class EventViewModel : ViewModel() {
-    private val repository = EventRepository()
+    private val createEventUseCase = CreateEventUseCase()
     var eventModel = MutableLiveData<List<Event>?>()
     var genresModel = MutableLiveData<List<String>?>()
     var showLoader = MutableLiveData<Boolean>()
@@ -20,7 +20,7 @@ class EventViewModel : ViewModel() {
     fun loadEvents(userId: Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = repository.getAllEvents(userId)
+            val result = createEventUseCase.getAllEvents(userId)
             EventProvider.eventsList.clear()
             EventProvider.eventsList.addAll(result)
             if (result.isNotEmpty()) {
@@ -33,7 +33,7 @@ class EventViewModel : ViewModel() {
     fun registerEvent(event: Event) {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
-            val result = repository.postEvent(event)
+            val result = createEventUseCase.postEvent(event)
             successfulRegister.postValue(result)
             showLoaderRegister.postValue(false)
         }
@@ -42,7 +42,7 @@ class EventViewModel : ViewModel() {
     fun loadGenres() {
         viewModelScope.launch {
             showLoaderGenres.postValue(true)
-            val result = repository.getGenres()
+            val result = createEventUseCase.getGenres()
             if (result.isNotEmpty()) {
                 genresModel.postValue(result)
                 showLoaderGenres.postValue(false)
