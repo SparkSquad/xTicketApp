@@ -1,6 +1,5 @@
 package com.teamxticket.xticket.ui.view.adapter
 
-import android.content.DialogInterface.OnClickListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,8 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleDate) -> Unit): RecyclerView.Adapter<SaleDateAdapter.ViewHolder>() {
+class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleDate) -> Unit):
+    RecyclerView.Adapter<SaleDateAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemSaleDateBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -27,9 +27,11 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentSaleDate = datesList[position]
         with(holder.binding) {
-            val saleDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(currentSaleDate.sale_date)
+            val saleDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentSaleDate.saleDate)
             val calendar = Calendar.getInstance()
-            calendar.time = saleDate
+            if (saleDate != null) {
+                calendar.time = saleDate
+            }
 
             val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
@@ -37,24 +39,29 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
             tvSaleMonth.text = month
             tvSaleDay.text = day
 
-            val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.start_time)
-            val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.end_time)
+            val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.startTime)
+            val endTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(currentSaleDate.endTime)
 
-            val startTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(startTime)
-            val endTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(endTime)
+            val startTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(startTime!!)
+            val endTimeFormatted = SimpleDateFormat("HH:mm", Locale.getDefault()).format(endTime!!)
 
             tvStartHour.text = startTimeFormatted
             tvEndHour.text = endTimeFormatted
 
-            tvPrice.text = "Precio: " + currentSaleDate.price.toString()
-            tvTotalTickets.text = "Total de tickets: " + currentSaleDate.tickets.toString()
+
+            tvPrice.text = "Precio:" + currentSaleDate.price.toString()
+
+            tvTotalTickets.text = "Boletos disponibles: "+ currentSaleDate.tickets.toString()
+
+            if (currentSaleDate.adults == 1) {
+                tvOnlyAdults.visibility = ViewGroup.VISIBLE
+            }
+
+            tvMaxTickets.text = "Maximo de tickets por persona: " + currentSaleDate.maxTickets.toString()
 
             holder.binding.root.setOnClickListener {
                 onClickListener(currentSaleDate)
             }
         }
-
     }
-
-
 }

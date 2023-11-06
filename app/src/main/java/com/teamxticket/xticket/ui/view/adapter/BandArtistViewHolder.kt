@@ -1,17 +1,15 @@
 package com.teamxticket.xticket.ui.view.adapter
 
 import android.view.View
-import android.view.View.OnClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.teamxticket.xticket.databinding.ItemBandArtistBinding
-import com.teamxticket.xticket.ui.view.BandArtist
 
 class BandArtistViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemBandArtistBinding.bind(view)
     private lateinit var adapter: BandArtistAdapter
 
-    fun render(bandArtist: BandArtist) {
-        binding.buttonBandArtist.text = bandArtist.name
+    fun render(bandArtist: String) {
+        binding.buttonBandArtist.text = bandArtist
         binding.buttonBandArtist.setOnClickListener {
             adapter.removeItem(absoluteAdapterPosition)
         }

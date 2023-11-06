@@ -19,9 +19,19 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/darkBlue</item>
     </style>
+    <style name="BadButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/cherryRed</item>
+    </style>
     <style name="SwitchColor">
         <item name="android:thumbTint">@color/gray</item>
         <item name="android:trackTint">@color/red</item>
+    </style>
+
+    <style name="DialogFragmentStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
 </resources>

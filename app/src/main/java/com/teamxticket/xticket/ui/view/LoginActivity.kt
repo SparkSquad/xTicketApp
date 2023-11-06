@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
 
             if (email.length>0 && password.length>0) {
-                val user : User = User(email, "", "", "", password)
+                val user : User = User(0,email, "", "", "", password)
                 userViewModel.searchUser(user)
             } else {
                 Toast.makeText(this, "El email o contraseña ingresados no son correctos, por favor intente de nuevo.", Toast.LENGTH_LONG).show()
@@ -49,6 +50,11 @@ class LoginActivity : AppCompatActivity() {
                      "Has ingresado de manera exitosa!",
                      Toast.LENGTH_SHORT
                  ).show()
+                 if (it.user?.email?.isEmpty() == false) {
+                     Intent (this, ManageEventActivity::class.java).apply {
+                         startActivity(this)
+                     }
+                 }
              } else {
                  Toast.makeText(
                      this,
