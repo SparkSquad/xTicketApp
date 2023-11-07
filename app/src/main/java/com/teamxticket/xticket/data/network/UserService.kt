@@ -15,4 +15,11 @@ class UserService{
             response.body() ?: UserResponse("", "", "", null)
         }
     }
+    
+    suspend fun postUser(user: User): Int {
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(UsersApiClient::class.java).postUser(user)
+            response.code()
+        }
+    }
 }

@@ -16,4 +16,9 @@ class UserRepository {
         }
         return result
     }
+    
+    suspend fun postSaleDate(user: User): Int {
+        val response = api.postUser(user)
+        return response
+    }
 }

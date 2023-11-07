@@ -16,12 +16,14 @@
         android:theme="@style/Theme.XTicket"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
             android:name=".ui.view.RefundActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.PurchaseDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.ManageSaleDateActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.UpdateDeleteSaleDateActivity"
