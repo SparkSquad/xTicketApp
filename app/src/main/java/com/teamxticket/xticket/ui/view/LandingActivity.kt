@@ -12,12 +12,28 @@ class LandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLandingBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_landing)
+        setContentView(binding.root)
+
+        initListeners()
 
         val button = findViewById<Button>(R.id.btnSignIn)
         button.setOnClickListener {
             val intent = Intent(this, LandingActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun initListeners() {
+        binding.btnSignIn.setOnClickListener {
+            Intent(this, LoginActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            Intent(this, SignUpActivity::class.java).apply {
+                startActivity(this)
+            }
         }
     }
 }
