@@ -16,7 +16,9 @@
         android:theme="@style/Theme.XTicket"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.view.EventPlannerMenuActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.view.RefundActivity"
             android:exported="false" />
@@ -24,11 +26,20 @@
             android:name=".ui.view.PurchaseDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.view.ManageSaleDateActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.UpdateDeleteSaleDateActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.LandingActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.view.RegisterSaleDateActivity"
             android:exported="false" />
@@ -40,21 +51,14 @@
             android:exported="false" />
         <activity
             android:name=".ui.view.AssistantMenuActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.view.ManageSaleDateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.TicketsListActivity"
-            android:exported="false">
-        </activity>
+            android:name=".ui.view.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.SignUpActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

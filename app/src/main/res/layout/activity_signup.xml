@@ -29,7 +29,7 @@
             />
 
         <EditText
-            android:id="@+id/txtName"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/enterName"
@@ -50,7 +50,7 @@
             />
 
         <EditText
-            android:id="@+id/txtLastName"
+            android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/enterLastName"
@@ -71,7 +71,7 @@
             />
 
         <EditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/enterEmail"
@@ -91,7 +91,7 @@
             />
 
         <EditText
-            android:id="@+id/txtPassword"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/enterPassword"
@@ -111,7 +111,7 @@
             />
 
         <EditText
-            android:id="@+id/txtCPassword"
+            android:id="@+id/etCPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/enterCPassword"
@@ -122,6 +122,16 @@
             android:padding="10dp"
             android:layout_marginBottom="20dp"
             />
+        <Switch
+            android:id="@+id/switchEvent"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:text="@string/isEventPlanner"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            style="@style/SwitchColor"
+            android:gravity="center_horizontal"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <Button
             android:id="@+id/btnSignUp"

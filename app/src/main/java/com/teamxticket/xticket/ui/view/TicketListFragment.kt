@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.FragmentTicketListBinding
 import com.teamxticket.xticket.ui.view.adapter.TicketAdapter
@@ -20,14 +21,15 @@ class TicketListFragment : Fragment() {
     private var _binding: FragmentTicketListBinding? = null
     private val binding get() = _binding!!
     private val ticketsViewModel: TicketsViewModel by viewModels()
-
+    private var activeUser = ActiveUser.getInstance().getUser()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         _binding = FragmentTicketListBinding.inflate(inflater, container, false)
         val rootView = binding.root
         binding.rvTicketsList.layoutManager = LinearLayoutManager(requireContext())
-        ticketsViewModel.loadTickets(1)
+
+        ticketsViewModel.loadTickets(activeUser!!.userId)
         initListeners()
         initObservables()
         return rootView

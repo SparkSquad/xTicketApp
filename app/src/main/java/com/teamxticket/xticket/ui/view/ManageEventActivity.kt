@@ -28,9 +28,8 @@ class ManageEventActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val activeUser = ActiveUser.getInstance().obtenerUsuario()
-        // TODO: Load events from user with Shingleton
-        eventViewModel.loadEvents(1)
+        val activeUser = ActiveUser.getInstance().getUser()
+        eventViewModel.loadEvents(activeUser!!.userId)
         initObservables()
     }
 
@@ -45,7 +44,6 @@ class ManageEventActivity : AppCompatActivity() {
     private fun initObservables() {
         eventViewModel.eventModel.observe(this) {
             val adapter = EventAdapter(EventProvider.eventsList, onItemClick = { event ->
-                // TODO: Open event details
                 onEventClick(event)
             })
             binding.recyclerEvents.adapter = adapter
