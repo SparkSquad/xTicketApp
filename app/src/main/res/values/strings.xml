@@ -69,8 +69,9 @@
     <string name="event_time">Duracion de evento</string>
     <string name="tickets_sold">Entradas compradas: </string>
     <string name="purchase_date">"Fecha de compra: "</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="close">Cerrar</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="show_qr">Muestre el QR al personal del evento</string>
     <string name="get_refund">Solicitar reembolso</string>
+    <string name="followedEventsLabel">Seguidos</string>
 </resources>

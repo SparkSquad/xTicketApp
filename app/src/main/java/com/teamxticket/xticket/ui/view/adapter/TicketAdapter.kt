@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class TicketAdpater(val ticketList: List<TicketData>, val onClickListener: (TicketData) -> Unit ):
-    RecyclerView.Adapter<TicketAdpater.ViewHolder>() {
+class TicketAdapter(val ticketList: List<TicketData>, val onClickListener: (TicketData) -> Unit ):
+    RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemTicketBinding) : RecyclerView.ViewHolder(binding.root)
 
