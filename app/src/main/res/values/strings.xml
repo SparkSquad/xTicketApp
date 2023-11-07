@@ -50,6 +50,10 @@
     <string name="max_tickets">Max. boletos por usuario: </string>
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
+    <string name="signIn">INICIAR SESIÓN</string>
+    <string name="createAccount">CREAR CUENTA</string>
+    <string name="email">Correo electrónico</string>
+    <string name="forgotPassword">Olvidaste tu contraseña?</string>
     <string name="add_sale_date">Añadir nueva fecha</string>
     <string name="adults">Adultos</string>
     <string name="_1000">1000</string>
@@ -65,10 +69,11 @@
     <string name="event_time">Duracion de evento</string>
     <string name="tickets_sold">Entradas compradas: </string>
     <string name="purchase_date">"Fecha de compra: "</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="close">Cerrar</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="show_qr">Muestre el QR al personal del evento</string>
     <string name="get_refund">Solicitar reembolso</string>
+    <string name="followedEventsLabel">Seguidos</string>
     <string name="message_exception_500">No se ha podido conectar con el servidor, intente de nuevo más tarde</string>
     <string name="message_exception_400">El servidor no ha podido procesar su solicitud, intente de nuevo más tarde</string>
     <string name="message_can_not_connect_with_server">No se ha podido conectar con el servidor</string>

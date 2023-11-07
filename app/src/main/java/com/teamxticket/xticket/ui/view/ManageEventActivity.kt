@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.databinding.ActivityManageEventBinding
@@ -27,6 +28,7 @@ class ManageEventActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val activeUser = ActiveUser.getInstance().obtenerUsuario()
         // TODO: Load events from user with Shingleton
         eventViewModel.loadEvents(1)
         initObservables()

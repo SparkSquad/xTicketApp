@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.ActivityRefundBinding
-import com.teamxticket.xticket.ui.view.adapter.TicketAdpater
+import com.teamxticket.xticket.ui.view.adapter.TicketAdapter
 import com.teamxticket.xticket.ui.viewModel.TicketsViewModel
 
 class RefundActivity : AppCompatActivity() {
@@ -29,7 +29,7 @@ class RefundActivity : AppCompatActivity() {
     private fun initObservables() {
         ticketsViewModel.refundList.observe(this) { ticketsList ->
             val ticketsData : List<TicketData> = ticketsList ?: emptyList()
-            val adapter = TicketAdpater(ticketsData) { ticketData -> onItemSelected(ticketData) }
+            val adapter = TicketAdapter(ticketsData) { ticketData -> onItemSelected(ticketData) }
             binding.rvTicketsList.adapter = adapter
         }
 
