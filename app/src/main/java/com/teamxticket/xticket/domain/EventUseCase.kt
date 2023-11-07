@@ -3,7 +3,7 @@ package com.teamxticket.xticket.domain
 import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
 
-class CreateEventUseCase {
+class EventUseCase {
     private val repository = EventRepository()
     suspend fun getAllEvents(userId: Int): List<Event> = repository.getAllEvents(userId)
 
