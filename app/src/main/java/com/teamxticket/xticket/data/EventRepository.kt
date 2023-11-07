@@ -1,7 +1,6 @@
 package com.teamxticket.xticket.data
 
 import com.teamxticket.xticket.data.model.Event
-import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.data.network.EventService
 
 class EventRepository {
@@ -9,15 +8,15 @@ class EventRepository {
 
     suspend fun getAllEvents(userId: Int): List<Event> {
         val response = api.getAllEvents(userId)
-        EventProvider.events = response
-        return response.events
+        return response.allEvents
     }
 
     suspend fun postEvent(newEvent: Event): Int {
-        return api.postEvent(newEvent)
+        return api.postEvent(newEvent).code
     }
 
     suspend fun getGenres(): List<String> {
-        return api.getGenres()
+        val response = api.getGenres()
+        return response.genres
     }
 }

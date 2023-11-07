@@ -64,4 +64,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    // Pop-Ups
+    implementation("com.github.gabriel-TheCode:AestheticDialogs:1.3.8")
+    // QR Scanner
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    //CardView
 }

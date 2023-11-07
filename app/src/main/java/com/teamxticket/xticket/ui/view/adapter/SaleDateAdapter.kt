@@ -10,7 +10,8 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleDate) -> Unit): RecyclerView.Adapter<SaleDateAdapter.ViewHolder>() {
+class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleDate) -> Unit):
+    RecyclerView.Adapter<SaleDateAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemSaleDateBinding) : RecyclerView.ViewHolder(binding.root)
 

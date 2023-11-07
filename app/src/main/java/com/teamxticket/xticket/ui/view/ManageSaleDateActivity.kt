@@ -24,12 +24,15 @@ class ManageSaleDateActivity : AppCompatActivity() {
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
 
         eventId = intent.getIntExtra("eventId", 1)
-        try {
-            saleDateViewModel.loadSaleDates(eventId)
-        } catch (e: Exception) {
-            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-        }
+        saleDateViewModel.loadSaleDates(eventId)
+        initObservables()
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        saleDateViewModel.loadSaleDates(eventId)
+        initObservables()
     }
 
     private fun initListeners() {
@@ -38,12 +41,6 @@ class ManageSaleDateActivity : AppCompatActivity() {
             intent.putExtra("eventId", eventId)
             startActivity(intent)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        saleDateViewModel.loadSaleDates(eventId)
-        initObservables()
     }
 
     private fun initObservables() {
@@ -56,12 +53,15 @@ class ManageSaleDateActivity : AppCompatActivity() {
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
+        saleDateViewModel.errorCode.observe(this) { errorCode ->
+            Toast.makeText(this, errorCode, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun onItemSelected(saleDate: SaleDate) {
-        val intent = Intent(this, UpdateDeleteSaleDateActivity::class.java)
-        intent.putExtra("saleDate", saleDate)
-        startActivity(intent)
+        Intent(this, UpdateDeleteSaleDateActivity::class.java).apply {
+            putExtra("saleDate", saleDate)
+            startActivity(this)
+        }
     }
-
 }

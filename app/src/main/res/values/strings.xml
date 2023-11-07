@@ -3,6 +3,8 @@
     <string name="unassigned">Sin asignar</string>
     <string name="event">Evento</string>
     <string name="name">Nombre</string>
+    <string name="lastname">Apellido(S)</string>
+    <string name="numberphone">Numero Telefonico</string>
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
     <string name="eventDate">Fecha del evento</string>
@@ -24,9 +26,20 @@
     <string name="addBandOrArtist">Agregar banda o artista</string>
     <string name="createEvent">Crear evento</string>
     <string name="eventCreated">Evento creado</string>
+    <string name="eventWasNotCreated">Error al registrar el evento</string>
     <string name="emptyField">Este campo no puede estar vacío</string>
     <string name="emptyFields">No puede haber campos vacíos</string>
-    <string name="emptyBandOrArtist">Por favor, ingrese una banda o artista válido</string>
+    <string name="SignUp">Registrarse</string>
+    <string name="enterName">Ingrese su nombre</string>
+    <string name="enterLastName">Ingrese sus apellidos</string>
+    <string name="enterNumberphone">Ingrese su numero telefonico</string>
+    <string name="enterEmail">Ingrese su email</string>
+    <string name="password">Contraseña</string>
+    <string name="enterPassword">Ingrese una contraseña</string>
+    <string name="enterCPassword">Ingrese de nuevo la contraseña</string>
+    <string name="confirmPassword">Confirme su contraseña</string>
+    <string name="create_sign_up">Registrarse</string>
+    <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
     <string name="bandOrArtistAlreadyAdded">No puede haber bandas o artistas duplicados</string>
     <string name="emptyBandOrArtistList">Ingrese al menos una banda o artista</string>
     <string name="sale_date">Fecha de evento</string>
@@ -37,6 +50,10 @@
     <string name="max_tickets">Max. boletos por usuario: </string>
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
+    <string name="signIn">INICIAR SESIÓN</string>
+    <string name="createAccount">CREAR CUENTA</string>
+    <string name="email">Correo electrónico</string>
+    <string name="forgotPassword">Olvidaste tu contraseña?</string>
     <string name="add_sale_date">Añadir nueva fecha</string>
     <string name="adults">Adultos</string>
     <string name="_1000">1000</string>
@@ -47,5 +64,14 @@
     <string name="cancel">Cancelar</string>
     <string name="buy">Comprar</string>
     <string name="space">"  -  "</string>
+    <string name="musicalGenreWithColon">Género:&#160;</string>
+    <string name="locationWithColon">Ubicación:&#160;</string>
+    <string name="event_time">Duracion de evento</string>
+    <string name="tickets_sold">Entradas compradas: </string>
+    <string name="purchase_date">"Fecha de compra: "</string>
+    <string name="close">Cerrar</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="show_qr">Muestre el QR al personal del evento</string>
+    <string name="get_refund">Solicitar reembolso</string>
     <string name="followedEventsLabel">Seguidos</string>
 </resources>

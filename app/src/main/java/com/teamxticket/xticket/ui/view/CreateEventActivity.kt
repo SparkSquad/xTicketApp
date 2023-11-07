@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -17,13 +18,13 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.data.model.BandArtist
+import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
-class CreateEvent : AppCompatActivity() {
+class CreateEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateEventBinding
     private val eventViewModel : EventViewModel by viewModels()
 
@@ -51,12 +52,12 @@ class CreateEvent : AppCompatActivity() {
             if (bandArtistName.isEmpty()) {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, true, getString(R.string.emptyField))
 
-            } else if(BandArtistProvider.bandArtistList.any { it.name == bandArtistName }) {
+            } else if(BandArtistProvider.bandArtistList.any { it == bandArtistName }) {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, true, getString(R.string.bandOrArtistAlreadyAdded))
 
             } else {
                 setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, false, "")
-                adapter.addItem(BandArtist(bandArtistName))
+                adapter.addItem(bandArtistName)
                 binding.bandOrArtist.text.clear()
 
             }
@@ -66,31 +67,25 @@ class CreateEvent : AppCompatActivity() {
     private fun setupBtnCreateEvent() {
         binding.btnCreateEvent.setOnClickListener {
             val eventName = binding.eventName.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
-            val musicalGenre = binding.musicalGenres.selectedItemPosition
+            val musicalGenres = binding.musicalGenres
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val eventLocation = binding.eventLocation.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
-            val bandAndArtists = BandArtistProvider.bandArtistList
+            val bandsAndArtists = BandArtistProvider.bandArtistList
 
             setElementView(binding.eventName, eventName.isEmpty(), getString(R.string.emptyField))
-            setElementView(binding.musicalGenres, (musicalGenre == 0), getString(R.string.emptyField))
+            setElementView(binding.musicalGenres, (musicalGenres.selectedItemPosition == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.eventLocation, eventLocation.isEmpty(), getString(R.string.emptyField))
-            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
+            setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandsAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
-            if (eventName.isEmpty() || musicalGenre == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandAndArtists.isEmpty()) {
+            if (eventName.isEmpty() || musicalGenres.selectedItemPosition == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-
                 // TODO: Mandar id de usuario usando Shingleton
-
-                val event = Event(0, eventName, "ROCK", eventDescription, eventLocation, 1, bandAndArtists)
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, 1, bandsAndArtists)
                 eventViewModel.registerEvent(event)
-
-                BandArtistProvider.bandArtistList.clear()
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
-                finish()
-
+                
             }
         }
     }
@@ -101,12 +96,17 @@ class CreateEvent : AppCompatActivity() {
             binding.overlayView.isVisible = visible
         }
 
-        eventViewModel.successfulRegister.observe(this) { successful ->
-            if (successful == 200) {
-                Toast.makeText(this, "Evento registrado exitosamente", Toast.LENGTH_SHORT).show()
-                finish()
+        eventViewModel.successfulRegister.observe(this) { result ->
+            if (result == -1) {
+                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
+
             } else {
-                Toast.makeText(this, "Error al registrar el evento", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                Intent(this, ManageSaleDateActivity::class.java).apply {
+                    putExtra("eventId", result)
+                    startActivity(this)
+                }
+
             }
         }
     }
@@ -114,9 +114,11 @@ class CreateEvent : AppCompatActivity() {
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
         val errorColor = if (isError) Color.RED else Color.BLACK
 
-        editText.error = if (isError) message else null
-        editText.setHintTextColor(errorColor)
-        editText.backgroundTintList = ColorStateList.valueOf(errorColor)
+        editText.apply {
+            error = if (isError) message else null
+            setHintTextColor(errorColor)
+            backgroundTintList = ColorStateList.valueOf(errorColor)
+        }
     }
 
     private fun setElementView(spinner: Spinner, isError: Boolean, message: String) {
@@ -124,18 +126,29 @@ class CreateEvent : AppCompatActivity() {
         val errorColor = if (isError) Color.RED else Color.BLACK
         val backgroundResource = if (isError) R.drawable.spinner_border_on_error else R.drawable.spinner_border
 
-        selectedView.error = if (isError) message else null
-        selectedView.setTextColor(errorColor)
+        selectedView.apply {
+            error = if (isError) message else null
+            setTextColor(errorColor)
+        }
         spinner.background = AppCompatResources.getDrawable(this, backgroundResource)
     }
 
     private fun setElementView(editText: EditText, button: ImageButton, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-
-        editText.error = if (isError) message else null
-        editText.setHintTextColor(if (!isError) Color.GRAY else errorColor)
-        editText.backgroundTintList = ColorStateList.valueOf(errorColor)
-        button.backgroundTintList = ColorStateList.valueOf(errorColor)
+        if(isError) {
+            editText.apply {
+                error = message
+                setHintTextColor(Color.RED)
+                backgroundTintList = ColorStateList.valueOf(Color.RED)
+            }
+            button.backgroundTintList = ColorStateList.valueOf(Color.RED)
+        } else {
+            editText.apply {
+                error = null
+                setHintTextColor(Color.GRAY)
+                backgroundTintList = ColorStateList.valueOf(Color.BLACK)
+            }
+            button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.darkBlue, null))
+        }
     }
 
     private fun setupValidationOnFocusChange(editText: EditText) {
@@ -151,6 +164,12 @@ class CreateEvent : AppCompatActivity() {
         super.onResume()
         eventViewModel.loadGenres()
         initSpinnerMusicalGenres()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BandArtistProvider.bandArtistList.clear()
+        finish()
     }
 
     private fun initSpinnerMusicalGenres() {
@@ -173,11 +192,14 @@ class CreateEvent : AppCompatActivity() {
         binding.musicalGenres.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 (binding.musicalGenres.selectedView as TextView).error = null
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEvent, R.drawable.spinner_border)
+                if(position == 0)
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
+                else
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
-                (binding.musicalGenres.selectedView as TextView).error = getString(R.string.emptyField)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEvent, R.drawable.spinner_border_on_error)
+
             }
         }
     }
