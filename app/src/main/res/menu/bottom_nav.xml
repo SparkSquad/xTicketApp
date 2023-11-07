@@ -3,13 +3,13 @@
     <item
         android:id="@+id/explore"
         android:icon="@drawable/baseline_travel_explore_24"
-        android:title="Explorar" />
+        android:title="@string/explore" />
     <item
         android:id="@+id/ticket"
         android:icon="@drawable/baseline_airplane_ticket_24"
-        android:title="Entradas" />
+        android:title="@string/tickets" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/baseline_person_24"
-        android:title="Perfil" />
+        android:title="@string/profile" />
 </menu>

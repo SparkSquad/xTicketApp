@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.data.network
 
+import UsersApiClient
 import com.teamxticket.xticket.core.RetrofitHelper
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse

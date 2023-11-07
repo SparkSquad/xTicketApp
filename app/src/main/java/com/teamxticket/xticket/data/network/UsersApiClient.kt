@@ -1,3 +1,4 @@
+import com.teamxticket.xticket.data.model.ApiResponse
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse

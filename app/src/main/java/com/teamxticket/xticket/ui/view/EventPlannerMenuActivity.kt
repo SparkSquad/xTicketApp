@@ -2,25 +2,27 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.teamxticket.xticket.R
 import androidx.fragment.app.Fragment
-import com.teamxticket.xticket.databinding.ActivityAssistantMenuBinding
+import com.teamxticket.xticket.R
+import com.teamxticket.xticket.databinding.ActivityEventPlannerMenuBinding
 
-class AssistantMenuActivity : AppCompatActivity() {
-
+class EventPlannerMenuActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEventPlannerMenuBinding
     private val exploreTickets = TicketListFragment()
     private var activeFragment: Fragment = exploreTickets
-
-    private lateinit var binding: ActivityAssistantMenuBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAssistantMenuBinding.inflate(layoutInflater)
+        binding = ActivityEventPlannerMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initListener()
+    }
+
+    private fun initListener() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.ticket -> {
-                    replaceFragment(exploreTickets)
+                    replaceFragment(TicketListFragment())
                     true
                 }
                 else -> false

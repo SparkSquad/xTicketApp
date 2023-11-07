@@ -15,12 +15,6 @@ class LandingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initListeners()
-
-        val button = findViewById<Button>(R.id.btnSignIn)
-        button.setOnClickListener {
-            val intent = Intent(this, LandingActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initListeners() {

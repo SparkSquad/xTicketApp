@@ -25,7 +25,7 @@ class UserViewModel : ViewModel() {
     fun registerUser(user: User) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = userRepository.postSaleDate(user)
+            val result = UserRepository().postUser(user)
             successfulRegister.postValue(result)
             showLoader.postValue(false)
         }

@@ -2,15 +2,12 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.databinding.ActivitySignupBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
-import java.io.IOException
 
-class SignupActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
     private val userViewModel : UserViewModel by viewModels()
@@ -30,17 +27,16 @@ class SignupActivity : AppCompatActivity() {
                 val surnames = binding.etLastName.text.toString()
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
-                val type = if(binding.switchEvent.isChecked) 3 else 2
+                val type = if(binding.switchEvent.isChecked) "eventPlanner" else "assistant"
 
                 val user = User (
-                    name,
-                    surnames,
+                    0,
                     email,
+                    name,
+                    type,
                     password,
-                    type
+                    surnames
                 )
-
-
                     userViewModel.registerUser(user)
            // } else {
               //  Toast.makeText(this, "Error al registrar la fecha de venta", Toast.LENGTH_SHORT).show()
