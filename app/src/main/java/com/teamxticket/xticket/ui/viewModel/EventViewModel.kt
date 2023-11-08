@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
+import com.teamxticket.xticket.data.model.EventProvider
 import kotlinx.coroutines.launch
 
 class EventViewModel : ViewModel() {
@@ -20,12 +21,12 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch {
             showLoader.postValue(true)
             val result = repository.getAllEvents(userId)
+            EventProvider.eventsList.clear()
+            EventProvider.eventsList.addAll(result)
             if (result.isNotEmpty()) {
                 eventModel.postValue(result)
-            } else {
-                eventModel.postValue(null)
+                showLoader.postValue(false)
             }
-            showLoader.postValue(false)
         }
     }
 

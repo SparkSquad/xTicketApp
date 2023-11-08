@@ -117,15 +117,15 @@ class RegisterSaleDateActivity : AppCompatActivity() {
             Toast.makeText(this, "Debe seleccionar una fecha", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (binding.etNumberOfTickets.text.toString().toInt() <= 0) {
+        if (binding.etNumberOfTickets.text.isEmpty()) {
             Toast.makeText(this, "Debe ingresar un número de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (binding.etPrice.text.toString().toDouble() <= 0.0) {
+        if (binding.etPrice.text.isEmpty()) {
             Toast.makeText(this, "Debe ingresar un precio válido", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (binding.etMaxTickets.text.toString().toInt() <= 0) {
+        if (binding.etMaxTickets.text.isEmpty()) {
             Toast.makeText(this, "Debe ingresar un número máximo de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }

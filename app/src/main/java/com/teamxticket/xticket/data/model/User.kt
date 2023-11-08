@@ -1,10 +1,10 @@
 package com.teamxticket.xticket.data.model
 
-
-data class User (
-    val name: String,
-    val surnames: String,
+data class User(
+    val userId: Int,
     val email: String,
+    val name: String,
+    val type: String,
     val password: String,
-    val type: Int
+    val surnames: String
 )

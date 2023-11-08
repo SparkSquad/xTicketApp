@@ -7,5 +7,5 @@ data class Event (
     val description: String,
     val location: String,
     val userId: Int,
-    val bandAndArtists: ArrayList<BandArtist>
+    val bandsAndArtists: MutableList<String>? = mutableListOf()
 )

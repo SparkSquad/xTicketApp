@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -16,6 +17,10 @@ import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityUpdateDeleteSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -73,6 +78,37 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
             }
         }
 
+        saleDateViewModel.successfulDelete.observe(this) {successful ->
+            if (successful == 200) {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                    .setMessage("Fecha Eliminada satisfactoriamente")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+                finish()
+            } else {
+                Toast.makeText(this, "Error al eliminar la fecha de venta", Toast.LENGTH_SHORT).show()
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.WARNING)
+                    .setTitle("Atencion")
+                    .setMessage("No se pudo eliminar la fecha de venta")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+            }
+        }
+
+        saleDateViewModel.errorCode.observe(this) { errorCode ->
+            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle("Atencion")
+                .setMessage(errorCode)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .show()
+        }
+
         saleDateViewModel.showLoaderUpdate.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
@@ -122,15 +158,15 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun validateForm(): Boolean {
-        if (binding.etNumberOfTickets.text.toString().toInt() <= 0) {
+        if (binding.etNumberOfTickets.text.isEmpty() || binding.etNumberOfTickets.text.toString().toInt() <= 0) {
             Toast.makeText(this, "Debe ingresar un número de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (binding.etPrice.text.toString().toDouble() <= 0.0) {
+        if (binding.etPrice.text.isEmpty() || binding.etPrice.text.toString().toDouble() <= 0.0) {
             Toast.makeText(this, "Debe ingresar un precio válido", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (binding.etMaxTickets.text.toString().toInt() <= 0) {
+        if (binding.etMaxTickets.text.isEmpty() || binding.etMaxTickets.text.toString().toInt() <= 0) {
             Toast.makeText(this, "Debe ingresar un número máximo de tickets válido", Toast.LENGTH_SHORT).show()
             return false
         }

@@ -3,6 +3,7 @@ package com.teamxticket.xticket.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -11,6 +12,10 @@ import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityManageSaleDateBinding
 import com.teamxticket.xticket.ui.view.adapter.SaleDateAdapter
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
 
 class ManageSaleDateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityManageSaleDateBinding
@@ -24,12 +29,15 @@ class ManageSaleDateActivity : AppCompatActivity() {
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
 
         eventId = intent.getIntExtra("eventId", 1)
-        try {
-            saleDateViewModel.loadSaleDates(eventId)
-        } catch (e: Exception) {
-            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-        }
+        saleDateViewModel.loadSaleDates(eventId)
+        initObservables()
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        saleDateViewModel.loadSaleDates(eventId)
+        initObservables()
     }
 
     private fun initListeners() {
@@ -40,28 +48,40 @@ class ManageSaleDateActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        saleDateViewModel.loadSaleDates(eventId)
-        initObservables()
-    }
-
     private fun initObservables() {
         saleDateViewModel.saleDateModel.observe(this) { saleDateList ->
             val dateList : List<SaleDate> = saleDateList ?: emptyList()
             val adapter = SaleDateAdapter(dateList) { saleDate -> onItemSelected(saleDate) }
             binding.rvSalesDates.adapter = adapter
+            if(saleDateList.isNullOrEmpty()) {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle("Atencion")
+                    .setMessage("No se encontraron datos para mostrar")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+            }
         }
         saleDateViewModel.showLoader.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
+        saleDateViewModel.errorCode.observe(this) { errorCode ->
+            AestheticDialog.Builder(this, DialogStyle.TOASTER, DialogType.ERROR)
+                .setTitle("Atencion")
+                .setMessage(errorCode)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .show()
+        }
     }
 
     private fun onItemSelected(saleDate: SaleDate) {
-        val intent = Intent(this, UpdateDeleteSaleDateActivity::class.java)
-        intent.putExtra("saleDate", saleDate)
-        startActivity(intent)
+        Intent(this, UpdateDeleteSaleDateActivity::class.java).apply {
+            putExtra("saleDate", saleDate)
+            startActivity(this)
+        }
     }
-
 }
