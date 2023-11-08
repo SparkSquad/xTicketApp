@@ -79,6 +79,8 @@
     <string name="profile">Perfil</string>
     <string name="tickets">Mis entradas</string>
     <string name="explore">Explorar</string>
+    <string name="tickets_for_buy">Boletos por comprar:</string>
+    <string name="total">Total a pagar:</string>
     <string name="message_exception_500">No se ha podido conectar con el servidor, intente de nuevo más tarde</string>
     <string name="message_exception_400">El servidor no ha podido procesar su solicitud, intente de nuevo más tarde</string>
     <string name="message_can_not_connect_with_server">No se ha podido conectar con el servidor</string>
