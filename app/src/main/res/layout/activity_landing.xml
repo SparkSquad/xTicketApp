@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/landing_gradient_background"
     tools:context=".ui.view.LandingActivity">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:lottie_url="https://lottie.host/6c54cd94-e0e3-4fdb-a09c-7aa1e211a917/pQZSIAAHKK.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
-        android:layout_height="416dp"
-        android:src="@drawable/logo" />
+        android:layout_height="wrap_content"
+        android:text="@string/xticket_logo"
+        android:textColor="@color/white"
+        android:letterSpacing="0.15"
+        android:fontFamily="sans-serif"
+        android:textSize="64sp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_width="290dp"
+        android:layout_width="350dp"
         android:layout_height="64dp"
         android:backgroundTint="#141E46"
         android:letterSpacing="0.3"
         android:text="@string/signIn"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="200dp"/>
+
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="290dp"
+        android:layout_width="350dp"
         android:layout_height="64dp"
         android:backgroundTint="#141E46"
         android:letterSpacing="0.3"
