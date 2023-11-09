@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/landing_gradient_background"
     tools:context=".ui.view.LoginActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -25,7 +24,7 @@
         android:text="@string/welcomeBack"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:padding="10dp"
         android:layout_marginBottom="20dp"/>
 
@@ -53,8 +52,17 @@
         android:drawableStart="@drawable/baseline_lock_24"
         android:drawablePadding="12dp"
         android:layout_marginBottom="18dp"
-        android:autofillHints=""
-        />
+        android:autofillHints="" />
+
+    <TextView
+        android:id="@+id/tvLoginError"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif" />
 
     <Button
         android:id="@+id/btnSignInFr"

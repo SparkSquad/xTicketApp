@@ -43,7 +43,12 @@ class LoginActivity : AppCompatActivity() {
                 val user : User = User(0,email, "", "", password, "")
                 userViewModel.searchUser(user)
             } else {
-                Toast.makeText(this, "El email o contraseña ingresados no son correctos, por favor intente de nuevo.", Toast.LENGTH_LONG).show()
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle("Campos vacíos")
+                    .setMessage("Por favor, ingrese su correo y contraseña para continuar.")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK).show()
             }
         }
     }
