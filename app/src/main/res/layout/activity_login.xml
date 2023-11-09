@@ -6,63 +6,75 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/landing_gradient_background"
     tools:context=".ui.view.LoginActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:lottie_url="https://lottie.host/47f8f739-f82a-468f-809c-b265e4473b47/CWvTO31kig.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/tvSignIn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/signIn"
-        android:textSize="20dp"
+        android:text="@string/welcomeBack"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="106dp" />
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"/>
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_border"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:background="@drawable/edit_text_border_background"
         android:hint="@string/email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="301dp" />
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="12dp"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_border"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:background="@drawable/edit_text_border_background"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="10dp"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="400dp" />
+        android:drawableStart="@drawable/baseline_lock_24"
+        android:drawablePadding="12dp"
+        android:layout_marginBottom="18dp"
+        android:autofillHints=""
+        />
 
     <Button
         android:id="@+id/btnSignInFr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#141E46"
-        android:gravity="center"
+        android:layout_width="350dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/darkBlue"
+        android:letterSpacing="0.3"
         android:text="@string/signIn"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="577dp" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/forgotPassword"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="458dp" />
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="@string/forgotPassword" />
 
 
 </LinearLayout>
