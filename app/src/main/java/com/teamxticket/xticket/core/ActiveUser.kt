@@ -17,7 +17,7 @@ class ActiveUser private constructor() {
         activeUser = user
     }
 
-    fun obtenerUsuario(): User? {
+    fun getUser(): User? {
         return activeUser
     }
 }

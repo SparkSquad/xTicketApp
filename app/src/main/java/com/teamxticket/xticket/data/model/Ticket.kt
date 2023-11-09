@@ -1,7 +1,7 @@
 package com.teamxticket.xticket.data.model
 
 data class Ticket(
-    val price: Int,
+    val price: Double,
     val purchaseDate: String,
     val saleDateId: Int,
     val ticketId: Int,

@@ -16,4 +16,9 @@ class UserRepository {
         }
         return result
     }
+    
+    suspend fun postUser(user: User): Int {
+        val response = api.postUser(user)
+        return response
+    }
 }
