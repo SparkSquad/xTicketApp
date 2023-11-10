@@ -98,5 +98,4 @@
     <string name="refundNotRequested">Error al solicitar el reembolso</string>
     <string name="refundWarning">Si cancela su entrada no podrá recuperarla</string>
     <string name="searchEventInputHint">Buscar evento...</string>
-    <string name="followedEventsLabel">Seguidos</string>
 </resources>

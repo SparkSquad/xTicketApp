@@ -58,9 +58,6 @@
         <activity
             android:name=".ui.view.SignUpActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.view.ExploreEventsActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
