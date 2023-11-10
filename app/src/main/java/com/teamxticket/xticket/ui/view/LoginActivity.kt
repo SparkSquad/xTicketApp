@@ -56,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
     private fun initObservables () {
          userViewModel.receivedUser.observe(this) {
              if (it.token?.isNotEmpty() == true) {
-                 Toast.makeText(this, "Has ingresado de manera exitosa!", Toast.LENGTH_SHORT).show()
                  if (it.user?.email?.isEmpty() == false) {
                      if(it.user?.type == "assistant" || it.user?.type == "admin") {
                          Intent (this, AssistantMenuActivity::class.java).apply {

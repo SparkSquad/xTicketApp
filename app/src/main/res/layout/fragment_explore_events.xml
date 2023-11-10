@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.view.ExploreEventsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/followedEventsLabel"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="15dp"
+            app:drawableEndCompat="@drawable/baseline_star_24" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/searchEventInputHint"
+            android:inputType="text"
+            android:maxLength="45"
+            android:background="@drawable/edit_text_border_background"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawableEnd="@drawable/baseline_search_24"
+            android:drawablePadding="12dp"
+            android:importantForAutofill="no" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:gravity="center">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rvSearchResults"
+                android:layout_margin="5dp"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

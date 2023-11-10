@@ -16,6 +16,8 @@ class EventViewModel : ViewModel() {
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderGenres = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
+    var error = MutableLiveData<String>()
+    var firstLoad = true
 
     fun loadEvents(userId: Int) {
         viewModelScope.launch {
@@ -26,6 +28,20 @@ class EventViewModel : ViewModel() {
             if (result.isNotEmpty()) {
                 eventModel.postValue(result)
             }
+            showLoader.postValue(false)
+        }
+    }
+
+    fun searchEvents(query: String, genre: String?, limit: Int, page: Int) {
+        viewModelScope.launch {
+            if(firstLoad) {
+                showLoader.postValue(true)
+                firstLoad = false
+            }
+            val search = repository.searchEvents(query, genre, limit, page)
+            EventProvider.eventsList.clear()
+            EventProvider.eventsList.addAll(search.results)
+            eventModel.postValue(search.results)
             showLoader.postValue(false)
         }
     }

@@ -85,7 +85,7 @@ class CreateEventActivity : AppCompatActivity() {
 
             } else {
                 // TODO: Mandar id de usuario usando Shingleton
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists, null, null)
                 eventViewModel.registerEvent(event)
                 
             }

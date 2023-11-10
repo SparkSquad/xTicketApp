@@ -99,4 +99,5 @@
     <string name="refundWarning">Si cancela su entrada no podrá recuperarla</string>
     <string name="success">Éxito</string>
     <string name="failure">Error</string>
+    <string name="searchEventInputHint">Buscar evento...</string>
 </resources>
