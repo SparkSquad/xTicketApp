@@ -21,6 +21,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -71,42 +72,22 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     private fun initObservables() {
         saleDateViewModel.successfulUpdate.observe(this) { successful ->
             if (successful == 200) {
-                Toast.makeText(this, "Fecha de venta actualizada exitosamente", Toast.LENGTH_SHORT).show()
-                finish()
+                showMessages(getString(R.string.saleDateUpdated), false)
             } else {
-                Toast.makeText(this, "Error al actualizar la fecha de venta", Toast.LENGTH_SHORT).show()
+                showMessages(getString(R.string.saleDateNotUpdated), true)
             }
         }
 
         saleDateViewModel.successfulDelete.observe(this) {successful ->
             if (successful == 200) {
-                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
-                    .setMessage("Fecha Eliminada satisfactoriamente")
-                    .setCancelable(true)
-                    .setGravity(Gravity.CENTER)
-                    .setAnimation(DialogAnimation.SHRINK)
-                    .show()
-                finish()
+                showMessages(getString(R.string.saleDateDeleted), false)
             } else {
-                Toast.makeText(this, "Error al eliminar la fecha de venta", Toast.LENGTH_SHORT).show()
-                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.WARNING)
-                    .setTitle("Atencion")
-                    .setMessage("No se pudo eliminar la fecha de venta")
-                    .setCancelable(true)
-                    .setGravity(Gravity.CENTER)
-                    .setAnimation(DialogAnimation.SHRINK)
-                    .show()
+                showMessages(getString(R.string.saleDateNotDeleted), true)
             }
         }
 
         saleDateViewModel.errorCode.observe(this) { errorCode ->
-            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                .setTitle("Atencion")
-                .setMessage(errorCode)
-                .setCancelable(true)
-                .setGravity(Gravity.CENTER)
-                .setAnimation(DialogAnimation.SHRINK)
-                .show()
+            showMessages(errorCode, true)
         }
 
         saleDateViewModel.showLoaderUpdate.observe(this) { visible ->
@@ -148,8 +129,6 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 numberOfTickets,
             )
             saleDateViewModel.updateSaleDate(saleDate!!.saleDateId, newSaleDate)
-        } else {
-            Toast.makeText(this, "Error al registrar la fecha de venta", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -175,12 +154,12 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
             return false
         }
         if (!isEndTimeAfterStartTime()) {
-            Toast.makeText(this, "La hora de finalización debe ser posterior a la hora de inicio", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
             return false
         }
         return true
     }
-    
+
     private fun isEndTimeAfterStartTime(): Boolean {
         val timeStart = binding.tpStart
         val timeEnd = binding.tpEnd
@@ -207,7 +186,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 }
             }
 
-        datePicker.show(supportFragmentManager, "Fecha del evento")
+        datePicker.show(supportFragmentManager, getString(R.string.eventDate))
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
@@ -223,6 +202,30 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 val inputText = editText.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
                 setElementView(editText, inputText.isEmpty(), getString(R.string.emptyField))
             }
+        }
+    }
+
+    private fun showMessages(message: String, isError: Boolean) {
+        if (!isError) {
+            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                .setMessage(message)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(object : OnDialogClickListener {
+                    override fun onClick(dialog: AestheticDialog.Builder) {
+                        dialog.dismiss()
+                        finish()
+                    }
+                })
+                .show()
+        } else {
+            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setMessage(message)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .show()
         }
     }
 }

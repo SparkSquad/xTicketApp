@@ -84,4 +84,17 @@
     <string name="xticket_logo">xTICKET</string>
     <string name="welcomeBack">¡Bienvenido de nuevo!</string>
     <string name="durationError">La hora de finalización debe ser posterior a la hora de inicio</string>
+    <string name="saleDateCreated">Fecha de evento creada</string>
+    <string name="saleDateNotCreated">Error al crear la fecha de evento</string>
+    <string name="saleDateUpdated">Fecha de evento actualizada</string>
+    <string name="saleDateNotUpdated">Error al actualizar la fecha de evento</string>
+    <string name="saleDateDeleted">Fecha de evento eliminada</string>
+    <string name="saleDateNotDeleted">Error al eliminar la fecha de evento</string>
+    <string name="attention">Atención</string>
+    <string name="doYouWantRefund">¿Desea solicitar un reembolso?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="refundRequested">Reembolso solicitado</string>
+    <string name="refundNotRequested">Error al solicitar el reembolso</string>
+    <string name="refundWarning">Si cancela su entrada no podrá recuperarla</string>
 </resources>

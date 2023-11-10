@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.ActivityRefundBinding
 import com.teamxticket.xticket.ui.view.adapter.TicketAdapter
@@ -27,7 +28,6 @@ class RefundActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvTicketsList.layoutManager = LinearLayoutManager(this)
-
         ticketsViewModel.loadRefundTickets()
         initObservables()
     }
@@ -51,8 +51,8 @@ class RefundActivity : AppCompatActivity() {
 
     private fun onItemSelected(ticketData: TicketData) {
         AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.INFO)
-            .setTitle("Desea solicitar un reembolso?")
-            .setMessage("Si cancela su entrada, no podrá recuperarlo.")
+            .setTitle(getString(R.string.doYouWantRefund))
+            .setMessage(getString(R.string.refundWarning))
             .setCancelable(true)
             .setGravity(Gravity.CENTER)
             .setAnimation(DialogAnimation.SHRINK)

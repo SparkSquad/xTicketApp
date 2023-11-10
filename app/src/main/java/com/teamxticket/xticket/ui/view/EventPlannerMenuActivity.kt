@@ -8,13 +8,12 @@ import com.teamxticket.xticket.databinding.ActivityEventPlannerMenuBinding
 
 class EventPlannerMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEventPlannerMenuBinding
-    private val exploreEvents = ManageEventFragment()
-    private var activeFragment: Fragment = exploreEvents
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEventPlannerMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        replaceFragment(ManageEventFragment())
         initListener()
     }
 
@@ -22,7 +21,11 @@ class EventPlannerMenuActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.myEvents -> {
-                    replaceFragment(exploreEvents)
+                    replaceFragment(ManageEventFragment())
+                    true
+                }
+                R.id.eProfile -> {
+                    replaceFragment(ProfileFragment())
                     true
                 }
                 else -> false
@@ -31,7 +34,9 @@ class EventPlannerMenuActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.flEventPlannerMenu, activeFragment).show(fragment).commit()
-        activeFragment = fragment
+        val transaction = supportFragmentManager
+        val fragmentTransaction = transaction.beginTransaction()
+        fragmentTransaction.replace(R.id.flEventPlannerMenu, fragment)
+        fragmentTransaction.commit()
     }
 }
