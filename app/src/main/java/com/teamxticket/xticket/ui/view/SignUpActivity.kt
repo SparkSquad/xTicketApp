@@ -2,10 +2,16 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.databinding.ActivitySignupBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -19,7 +25,24 @@ class SignUpActivity : AppCompatActivity() {
         initObservables()
     }
 
-    private fun initObservables() {}
+    private fun initObservables() {
+        userViewModel.successfulRegister.observe(this) { it ->
+            if (it == 200) {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                    .setTitle("Atencion")
+                    .setMessage("Usuario registrado correctamente")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+            }
+        }
+
+        userViewModel.showLoader.observe(this) { showLoader ->
+            binding.progressBar.isVisible = showLoader
+            binding.overlayView.isVisible = showLoader
+        }
+    }
     private fun initListeners() {
         binding.btnSignUp.setOnClickListener{
             //(validateForm()){
@@ -29,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
                 val password = binding.etPassword.text.toString()
                 val type = if(binding.switchEvent.isChecked) "eventPlanner" else "assistant"
 
-                val user = User (
+                val user: User = User (
                     0,
                     email,
                     name,

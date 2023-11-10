@@ -37,7 +37,6 @@ class ManageSaleDateActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         saleDateViewModel.loadSaleDates(eventId)
-        initObservables()
     }
 
     private fun initListeners() {
@@ -67,6 +66,7 @@ class ManageSaleDateActivity : AppCompatActivity() {
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
+
         saleDateViewModel.errorCode.observe(this) { errorCode ->
             AestheticDialog.Builder(this, DialogStyle.TOASTER, DialogType.ERROR)
                 .setTitle("Atencion")

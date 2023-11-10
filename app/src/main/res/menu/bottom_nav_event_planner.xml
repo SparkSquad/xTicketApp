@@ -6,7 +6,7 @@
         android:icon="@drawable/baseline_travel_explore_24"
         android:title="@string/my_events" />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/eProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="@string/profile" />
 </menu>
