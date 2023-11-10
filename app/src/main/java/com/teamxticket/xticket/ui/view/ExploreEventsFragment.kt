@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.Event
-import com.teamxticket.xticket.databinding.ActivityExploreEventsBinding
 import com.teamxticket.xticket.databinding.FragmentExploreEventsBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
@@ -68,11 +65,10 @@ class ExploreEventsFragment : Fragment() {
     }
 
     private fun onItemSelected(eventData: Event) {
-//        Intent(this, EventDetailsActivity::class.java).apply {
-//            putExtra("event", eventData)
-//            startActivity(this)
-//        }
-        Toast.makeText(binding.root.context, "Event selected", Toast.LENGTH_SHORT).show()
+        Intent(requireContext(), EventDetailsActivity::class.java).apply {
+            this.putExtra("eventId", eventData.eventId)
+            startActivity(this)
+        }
     }
 
     override fun onDestroyView() {
