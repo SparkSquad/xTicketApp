@@ -100,4 +100,8 @@
     <string name="refundRequested">Reembolso solicitado</string>
     <string name="refundNotRequested">Error al solicitar el reembolso</string>
     <string name="refundWarning">Si cancela su entrada no podrá recuperarla</string>
+    <string name="manage_tickets">Gestionar boletos</string>
+    <string name="register_ticket_taker">Registrar portero</string>
+    <string name="save_event">Guardar evento</string>
+    <string name="cancel_event">Cancelar evento</string>
 </resources>
