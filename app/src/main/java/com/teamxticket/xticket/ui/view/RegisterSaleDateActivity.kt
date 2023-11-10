@@ -106,7 +106,7 @@ class RegisterSaleDateActivity : AppCompatActivity() {
                 addOnPositiveButtonClickListener {
                     selectedDate = Date(it)
                     binding.eventDate.text =
-                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it)
                 }
             }
         datePicker.show(supportFragmentManager, "Fecha del evento")

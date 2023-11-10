@@ -29,7 +29,7 @@ class AssistantMenuActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, activeFragment).show(fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.flAssistantMenu, activeFragment).show(fragment).commit()
         activeFragment = fragment
     }
 }

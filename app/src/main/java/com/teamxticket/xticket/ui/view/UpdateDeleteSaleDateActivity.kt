@@ -158,24 +158,29 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun validateForm(): Boolean {
-        if (binding.etNumberOfTickets.text.isEmpty() || binding.etNumberOfTickets.text.toString().toInt() <= 0) {
-            Toast.makeText(this, "Debe ingresar un número de tickets válido", Toast.LENGTH_SHORT).show()
+        val number = binding.etNumberOfTickets.text.toString().toIntOrNull()
+        val price = binding.etPrice.text.toString().toDoubleOrNull()
+        val maxTickets = binding.etMaxTickets.text.toString().toIntOrNull()
+
+        if (number == null || number <= 0) {
+            setElementView(binding.etNumberOfTickets, true, getString(R.string.emptyField))
             return false
         }
-        if (binding.etPrice.text.isEmpty() || binding.etPrice.text.toString().toDouble() <= 0.0) {
-            Toast.makeText(this, "Debe ingresar un precio válido", Toast.LENGTH_SHORT).show()
+        if (price == null || price <= 0.0) {
+            setElementView(binding.etPrice, true, getString(R.string.emptyField))
             return false
         }
-        if (binding.etMaxTickets.text.isEmpty() || binding.etMaxTickets.text.toString().toInt() <= 0) {
-            Toast.makeText(this, "Debe ingresar un número máximo de tickets válido", Toast.LENGTH_SHORT).show()
+        if (maxTickets == null || maxTickets <= 0) {
+            setElementView(binding.etMaxTickets, true, getString(R.string.emptyField))
             return false
         }
         if (!isEndTimeAfterStartTime()) {
+            Toast.makeText(this, "La hora de finalización debe ser posterior a la hora de inicio", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
     }
-
+    
     private fun isEndTimeAfterStartTime(): Boolean {
         val timeStart = binding.tpStart
         val timeEnd = binding.tpEnd
@@ -183,13 +188,9 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
         val minute = timeStart.minute
         val hour2 = timeEnd.hour
         val minute2 = timeEnd.minute
-
-        if (hour2 < hour || (hour2 == hour && minute2 <= minute)) {
-            Toast.makeText(this, "La hora de finalización debe ser posterior a la hora de inicio", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
+        return (hour2 < hour || (hour2 == hour && minute2 <= minute))
     }
+
     private fun pickDate() {
         val constraintsBuilder = CalendarConstraints.Builder().setValidator(
             DateValidatorPointForward.now()
@@ -202,7 +203,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 addOnPositiveButtonClickListener {
                     selectedDate = Date(it)
                     binding.tvEventDate.text =
-                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate)
                 }
             }
 

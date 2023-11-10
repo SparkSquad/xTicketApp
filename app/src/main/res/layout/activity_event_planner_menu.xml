@@ -7,7 +7,7 @@
     tools:context=".ui.view.EventPlannerMenuActivity">
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/flEventPlannerMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
