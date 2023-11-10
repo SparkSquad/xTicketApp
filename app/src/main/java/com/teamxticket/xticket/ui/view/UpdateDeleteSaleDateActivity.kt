@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -16,6 +17,11 @@ import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityUpdateDeleteSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -66,11 +72,22 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     private fun initObservables() {
         saleDateViewModel.successfulUpdate.observe(this) { successful ->
             if (successful == 200) {
-                Toast.makeText(this, "Fecha de venta actualizada exitosamente", Toast.LENGTH_SHORT).show()
-                finish()
+                showMessages(getString(R.string.saleDateUpdated), false)
             } else {
-                Toast.makeText(this, "Error al actualizar la fecha de venta", Toast.LENGTH_SHORT).show()
+                showMessages(getString(R.string.saleDateNotUpdated), true)
             }
+        }
+
+        saleDateViewModel.successfulDelete.observe(this) {successful ->
+            if (successful == 200) {
+                showMessages(getString(R.string.saleDateDeleted), false)
+            } else {
+                showMessages(getString(R.string.saleDateNotDeleted), true)
+            }
+        }
+
+        saleDateViewModel.errorCode.observe(this) { errorCode ->
+            showMessages(errorCode, true)
         }
 
         saleDateViewModel.showLoaderUpdate.observe(this) { visible ->
@@ -112,8 +129,6 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 numberOfTickets,
             )
             saleDateViewModel.updateSaleDate(saleDate!!.saleDateId, newSaleDate)
-        } else {
-            Toast.makeText(this, "Error al registrar la fecha de venta", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -122,19 +137,24 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun validateForm(): Boolean {
-        if (binding.etNumberOfTickets.text.toString().toInt() <= 0) {
-            Toast.makeText(this, "Debe ingresar un número de tickets válido", Toast.LENGTH_SHORT).show()
+        val number = binding.etNumberOfTickets.text.toString().toIntOrNull()
+        val price = binding.etPrice.text.toString().toDoubleOrNull()
+        val maxTickets = binding.etMaxTickets.text.toString().toIntOrNull()
+
+        if (number == null || number <= 0) {
+            setElementView(binding.etNumberOfTickets, true, getString(R.string.emptyField))
             return false
         }
-        if (binding.etPrice.text.toString().toDouble() <= 0.0) {
-            Toast.makeText(this, "Debe ingresar un precio válido", Toast.LENGTH_SHORT).show()
+        if (price == null || price <= 0.0) {
+            setElementView(binding.etPrice, true, getString(R.string.emptyField))
             return false
         }
-        if (binding.etMaxTickets.text.toString().toInt() <= 0) {
-            Toast.makeText(this, "Debe ingresar un número máximo de tickets válido", Toast.LENGTH_SHORT).show()
+        if (maxTickets == null || maxTickets <= 0) {
+            setElementView(binding.etMaxTickets, true, getString(R.string.emptyField))
             return false
         }
         if (!isEndTimeAfterStartTime()) {
+            Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
             return false
         }
         return true
@@ -147,13 +167,9 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
         val minute = timeStart.minute
         val hour2 = timeEnd.hour
         val minute2 = timeEnd.minute
-
-        if (hour2 < hour || (hour2 == hour && minute2 <= minute)) {
-            Toast.makeText(this, "La hora de finalización debe ser posterior a la hora de inicio", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
+        return (hour2 < hour || (hour2 == hour && minute2 <= minute))
     }
+
     private fun pickDate() {
         val constraintsBuilder = CalendarConstraints.Builder().setValidator(
             DateValidatorPointForward.now()
@@ -166,11 +182,11 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 addOnPositiveButtonClickListener {
                     selectedDate = Date(it)
                     binding.tvEventDate.text =
-                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate)
                 }
             }
 
-        datePicker.show(supportFragmentManager, "Fecha del evento")
+        datePicker.show(supportFragmentManager, getString(R.string.eventDate))
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
@@ -186,6 +202,30 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 val inputText = editText.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
                 setElementView(editText, inputText.isEmpty(), getString(R.string.emptyField))
             }
+        }
+    }
+
+    private fun showMessages(message: String, isError: Boolean) {
+        if (!isError) {
+            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                .setMessage(message)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(object : OnDialogClickListener {
+                    override fun onClick(dialog: AestheticDialog.Builder) {
+                        dialog.dismiss()
+                        finish()
+                    }
+                })
+                .show()
+        } else {
+            AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setMessage(message)
+                .setCancelable(true)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .show()
         }
     }
 }

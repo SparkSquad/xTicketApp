@@ -19,7 +19,6 @@ class TicketsUseCase {
     suspend fun getTicketUuid(ticketUuid: String): Ticket = repository.getTicketUuid(ticketUuid)
 
     suspend fun getRefundTicket () : List<TicketData>? {
-        val currentDate = Date()
         val validTicketDataList = mutableListOf<TicketData>()
 
         for (ticketData in TicketProvider.tickets!!.tickets) {
@@ -31,7 +30,7 @@ class TicketsUseCase {
         return validTicketDataList
     }
 
-    fun isDateBeforeToday(dateString: String): Boolean {
+    private fun isDateBeforeToday(dateString: String): Boolean {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         val date = sdf.parse(dateString)
         val currentDate = Date()

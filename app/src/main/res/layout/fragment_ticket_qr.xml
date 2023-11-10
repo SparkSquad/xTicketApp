@@ -11,6 +11,8 @@
     android:elevation="8dp"
     app:cardCornerRadius="20dp"
     android:layout_gravity="center"
+    android:backgroundTint="@color/transparent"
+    app:cardBackgroundColor="@color/transparent"
     android:gravity="center">
 
         <LinearLayout

@@ -18,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
@@ -27,6 +28,7 @@ import com.teamxticket.xticket.ui.viewModel.EventViewModel
 class CreateEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateEventBinding
     private val eventViewModel : EventViewModel by viewModels()
+    private var activeUser = ActiveUser.getInstance().getUser()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +85,7 @@ class CreateEventActivity : AppCompatActivity() {
 
             } else {
                 // TODO: Mandar id de usuario usando Shingleton
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, 1, bandsAndArtists, null, null)
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
                 eventViewModel.registerEvent(event)
                 
             }

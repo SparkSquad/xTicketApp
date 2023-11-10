@@ -3,10 +3,11 @@ package com.teamxticket.xticket.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.core.ActiveUser
+import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.databinding.ActivityManageEventBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
@@ -26,8 +27,8 @@ class ManageEventActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // TODO: Load events from user with Shingleton
-        eventViewModel.loadEvents(1)
+        val activeUser = ActiveUser.getInstance().getUser()
+        eventViewModel.loadEvents(activeUser!!.userId)
         initObservables()
     }
 
@@ -42,14 +43,21 @@ class ManageEventActivity : AppCompatActivity() {
     private fun initObservables() {
         eventViewModel.eventModel.observe(this) {
             val adapter = EventAdapter(EventProvider.eventsList, onItemClick = { event ->
-                // TODO: Open event details
-                Toast.makeText(this, "Clicked on ${event.name}", Toast.LENGTH_SHORT).show()
+                onEventClick(event)
             })
             binding.recyclerEvents.adapter = adapter
         }
+
         eventViewModel.showLoader.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
+        }
+    }
+
+    private fun onEventClick(event: Event) {
+        Intent(this, ManageSaleDateActivity::class.java).apply {
+            putExtra("eventId", event.eventId)
+            startActivity(this)
         }
     }
 }

@@ -2,14 +2,21 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.ActivityRefundBinding
-import com.teamxticket.xticket.ui.view.adapter.TicketAdpater
+import com.teamxticket.xticket.ui.view.adapter.TicketAdapter
 import com.teamxticket.xticket.ui.viewModel.TicketsViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 
 class RefundActivity : AppCompatActivity() {
 
@@ -21,7 +28,6 @@ class RefundActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvTicketsList.layoutManager = LinearLayoutManager(this)
-
         ticketsViewModel.loadRefundTickets()
         initObservables()
     }
@@ -29,7 +35,7 @@ class RefundActivity : AppCompatActivity() {
     private fun initObservables() {
         ticketsViewModel.refundList.observe(this) { ticketsList ->
             val ticketsData : List<TicketData> = ticketsList ?: emptyList()
-            val adapter = TicketAdpater(ticketsData) { ticketData -> onItemSelected(ticketData) }
+            val adapter = TicketAdapter(ticketsData) { ticketData -> onItemSelected(ticketData) }
             binding.rvTicketsList.adapter = adapter
         }
 
@@ -44,6 +50,18 @@ class RefundActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(ticketData: TicketData) {
-
+        AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.INFO)
+            .setTitle(getString(R.string.doYouWantRefund))
+            .setMessage(getString(R.string.refundWarning))
+            .setCancelable(true)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    ticketsViewModel.refundTicket(ticketData.ticket.ticketId)
+                }
+            })
+            .show()
     }
 }

@@ -35,7 +35,7 @@ class TicketService {
                 } else if (response.code() >= 400) {
                     throw Exception("Hubo un erro de nuestra parte, intente más tarde")
                 }
-                response.body() ?: Ticket(0, "", 0, 0, 0, 0, "")
+                response.body() ?: Ticket(0.0, "", 0, 0, 0, 0, "")
             } catch (e: SocketTimeoutException) {
                 throw Exception("Error al conectar con el servidor")
             }

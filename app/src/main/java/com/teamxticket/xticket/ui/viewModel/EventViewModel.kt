@@ -27,8 +27,8 @@ class EventViewModel : ViewModel() {
             EventProvider.eventsList.addAll(result)
             if (result.isNotEmpty()) {
                 eventModel.postValue(result)
-                showLoader.postValue(false)
             }
+            showLoader.postValue(false)
         }
     }
 
