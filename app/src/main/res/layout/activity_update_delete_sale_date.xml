@@ -5,216 +5,226 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.UpdateDeleteSaleDateActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        tools:ignore="UselessParent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sale_date"
-                style="@style/SectionField" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/btnPickDate"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pickDate"
-                    android:layout_marginEnd="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/tvEventDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    style="@style/SectionField"
-                    />
-            </LinearLayout>
-
-            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical">
 
-                <TableRow
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sale_date"
+                    style="@style/SectionField" />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:text="@string/number_of_tickets"
-                        style="@style/SectionField" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:text="@string/price"
-                        style="@style/SectionField" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/etNumberOfTickets"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
-                        style="@style/SectionFieldEditableArea"
-                        android:hint="@string/_1000"
-                        android:autofillHints="" />
-
-                    <EditText
-                        android:id="@+id/etPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
-                        style="@style/SectionFieldEditableArea"
-                        android:hint="@string/_1200"
-                        android:autofillHints="" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/max_tickets"
-                        style="@style/SectionField" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/etMaxTickets"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
-                        style="@style/SectionFieldEditableArea"
-                        android:hint="@string/_3"
-                        android:autofillHints="" />
-
-                    <Switch
-                        android:id="@+id/switchOnlyAdults"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/only_adults"
-                        android:layout_weight="1"
-                        android:textSize="20sp"
-                        style="@style/SwitchColor"
-                        android:gravity="center"
-                        tools:ignore="UseSwitchCompatOrMaterialXml" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
+                    <Button
+                        android:id="@+id/btnPickDate"
+                        style="@style/BasicButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/start_hour"
-                        style="@style/SectionField" />
-
-                    <TimePicker
-                        android:id="@+id/tpStart"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:timePickerMode="spinner" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        android:text="@string/pickDate"
+                        android:layout_marginEnd="20dp"
+                        />
 
                     <TextView
+                        android:id="@+id/tvEventDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/end_hour"
-                        style="@style/SectionField" />
+                        android:text=""
+                        style="@style/SectionField"
+                        />
+                </LinearLayout>
 
-                    <TimePicker
-                        android:id="@+id/tpEnd"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:timePickerMode="spinner" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/btnUpdateSaleDate"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="0dp"
+                <TableLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/update" />
+                    android:layout_marginTop="10dp">
 
-                <Button
-                    android:id="@+id/btnDeleteSaleSale"
-                    style="@style/BadButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete"
-                    android:layout_weight="1"
-                    />
-            </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="8dp"
+                            android:text="@string/number_of_tickets"
+                            style="@style/SectionField" />
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_margin="8dp"
+                            android:text="@string/price"
+                            style="@style/SectionField" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/etNumberOfTickets"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:layout_margin="8dp"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:background="@drawable/edit_text_border"
+                            style="@style/SectionFieldEditableArea"
+                            android:hint="@string/_1000"
+                            android:autofillHints="" />
+
+                        <EditText
+                            android:id="@+id/etPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:layout_margin="8dp"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:background="@drawable/edit_text_border"
+                            style="@style/SectionFieldEditableArea"
+                            android:hint="@string/_1200"
+                            android:autofillHints="" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/max_tickets"
+                            style="@style/SectionField" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/etMaxTickets"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:layout_margin="8dp"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:background="@drawable/edit_text_border"
+                            style="@style/SectionFieldEditableArea"
+                            android:hint="@string/_3"
+                            android:autofillHints="" />
+
+                        <Switch
+                            android:id="@+id/switchOnlyAdults"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/only_adults"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            style="@style/SwitchColor"
+                            android:gravity="center"
+                            tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/start_hour"
+                            style="@style/SectionField" />
+
+                        <TimePicker
+                            android:id="@+id/tpStart"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:timePickerMode="spinner" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/end_hour"
+                            style="@style/SectionField" />
+
+                        <TimePicker
+                            android:id="@+id/tpEnd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:timePickerMode="spinner" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btnUpdateSaleDate"
+                style="@style/BasicButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update" />
+
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btnDeleteSaleSale"
+                style="@style/BadButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                />
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
     <View
         android:id="@+id/overlayView"

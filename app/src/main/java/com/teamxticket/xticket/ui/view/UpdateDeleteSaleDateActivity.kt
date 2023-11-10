@@ -153,7 +153,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
             setElementView(binding.etMaxTickets, true, getString(R.string.emptyField))
             return false
         }
-        if (!isEndTimeAfterStartTime()) {
+        if (isEndTimeAfterStartTime()) {
             Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
             return false
         }
@@ -182,7 +182,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 addOnPositiveButtonClickListener {
                     selectedDate = Date(it)
                     binding.tvEventDate.text =
-                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate)
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it)
                 }
             }
 
@@ -208,6 +208,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     private fun showMessages(message: String, isError: Boolean) {
         if (!isError) {
             AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                .setTitle(getString(R.string.success))
                 .setMessage(message)
                 .setCancelable(true)
                 .setGravity(Gravity.CENTER)
@@ -221,6 +222,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 .show()
         } else {
             AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle(getString(R.string.failure))
                 .setMessage(message)
                 .setCancelable(true)
                 .setGravity(Gravity.CENTER)

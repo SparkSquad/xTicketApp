@@ -3,7 +3,7 @@
     <style name="Base.Theme.XTicket" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/darkPink</item>
-        <item name="android:windowBackground">@color/beige</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="Theme.XTicket" parent="Base.Theme.XTicket" />
