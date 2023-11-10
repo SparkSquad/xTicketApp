@@ -81,4 +81,7 @@
     <string name="explore">Explorar</string>
     <string name="tickets_for_buy">Boletos por comprar:</string>
     <string name="total">Total a pagar:</string>
+    <string name="xticket_logo">xTICKET</string>
+    <string name="welcomeBack">¡Bienvenido de nuevo!</string>
+    <string name="durationError">La hora de finalización debe ser posterior a la hora de inicio</string>
 </resources>
