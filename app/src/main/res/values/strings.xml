@@ -3,7 +3,7 @@
     <string name="unassigned">Sin asignar</string>
     <string name="event">Evento</string>
     <string name="name">Nombre</string>
-    <string name="lastname">Apellido(S)</string>
+    <string name="lastname">Apellido(s)</string>
     <string name="numberphone">Numero Telefonico</string>
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
@@ -36,7 +36,7 @@
     <string name="enterPassword">Ingrese una contraseña</string>
     <string name="enterEmail">Ingrese su email</string>
     <string name="password">Contraseña</string>
-    <string name="enterCPassword">Ingrese de nuevo la contraseña</string>
+    <string name="enterPasswordConfirmation">Ingrese de nuevo la contraseña</string>
     <string name="confirmPassword">Confirme su contraseña</string>
     <string name="create_sign_up">Registrarse</string>
     <string name="emptyBandOrArtist">Por favor, ingrese el nombre de una banda o artista</string>
@@ -108,4 +108,5 @@
     <string name="eventUpdated">Evento actualizado</string>
     <string name="success">Éxito</string>
     <string name="failure">Error</string>
+    <string name="save_profile">Guardar perfil</string>
 </resources>
