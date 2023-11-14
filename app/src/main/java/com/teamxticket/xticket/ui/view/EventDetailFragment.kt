@@ -1,11 +1,12 @@
 package com.teamxticket.xticket.ui.view
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -13,27 +14,28 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
-import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
-import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
+import com.teamxticket.xticket.databinding.FragmentEventDetailBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
-class CreateEventActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCreateEventBinding
-    private val eventViewModel : EventViewModel by viewModels()
-    private var activeUser = ActiveUser.getInstance().getUser()
+class EventDetailFragment : Fragment() {
+    private var _binding: FragmentEventDetailBinding? = null
+    private val binding get() = _binding!!
+    private val eventViewModel: EventViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCreateEventBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentEventDetailBinding.inflate(inflater, container, false)
 
         val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
 
@@ -45,6 +47,13 @@ class CreateEventActivity : AppCompatActivity() {
         setupBtnAddBandOrArtist(adapter)
         setupBtnCreateEvent()
         initObservables()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupBtnAddBandOrArtist(adapter: BandArtistAdapter) {
@@ -67,7 +76,7 @@ class CreateEventActivity : AppCompatActivity() {
     }
 
     private fun setupBtnCreateEvent() {
-        binding.btnCreateEvent.setOnClickListener {
+        binding.btnSaveEvent.setOnClickListener {
             val eventName = binding.eventName.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val musicalGenres = binding.musicalGenres
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
@@ -81,32 +90,61 @@ class CreateEventActivity : AppCompatActivity() {
             setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandsAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
             if (eventName.isEmpty() || musicalGenres.selectedItemPosition == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
-                Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
-                eventViewModel.registerEvent(event)
-                
+                // TODO: Mandar id de usuario usando Shingleton
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, 1, bandsAndArtists)
+                // TODO: Llamar a actualizar evento
+                //eventViewModel.registerEvent(event)
             }
+        }
+
+        binding.btnManageTickets.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            /*
+            fragmentTransaction.replace(
+                binding.root.id,
+                ManageSaleDateFragment()
+            ).addToBackStack(null).commit()
+            */
+        }
+
+        binding.btnRegisterTicketTaker.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            /*
+            fragmentTransaction.replace(
+                binding.root.id,
+                RegisterTicketTakerFragment()
+            ).addToBackStack(null).commit()
+            */
+        }
+
+        binding.btnCancelEvent.setOnClickListener {
+            // TODO: Cancelar evento
         }
     }
 
     private fun initObservables() {
-        eventViewModel.showLoaderRegister.observe(this) { visible ->
+        eventViewModel.showLoaderRegister.observe(viewLifecycleOwner) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
 
-        eventViewModel.successfulRegister.observe(this) { result ->
+        eventViewModel.successfulRegister.observe(viewLifecycleOwner) { result ->
             if (result == -1) {
-                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
 
             } else {
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                // TODO: Go to Manage Sale Date Fragment
+                /*
                 Intent(this, ManageSaleDateActivity::class.java).apply {
                     putExtra("eventId", result)
                     startActivity(this)
-                }
+                }*/
 
             }
         }
@@ -131,7 +169,7 @@ class CreateEventActivity : AppCompatActivity() {
             error = if (isError) message else null
             setTextColor(errorColor)
         }
-        spinner.background = AppCompatResources.getDrawable(this, backgroundResource)
+        spinner.background = AppCompatResources.getDrawable(requireContext(), backgroundResource)
     }
 
     private fun setElementView(editText: EditText, button: ImageButton, isError: Boolean, message: String) {
@@ -170,22 +208,21 @@ class CreateEventActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         BandArtistProvider.bandArtistList.clear()
-        finish()
     }
 
     private fun initSpinnerMusicalGenres() {
         val musicalGenres: ArrayList<String> = ArrayList()
         musicalGenres.add(getString(R.string.pickMusicalGenre))
 
-        eventViewModel.genresModel.observe(this) { genres ->
+        eventViewModel.genresModel.observe(viewLifecycleOwner) { genres ->
             genres?.forEach { musicalGenres.add(it) }
         }
-        eventViewModel.showLoaderGenres.observe(this) { visible ->
+        eventViewModel.showLoaderGenres.observe(viewLifecycleOwner) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
 
-        val arrayAdapter = ArrayAdapter(this, R.layout.spinner_item, musicalGenres)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, musicalGenres)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.musicalGenres.adapter = arrayAdapter
@@ -197,7 +234,7 @@ class CreateEventActivity : AppCompatActivity() {
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(requireContext(), R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -206,7 +243,7 @@ class CreateEventActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerViewBandsAndArtists(adapter: BandArtistAdapter) {
-        binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
+        binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerBandsAndArtists.adapter = adapter
     }
 }

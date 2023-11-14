@@ -32,8 +32,7 @@ class ManageEventFragment : Fragment() {
 
         binding.recyclerEvents.layoutManager = LinearLayoutManager(requireContext())
         setupBtnAddEvent()
-        eventViewModel.loadEvents(activeUser!!.userId)
-        initObservables()
+
         return rootView
     }
     override fun onResume() {
@@ -65,7 +64,7 @@ class ManageEventFragment : Fragment() {
     }
 
     private fun onEventClick(event: Event) {
-        Intent(requireContext(), ManageSaleDateActivity::class.java).apply {
+        Intent(requireContext(), EventDetailActivity::class.java).apply {
             putExtra("eventId", event.eventId)
             startActivity(this)
         }

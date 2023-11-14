@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface EventApiClient {
@@ -19,4 +20,10 @@ interface EventApiClient {
 
     @GET("event/getGenres")
     suspend fun getGenres(): Response<GenreResponse>
+
+    @PUT("event/updateEvent")
+    suspend fun putEvent(@Body event: Event): Response<CodeResponse>
+
+    @GET("event/getEvent/{eventId}")
+    suspend fun getEvent(@Path("eventId") eventId: Int): Response<Event>
 }
