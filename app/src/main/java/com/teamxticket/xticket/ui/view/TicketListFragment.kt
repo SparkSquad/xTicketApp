@@ -35,6 +35,11 @@ class TicketListFragment : Fragment() {
         return rootView
     }
 
+    override fun onResume() {
+        super.onResume()
+        ticketsViewModel.loadTickets(activeUser!!.userId)
+    }
+
     private fun initObservables() {
         ticketsViewModel.ticketsModel.observe(viewLifecycleOwner) { ticketsList ->
             val ticketsData: List<TicketData> = ticketsList ?: emptyList()

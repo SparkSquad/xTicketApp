@@ -106,4 +106,6 @@
     <string name="cancel_event">Cancelar evento</string>
     <string name="eventWasNotUpdated">No se ha podido actualizar el evento</string>
     <string name="eventUpdated">Evento actualizado</string>
+    <string name="success">Éxito</string>
+    <string name="failure">Error</string>
 </resources>
