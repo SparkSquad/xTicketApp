@@ -109,4 +109,10 @@
     <string name="success">Éxito</string>
     <string name="failure">Error</string>
     <string name="save_profile">Guardar perfil</string>
+    <string name="passwordsDontMatch">Las contraseñas no coinciden</string>
+    <string name="profile_updated">Perfil actualizado exitosamente</string>
+    <string name="profile_not_updated">No se ha podido actualizar el perfil</string>
+    <string name="invalidEmail">Ingrese un correo válido</string>
+    <string name="invalidPassword">La contraseña debe ser mayor a 6 caracteres y combinar letras (mayúsculas y minúsculas), números y símbolos</string>
+    <string name="indicatedEmptyFields">Los campos indicados no pueden estar vacíos</string>
 </resources>
