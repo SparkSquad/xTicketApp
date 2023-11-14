@@ -38,7 +38,6 @@ class ProfileFragment : Fragment() {
         setupValidationOnFocusChange(binding.userLastName)
         setupValidationOnFocusChange(binding.userEmail)
         setUserData()
-        // TODO: No validar todos, ya que no siempre se van a querer cambiar todos los datos
         setUpBtnUpdateProfile()
         initObservables()
 
