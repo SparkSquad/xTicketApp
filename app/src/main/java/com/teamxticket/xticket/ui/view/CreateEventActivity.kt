@@ -84,7 +84,6 @@ class CreateEventActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                // TODO: Mandar id de usuario usando Shingleton
                 val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
                 eventViewModel.registerEvent(event)
                 

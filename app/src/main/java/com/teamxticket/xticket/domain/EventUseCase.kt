@@ -10,4 +10,8 @@ class EventUseCase {
     suspend fun postEvent(newEvent: Event): Int = repository.postEvent(newEvent)
 
     suspend fun getGenres(): List<String> = repository.getGenres()
+
+    suspend fun putEvent(event: Event): Int = repository.putEvent(event)
+
+    suspend fun getEvent(eventId: Int): Event = repository.getEvent(eventId)
 }

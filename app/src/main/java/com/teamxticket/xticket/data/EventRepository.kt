@@ -19,4 +19,12 @@ class EventRepository {
         val response = api.getGenres()
         return response.genres
     }
+
+    suspend fun putEvent(event: Event): Int {
+        return api.putEvent(event).code
+    }
+
+    suspend fun getEvent(eventId: Int): Event {
+        return api.getEvent(eventId)
+    }
 }

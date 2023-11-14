@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.view.CreateEventFragment">
+    android:gravity="center"
+    tools:context=".ui.view.EventDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -161,13 +162,46 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnCreateEvent"
+                android:id="@+id/btnManageTickets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/manage_tickets"
+                style="@style/BasicButtonStyle"
+                />
+
+            <Button
+                android:id="@+id/btnRegisterTicketTaker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/register_ticket_taker"
+                style="@style/BasicButtonStyle"
+                />
+
+            <Button
+                android:id="@+id/btnSaveEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/save_event"
+                style="@style/BasicButtonStyle"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <Button
+                android:id="@+id/btnCancelEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="25dp"
-                android:text="@string/createEvent"
-                style="@style/BasicButtonStyle"
+                android:text="@string/cancel_event"
+                style="@style/BadButtonStyle"
                 />
 
         </LinearLayout>

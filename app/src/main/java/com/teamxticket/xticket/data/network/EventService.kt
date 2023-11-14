@@ -61,4 +61,36 @@ class EventService {
             }
         }
     }
+
+    suspend fun putEvent(newEvent: Event): CodeResponse {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = retrofit.create(EventApiClient::class.java).putEvent(newEvent)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.body() ?: CodeResponse(-1)
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
+        }
+    }
+
+    suspend fun getEvent(eventId: Int): Event {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = retrofit.create(EventApiClient::class.java).getEvent(eventId)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.body() ?: Event(-1, "", "", "", "", -1, mutableListOf())
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
+        }
+    }
 }

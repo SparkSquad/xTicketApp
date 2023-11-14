@@ -3,11 +3,9 @@ package com.teamxticket.xticket.ui.view
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -15,30 +13,32 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
-import com.teamxticket.xticket.databinding.FragmentCreateEventBinding
+import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
-class CreateEventFragment : Fragment() {
-    private var _binding: FragmentCreateEventBinding? = null
-    private val binding get() = _binding!!
+class EventDetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEventDetailBinding
     private val eventViewModel : EventViewModel by viewModels()
+    private var activeUser = ActiveUser.getInstance().getUser()
+    private var eventId = -1
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCreateEventBinding.inflate(inflater, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityEventDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+        eventId = intent.getIntExtra("eventId", -1)
+        eventViewModel.getEvent(eventId)
 
         initSpinnerMusicalGenres()
         initRecyclerViewBandsAndArtists(adapter)
@@ -46,15 +46,8 @@ class CreateEventFragment : Fragment() {
         setupValidationOnFocusChange(binding.eventDescription)
         setupValidationOnFocusChange(binding.eventLocation)
         setupBtnAddBandOrArtist(adapter)
-        setupBtnCreateEvent()
+        setupButtons()
         initObservables()
-
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setupBtnAddBandOrArtist(adapter: BandArtistAdapter) {
@@ -76,8 +69,8 @@ class CreateEventFragment : Fragment() {
         }
     }
 
-    private fun setupBtnCreateEvent() {
-        binding.btnCreateEvent.setOnClickListener {
+    private fun setupButtons() {
+        binding.btnSaveEvent.setOnClickListener {
             val eventName = binding.eventName.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val musicalGenres = binding.musicalGenres
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
@@ -91,35 +84,60 @@ class CreateEventFragment : Fragment() {
             setElementView(binding.bandOrArtist, binding.btnAddBandOrArtist, bandsAndArtists.isEmpty(), getString(R.string.emptyBandOrArtistList))
 
             if (eventName.isEmpty() || musicalGenres.selectedItemPosition == 0 || eventDescription.isEmpty() || eventLocation.isEmpty() || bandsAndArtists.isEmpty()) {
-                Toast.makeText(activity, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                // TODO: Mandar id de usuario usando Shingleton
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, 1, bandsAndArtists)
-                eventViewModel.registerEvent(event)
-
+                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
+                // TODO: Llamar a actualizar evento
+                eventViewModel.updateEvent(event)
             }
+        }
+
+        binding.btnManageTickets.setOnClickListener {
+            Intent(this, ManageSaleDateActivity::class.java).apply {
+                putExtra("eventId", eventId)
+                startActivity(this)
+            }
+        }
+
+        binding.btnRegisterTicketTaker.setOnClickListener {
+
+        }
+
+        binding.btnCancelEvent.setOnClickListener {
+
         }
     }
 
     private fun initObservables() {
-        eventViewModel.showLoaderRegister.observe(viewLifecycleOwner) { visible ->
+        eventViewModel.eventModel.observe(this) {
+            val event = it?.find { event -> event.eventId == eventId }
+            if (event != null) {
+                binding.eventName.setText(event.name)
+                binding.eventDescription.setText(event.description)
+                binding.eventLocation.setText(event.location)
+                binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
+                for(artist in event.bandsAndArtists!!) {
+                    BandArtistProvider.bandArtistList.add(artist)
+                }
+            }
+        }
+
+        eventViewModel.showLoaderRegister.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
 
-        eventViewModel.successfulRegister.observe(viewLifecycleOwner) { result ->
+        eventViewModel.successfulUpdate.observe(this) { result ->
             if (result == -1) {
-                Toast.makeText(activity, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventWasNotUpdated), Toast.LENGTH_SHORT).show()
 
             } else {
-                Toast.makeText(activity, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
-                // TODO: Go to Manage Sale Date Fragment
-                /*
+                Toast.makeText(this, getString(R.string.eventUpdated), Toast.LENGTH_SHORT).show()
                 Intent(this, ManageSaleDateActivity::class.java).apply {
                     putExtra("eventId", result)
                     startActivity(this)
-                }*/
+                }
 
             }
         }
@@ -144,7 +162,7 @@ class CreateEventFragment : Fragment() {
             error = if (isError) message else null
             setTextColor(errorColor)
         }
-        spinner.background = AppCompatResources.getDrawable(requireContext(), backgroundResource)
+        spinner.background = AppCompatResources.getDrawable(this, backgroundResource)
     }
 
     private fun setElementView(editText: EditText, button: ImageButton, isError: Boolean, message: String) {
@@ -183,21 +201,22 @@ class CreateEventFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         BandArtistProvider.bandArtistList.clear()
+        finish()
     }
 
     private fun initSpinnerMusicalGenres() {
         val musicalGenres: ArrayList<String> = ArrayList()
         musicalGenres.add(getString(R.string.pickMusicalGenre))
 
-        eventViewModel.genresModel.observe(viewLifecycleOwner) { genres ->
+        eventViewModel.genresModel.observe(this) { genres ->
             genres?.forEach { musicalGenres.add(it) }
         }
-        eventViewModel.showLoaderGenres.observe(viewLifecycleOwner) { visible ->
+        eventViewModel.showLoaderGenres.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
 
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, musicalGenres)
+        val arrayAdapter = ArrayAdapter(this, R.layout.spinner_item, musicalGenres)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.musicalGenres.adapter = arrayAdapter
@@ -209,7 +228,7 @@ class CreateEventFragment : Fragment() {
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(requireContext(), R.drawable.spinner_border)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@EventDetailActivity, R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -218,7 +237,7 @@ class CreateEventFragment : Fragment() {
     }
 
     private fun initRecyclerViewBandsAndArtists(adapter: BandArtistAdapter) {
-        binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
         binding.recyclerBandsAndArtists.adapter = adapter
     }
 }

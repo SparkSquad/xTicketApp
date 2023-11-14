@@ -16,6 +16,7 @@ class EventViewModel : ViewModel() {
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderGenres = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
+    var successfulUpdate = MutableLiveData<Int>()
     var errorCode = MutableLiveData<String>()
 
     fun loadEvents(userId: Int) {
@@ -56,6 +57,32 @@ class EventViewModel : ViewModel() {
                 errorCode.postValue(e.message)
             }
             showLoaderGenres.postValue(false)
+        }
+    }
+
+    fun updateEvent(event: Event) {
+        viewModelScope.launch {
+            showLoaderRegister.postValue(true)
+            try {
+                val result = createEventUseCase.putEvent(event)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderRegister.postValue(false)
+        }
+    }
+
+    fun getEvent(eventId: Int) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            try {
+                val result = createEventUseCase.getEvent(eventId)
+                eventModel.postValue(mutableListOf(result))
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoader.postValue(false)
         }
     }
 }

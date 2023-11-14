@@ -104,4 +104,6 @@
     <string name="register_ticket_taker">Registrar portero</string>
     <string name="save_event">Guardar evento</string>
     <string name="cancel_event">Cancelar evento</string>
+    <string name="eventWasNotUpdated">No se ha podido actualizar el evento</string>
+    <string name="eventUpdated">Evento actualizado</string>
 </resources>
