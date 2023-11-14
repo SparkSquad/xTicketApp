@@ -50,9 +50,6 @@
             android:name=".ui.view.RegisterSaleDateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.ManageEventActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.view.CreateEventActivity"
             android:exported="false" />
         <activity

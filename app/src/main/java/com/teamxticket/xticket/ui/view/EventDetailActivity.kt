@@ -88,8 +88,8 @@ class EventDetailActivity : AppCompatActivity() {
 
             } else {
                 val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
-                // TODO: Llamar a actualizar evento
                 eventViewModel.updateEvent(event)
+
             }
         }
 

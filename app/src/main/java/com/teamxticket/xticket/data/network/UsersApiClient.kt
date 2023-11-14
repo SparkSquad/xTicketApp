@@ -1,10 +1,13 @@
 import com.teamxticket.xticket.data.model.ApiResponse
+import com.teamxticket.xticket.data.model.CodeResponse
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.PUT
+
 interface UsersApiClient {
 
     @POST("auth/login")
@@ -12,5 +15,7 @@ interface UsersApiClient {
     
     @POST("auth/signup")
     suspend fun postUser(@Body user: User): Response<ApiResponse>
-    
+
+    @PUT("auth/update")
+    suspend fun putUser(@Body user: User): Response<CodeResponse>
 }

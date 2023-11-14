@@ -3,12 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.view.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile"
+                style="@style/SectionTitle"
+                android:layout_marginBottom="15dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/enterName"
+                android:inputType="text"
+                android:maxLength="45"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/SectionFieldEditableArea"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lastname"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/userLastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/enterLastName"
+                android:inputType="text"
+                android:maxLength="45"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/SectionFieldEditableArea"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/enterEmail"
+                android:inputType="textEmailAddress"
+                android:maxLength="45"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/SectionFieldEditableArea"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/userPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/enterPassword"
+                android:inputType="textPassword"
+                android:maxLength="45"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/SectionFieldEditableArea"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmPassword"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp"
+                />
+
+            <EditText
+                android:id="@+id/userPasswordConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/enterPasswordConfirmation"
+                android:inputType="textPassword"
+                android:maxLength="45"
+                android:autofillHints=""
+                android:background="@drawable/edit_text_border"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/SectionFieldEditableArea"
+                />
+
+            <Button
+                android:id="@+id/btnSaveProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/save_profile"
+                style="@style/BasicButtonStyle"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/overlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80292727"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/cherryRed"
+        android:visibility="invisible"/>
 
 </FrameLayout>

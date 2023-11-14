@@ -9,7 +9,7 @@ import com.teamxticket.xticket.domain.EventUseCase
 import kotlinx.coroutines.launch
 
 class EventViewModel : ViewModel() {
-    private val createEventUseCase = EventUseCase()
+    private val eventUseCase = EventUseCase()
     var eventModel = MutableLiveData<List<Event>?>()
     var genresModel = MutableLiveData<List<String>?>()
     var showLoader = MutableLiveData<Boolean>()
@@ -24,7 +24,7 @@ class EventViewModel : ViewModel() {
             showLoader.postValue(true)
             EventProvider.eventsList.clear()
             try {
-                val result = createEventUseCase.getAllEvents(userId)
+                val result = eventUseCase.getAllEvents(userId)
                 EventProvider.eventsList.addAll(result)
                 eventModel.postValue(result)
             } catch (e: Exception) {
@@ -38,7 +38,7 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
             try {
-                val result = createEventUseCase.postEvent(event)
+                val result = eventUseCase.postEvent(event)
                 successfulRegister.postValue(result)
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
@@ -51,7 +51,7 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 showLoaderGenres.postValue(true)
-                val result = createEventUseCase.getGenres()
+                val result = eventUseCase.getGenres()
                 genresModel.postValue(result)
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
@@ -64,7 +64,7 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
             try {
-                val result = createEventUseCase.putEvent(event)
+                val result = eventUseCase.putEvent(event)
                 successfulUpdate.postValue(result)
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
@@ -77,7 +77,7 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch {
             showLoader.postValue(true)
             try {
-                val result = createEventUseCase.getEvent(eventId)
+                val result = eventUseCase.getEvent(eventId)
                 eventModel.postValue(mutableListOf(result))
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
