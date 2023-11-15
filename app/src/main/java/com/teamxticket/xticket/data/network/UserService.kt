@@ -16,15 +16,33 @@ class UserService{
 
     suspend fun login(user: User): UserResponse {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(UsersApiClient::class.java).login(user)
-            response.body() ?: UserResponse("", "", "", null)
+            try {
+                val response = retrofit.create(UsersApiClient::class.java).login(user)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.body() ?: UserResponse("", "", "", null)
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
         }
     }
     
     suspend fun postUser(user: User): Int {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(UsersApiClient::class.java).postUser(user)
-            response.code()
+            try {
+                val response = retrofit.create(UsersApiClient::class.java).postUser(user)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.code()
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
         }
     }
 

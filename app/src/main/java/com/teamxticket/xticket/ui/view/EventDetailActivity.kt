@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,6 +18,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.utils.Logger
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
@@ -113,6 +115,7 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.eventModel.observe(this) {
             val event = it?.find { event -> event.eventId == eventId }
             if (event != null) {
+                Log.d("event", event.toString())
                 binding.eventName.setText(event.name)
                 binding.eventDescription.setText(event.description)
                 binding.eventLocation.setText(event.location)

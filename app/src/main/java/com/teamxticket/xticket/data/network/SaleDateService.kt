@@ -1,5 +1,7 @@
 package com.teamxticket.xticket.data.network
 
+import android.content.res.Resources
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.RetrofitHelper
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.data.model.SaleDateResponse
@@ -15,13 +17,13 @@ class SaleDateService {
             try {
                 val response = retrofit.create(SaleDateApiClient::class.java).getAllSalesDates(eventId)
                 if (response.code() >= 500) {
-                    throw Exception("Error al conectar con el servidor, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
                 } else if (response.code() >= 400) {
-                    throw Exception("Hubo un error de nuestra parte, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
                 response.body() ?: SaleDateResponse("", emptyList())
             } catch (e: SocketTimeoutException) {
-                throw Exception("Servicio no disponible, intentelo mas tarde")
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
         }
     }
@@ -31,13 +33,13 @@ class SaleDateService {
             try {
                 val response = retrofit.create(SaleDateApiClient::class.java).postSaleDate(newSaleDate)
                 if (response.code() >= 500) {
-                    throw Exception("Error al conectar con el servidor, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
                 } else if (response.code() >= 400) {
-                    throw Exception("Ubo un error de nuestra parte, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
                 response.code()
             } catch (e: SocketTimeoutException) {
-                throw SocketTimeoutException("Error al conectar con el servidor")
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
         }
     }
@@ -47,13 +49,13 @@ class SaleDateService {
             try {
                 val response = retrofit.create(SaleDateApiClient::class.java).deleteSaleDate(saleDateId)
                 if (response.code() >= 500) {
-                    throw Exception("Error al conectar con el servidor, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
                 } else if (response.code() >= 400) {
-                    throw Exception("Ubo un error de nuestra parte, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
                 response.code()
             } catch (e: SocketTimeoutException) {
-                throw SocketTimeoutException("Error al conectar con el servidor")
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
         }
     }
@@ -63,13 +65,13 @@ class SaleDateService {
             try {
                 val response = retrofit.create(SaleDateApiClient::class.java).putSaleDate(saleDateId, newSaleDate)
                 if (response.code() >= 500) {
-                    throw Exception("Error al conectar con el servidor, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
                 } else if (response.code() >= 400) {
-                    throw Exception("Ubo un error de nuestra parte, intentelo mas tarde")
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
                 response.code()
             } catch (e: SocketTimeoutException) {
-                throw SocketTimeoutException("Error al conectar con el servidor")
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
         }
     }

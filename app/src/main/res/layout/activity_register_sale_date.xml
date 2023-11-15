@@ -38,15 +38,16 @@
                     android:layout_weight="1"
                     android:text="@string/pickDate"
                     app:icon="@drawable/baseline_calendar_month_24"
-                    app:iconGravity="textStart" />
+                    app:iconGravity="textEnd" />
 
                 <TextView
                     android:id="@+id/eventDate"
+                    style="@style/SectionField"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text=""
-                    style="@style/SectionField"/>
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -201,12 +202,14 @@
 
             </TableLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateSaleDate"
                 style="@style/BasicButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_sale_date" />
+                android:text="@string/create_sale_date"
+                app:icon="@drawable/baseline_airplane_ticket_24"
+                app:iconGravity="textEnd"/>
         </LinearLayout>
 
     </ScrollView>

@@ -1,13 +1,17 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityManageSaleDateBinding
 import com.teamxticket.xticket.ui.view.adapter.SaleDateAdapter
@@ -52,15 +56,6 @@ class ManageSaleDateActivity : AppCompatActivity() {
             val dateList : List<SaleDate> = saleDateList ?: emptyList()
             val adapter = SaleDateAdapter(dateList) { saleDate -> onItemSelected(saleDate) }
             binding.rvSalesDates.adapter = adapter
-            if(saleDateList.isNullOrEmpty()) {
-                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                    .setTitle("Atencion")
-                    .setMessage("No se encontraron datos para mostrar")
-                    .setCancelable(true)
-                    .setGravity(Gravity.CENTER)
-                    .setAnimation(DialogAnimation.SHRINK)
-                    .show()
-            }
         }
         saleDateViewModel.showLoader.observe(this) { visible ->
             binding.progressBar.isVisible = visible
@@ -69,7 +64,7 @@ class ManageSaleDateActivity : AppCompatActivity() {
 
         saleDateViewModel.errorCode.observe(this) { errorCode ->
             AestheticDialog.Builder(this, DialogStyle.TOASTER, DialogType.ERROR)
-                .setTitle("Atencion")
+                .setTitle(getString(R.string.failure))
                 .setMessage(errorCode)
                 .setCancelable(true)
                 .setGravity(Gravity.CENTER)
