@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.User
+import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.databinding.ActivitySignupBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpTicketTakerActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySignupBinding
+    private lateinit var binding: ActivitySignUpTicketTakerBinding
     private val userViewModel : UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivitySignUpTicketTakerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initListeners()
         initObservables()
@@ -29,7 +31,7 @@ class SignUpActivity : AppCompatActivity() {
                 val surnames = binding.etLastName.text.toString()
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
-                val type = if(binding.switchEvent.isChecked) "eventPlanner" else "assistant"
+                val type = "ticketTaker"
 
                 val user = User (
                     0,
@@ -39,12 +41,12 @@ class SignUpActivity : AppCompatActivity() {
                     password,
                     surnames
                 )
-                    userViewModel.registerUser(user)
-           } else {
-            Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show()
-                }
-        }
+                userViewModel.registerUser(user)
+            } else {
+                Toast.makeText(this, "Error al registrar el Portero", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
 
     private fun isValidEmail(email: CharSequence): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -88,11 +90,6 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(this, "La contraseña no puede contener espacios", Toast.LENGTH_SHORT).show()
             return false
         }
-            return true
-        }
-
+        return true
     }
-
-
-
-
+}

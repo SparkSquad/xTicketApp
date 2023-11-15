@@ -68,6 +68,7 @@ dependencies {
     implementation("com.github.gabriel-TheCode:AestheticDialogs:1.3.8")
     // QR Scanner
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("com.github.yuriy-budiyev:code-scanner:2.3.2")
     implementation ("androidx.cardview:cardview:1.0.0")
     //CardView
 }
