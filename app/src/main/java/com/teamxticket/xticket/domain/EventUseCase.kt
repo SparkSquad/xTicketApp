@@ -14,4 +14,6 @@ class EventUseCase {
     suspend fun putEvent(event: Event): Int = repository.putEvent(event)
 
     suspend fun getEvent(eventId: Int): Event = repository.getEvent(eventId)
+
+    suspend fun searchEvents(query: String, genre: String?, limit: Int, page: Int) = repository.searchEvents(query, genre, limit, page)
 }

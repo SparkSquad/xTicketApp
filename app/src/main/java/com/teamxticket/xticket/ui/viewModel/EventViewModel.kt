@@ -3,6 +3,7 @@ package com.teamxticket.xticket.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.domain.EventUseCase
@@ -20,6 +21,7 @@ class EventViewModel : ViewModel() {
     var firstLoad = true
     var successfulUpdate = MutableLiveData<Int>()
     var errorCode = MutableLiveData<String>()
+    var repository = EventUseCase()
 
     fun loadEvents(userId: Int) {
         viewModelScope.launch {
