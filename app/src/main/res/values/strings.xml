@@ -8,7 +8,7 @@
     <string name="enterEventName">Ingrese el nombre del evento</string>
     <string name="date">Fecha</string>
     <string name="eventDate">Fecha del evento</string>
-    <string name="pickDate">Seleccione la fecha del evento</string>
+    <string name="pickDate">Fecha del evento</string>
     <string name="duration">Duración</string>
     <string name="eventDuration">Duración del evento</string>
     <string name="pickDuration">Seleccione la duración del evento</string>
@@ -100,4 +100,10 @@
     <string name="success">Éxito</string>
     <string name="failure">Error</string>
     <string name="searchEventInputHint">Buscar evento...</string>
+    <string name="search">Buscar</string>
+    <string name="notFound">No encontrado</string>
+    <string name="noEventsFound">No se encontraron eventos</string>
+    <string name="invalidUser">El correo o la contraseña no son correctos, por favor verifique e intente de nuevo. </string>
+    <string name="invalidFields">Los campos no pueden estar vacíos</string>
+    <string name="invalidUserData">Por favor, ingrese su correo y contraseña para continuar.</string>
 </resources>

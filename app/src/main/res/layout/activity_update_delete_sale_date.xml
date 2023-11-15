@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.UpdateDeleteSaleDateActivity">
 
     <LinearLayout
@@ -32,22 +33,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPickDate"
                         style="@style/BasicButtonStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="@string/pickDate"
-                        android:layout_marginEnd="20dp"
-                        />
+                        app:icon="@drawable/baseline_calendar_month_24"
+                        app:iconGravity="textEnd" />
 
                     <TextView
                         android:id="@+id/tvEventDate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        style="@style/SectionField"
-                        />
+                        android:layout_weight="1"
+                        style="@style/SectionField" />
+
                 </LinearLayout>
 
                 <TableLayout
@@ -91,7 +93,9 @@
                             android:background="@drawable/edit_text_border"
                             style="@style/SectionFieldEditableArea"
                             android:hint="@string/_1000"
-                            android:autofillHints="" />
+                            android:autofillHints=""
+                            android:maxLength="4"
+                            android:drawableEnd="@drawable/baseline_airplane_ticket_24"/>
 
                         <EditText
                             android:id="@+id/etPrice"
@@ -104,7 +108,9 @@
                             android:background="@drawable/edit_text_border"
                             style="@style/SectionFieldEditableArea"
                             android:hint="@string/_1200"
-                            android:autofillHints="" />
+                            android:maxLength="6"
+                            android:autofillHints=""
+                            android:drawableEnd="@drawable/baseline_attach_money_24"/>
 
                     </TableRow>
 
@@ -142,7 +148,9 @@
                             android:background="@drawable/edit_text_border"
                             style="@style/SectionFieldEditableArea"
                             android:hint="@string/_3"
-                            android:autofillHints="" />
+                            android:autofillHints=""
+                            android:maxLength="2"
+                            android:drawableEnd="@drawable/baseline_production_quantity_limits_24" />
 
                         <Switch
                             android:id="@+id/switchOnlyAdults"
@@ -204,24 +212,27 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnUpdateSaleDate"
                 style="@style/BasicButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update" />
+                android:text="@string/update"
+                app:icon="@drawable/baseline_arrow_circle_up_24"
+                app:iconGravity="textEnd"/>
 
             <Space
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteSaleSale"
                 style="@style/BadButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
-                />
+                app:icon="@drawable/baseline_delete_forever_24"
+                app:iconGravity="textEnd"/>
         </LinearLayout>
 
     </LinearLayout>

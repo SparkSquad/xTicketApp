@@ -13,13 +13,13 @@ class LandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initListeners()
     }
 
     private fun initListeners() {
         binding.btnSignIn.setOnClickListener {
             Intent(this, LoginActivity::class.java).apply {
+                finish()
                 startActivity(this)
             }
         }

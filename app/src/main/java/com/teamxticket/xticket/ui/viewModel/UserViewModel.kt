@@ -13,11 +13,13 @@ class UserViewModel : ViewModel() {
     var successfulRegister = MutableLiveData<Int>()
     fun searchUser(user : User) {
         viewModelScope.launch {
+            showLoader.postValue(true)
             try {
                 val result = UserRepository().login(user)
                 receivedUser.postValue(result)
             } catch (e: Exception) {
                 receivedUser.postValue(UserResponse("", e.message, "", null))
+                showLoader.postValue(false)
             }
         }
     }

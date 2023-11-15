@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.RetrofitHelper
@@ -44,8 +45,8 @@ class LoginActivity : AppCompatActivity() {
                 userViewModel.searchUser(user)
             } else {
                 AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                    .setTitle("Campos vacíos")
-                    .setMessage("Por favor, ingrese su correo y contraseña para continuar.")
+                    .setTitle(getString(R.string.emptyField))
+                    .setMessage(getString(R.string.invalidUserData))
                     .setCancelable(true)
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK).show()
@@ -59,22 +60,29 @@ class LoginActivity : AppCompatActivity() {
                  if (it.user?.email?.isEmpty() == false) {
                      if(it.user?.type == "assistant" || it.user?.type == "admin") {
                          Intent (this, AssistantMenuActivity::class.java).apply {
+                             finish()
                              startActivity(this)
                          }
                      } else if (it.user?.type == "eventPlanner") {
                          Intent (this, EventPlannerMenuActivity::class.java).apply {
+                             finish()
                              startActivity(this)
                          }
                      }
                  }
              } else {
                  AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
-                     .setTitle("No encontrado")
-                     .setMessage("El correo o la contraseña no son correctos, por favor verifique e intente de nuevo. ")
+                     .setTitle(getString(R.string.notFound))
+                     .setMessage(getString(R.string.invalidUser))
                      .setCancelable(true)
                      .setGravity(Gravity.CENTER)
                      .setAnimation(DialogAnimation.SHRINK).show()
              }
          }
+
+        userViewModel.showLoader.observe(this) {
+            binding.overlayView.isVisible = it
+            binding.animationLoader.isVisible = it
+        }
     }
 }

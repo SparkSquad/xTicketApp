@@ -13,7 +13,7 @@
         android:id="@+id/animationView"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        app:lottie_url="https://lottie.host/6c54cd94-e0e3-4fdb-a09c-7aa1e211a917/pQZSIAAHKK.json"
+        app:lottie_fileName="ticket.json"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
 
@@ -28,7 +28,7 @@
         android:textSize="64sp"
         android:textStyle="bold"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignIn"
         android:layout_width="350dp"
         android:layout_height="64dp"
@@ -37,9 +37,12 @@
         android:text="@string/signIn"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="200dp"
+        app:icon="@drawable/baseline_person_24"
+        app:iconGravity="textStart"
+        app:iconSize="25dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
         android:layout_width="350dp"
         android:layout_height="64dp"
@@ -47,6 +50,9 @@
         android:letterSpacing="0.3"
         android:text="@string/createAccount"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:iconGravity="textStart"
+        app:icon="@drawable/baseline_person_outline_24"
+        app:iconSize="25dp"/>
 
 </LinearLayout>

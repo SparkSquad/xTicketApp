@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 tools:text="OCT" />
 
             <TextView
@@ -33,15 +34,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="40dp"
+                android:textSize="40sp"
                 tools:text="12" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_calendar_month_24"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -52,27 +59,28 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvStartHour"
                     tools:text="12:00"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="  -  "
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvEndHour"
                     tools:text="12:00"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tvOnlyAdults"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:text="@string/adults"
                     android:visibility="invisible"/>
             </LinearLayout>
@@ -81,7 +89,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 tools:text="Precio:  "/>
 
             <TextView
@@ -89,17 +97,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTotalTickets"
                 tools:text="Total tickets:  "
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tvMaxTickets"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@string/max_tickets"
-                android:textSize="15dp"/>
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
