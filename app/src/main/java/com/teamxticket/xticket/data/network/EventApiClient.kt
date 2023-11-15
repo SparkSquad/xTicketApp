@@ -10,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.FieldMap
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
@@ -25,4 +26,10 @@ interface EventApiClient {
 
     @GET("event/search/{query}")
     suspend fun searchEvents(@Path("query") query: String, @QueryMap params: Map<String, String>) : Response<SearchEventsResponse>
+
+    @PUT("event/updateEvent")
+    suspend fun putEvent(@Body event: Event): Response<CodeResponse>
+
+    @GET("event/getEvent/{eventId}")
+    suspend fun getEvent(@Path("eventId") eventId: Int): Response<Event>
 }

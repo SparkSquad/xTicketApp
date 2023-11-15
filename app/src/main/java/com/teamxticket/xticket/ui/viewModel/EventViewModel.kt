@@ -3,13 +3,13 @@ package com.teamxticket.xticket.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventProvider
+import com.teamxticket.xticket.domain.EventUseCase
 import kotlinx.coroutines.launch
 
 class EventViewModel : ViewModel() {
-    private val repository = EventRepository()
+    private val eventUseCase = EventUseCase()
     var eventModel = MutableLiveData<List<Event>?>()
     var genresModel = MutableLiveData<List<String>?>()
     var showLoader = MutableLiveData<Boolean>()
@@ -18,15 +18,19 @@ class EventViewModel : ViewModel() {
     var successfulRegister = MutableLiveData<Int>()
     var error = MutableLiveData<String>()
     var firstLoad = true
+    var successfulUpdate = MutableLiveData<Int>()
+    var errorCode = MutableLiveData<String>()
 
     fun loadEvents(userId: Int) {
         viewModelScope.launch {
             showLoader.postValue(true)
-            val result = repository.getAllEvents(userId)
             EventProvider.eventsList.clear()
-            EventProvider.eventsList.addAll(result)
-            if (result.isNotEmpty()) {
+            try {
+                val result = eventUseCase.getAllEvents(userId)
+                EventProvider.eventsList.addAll(result)
                 eventModel.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
             }
             showLoader.postValue(false)
         }
@@ -49,20 +53,52 @@ class EventViewModel : ViewModel() {
     fun registerEvent(event: Event) {
         viewModelScope.launch {
             showLoaderRegister.postValue(true)
-            val result = repository.postEvent(event)
-            successfulRegister.postValue(result)
+            try {
+                val result = eventUseCase.postEvent(event)
+                successfulRegister.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
             showLoaderRegister.postValue(false)
         }
     }
 
     fun loadGenres() {
         viewModelScope.launch {
-            showLoaderGenres.postValue(true)
-            val result = repository.getGenres()
-            if (result.isNotEmpty()) {
+            try {
+                showLoaderGenres.postValue(true)
+                val result = eventUseCase.getGenres()
                 genresModel.postValue(result)
-                showLoaderGenres.postValue(false)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
             }
+            showLoaderGenres.postValue(false)
+        }
+    }
+
+    fun updateEvent(event: Event) {
+        viewModelScope.launch {
+            showLoaderRegister.postValue(true)
+            try {
+                val result = eventUseCase.putEvent(event)
+                successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderRegister.postValue(false)
+        }
+    }
+
+    fun getEvent(eventId: Int) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            try {
+                val result = eventUseCase.getEvent(eventId)
+                eventModel.postValue(mutableListOf(result))
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoader.postValue(false)
         }
     }
 }

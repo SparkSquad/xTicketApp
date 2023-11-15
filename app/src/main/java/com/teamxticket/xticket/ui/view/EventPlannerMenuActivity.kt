@@ -18,7 +18,7 @@ class EventPlannerMenuActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.myEvents -> {
                     replaceFragment(ManageEventFragment())

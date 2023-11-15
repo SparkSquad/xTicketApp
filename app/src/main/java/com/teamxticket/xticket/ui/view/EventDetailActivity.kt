@@ -21,21 +21,24 @@ import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
-import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
+import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
-class CreateEventActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCreateEventBinding
+class EventDetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEventDetailBinding
     private val eventViewModel : EventViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
+    private var eventId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreateEventBinding.inflate(layoutInflater)
+        binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+        eventId = intent.getIntExtra("eventId", -1)
+        eventViewModel.getEvent(eventId)
 
         initSpinnerMusicalGenres()
         initRecyclerViewBandsAndArtists(adapter)
@@ -43,7 +46,7 @@ class CreateEventActivity : AppCompatActivity() {
         setupValidationOnFocusChange(binding.eventDescription)
         setupValidationOnFocusChange(binding.eventLocation)
         setupBtnAddBandOrArtist(adapter)
-        setupBtnCreateEvent()
+        setupButtons()
         initObservables()
     }
 
@@ -66,8 +69,8 @@ class CreateEventActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBtnCreateEvent() {
-        binding.btnCreateEvent.setOnClickListener {
+    private fun setupButtons() {
+        binding.btnSaveEvent.setOnClickListener {
             val eventName = binding.eventName.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val musicalGenres = binding.musicalGenres
             val eventDescription = binding.eventDescription.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
@@ -84,25 +87,53 @@ class CreateEventActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
-                eventViewModel.registerEvent(event)
-                
+                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists)
+                eventViewModel.updateEvent(event)
+
             }
+        }
+
+        binding.btnManageTickets.setOnClickListener {
+            Intent(this, ManageSaleDateActivity::class.java).apply {
+                putExtra("eventId", eventId)
+                startActivity(this)
+            }
+        }
+
+        binding.btnRegisterTicketTaker.setOnClickListener {
+
+        }
+
+        binding.btnCancelEvent.setOnClickListener {
+
         }
     }
 
     private fun initObservables() {
+        eventViewModel.eventModel.observe(this) {
+            val event = it?.find { event -> event.eventId == eventId }
+            if (event != null) {
+                binding.eventName.setText(event.name)
+                binding.eventDescription.setText(event.description)
+                binding.eventLocation.setText(event.location)
+                binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
+                for(artist in event.bandsAndArtists!!) {
+                    BandArtistProvider.bandArtistList.add(artist)
+                }
+            }
+        }
+
         eventViewModel.showLoaderRegister.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
         }
 
-        eventViewModel.successfulRegister.observe(this) { result ->
+        eventViewModel.successfulUpdate.observe(this) { result ->
             if (result == -1) {
-                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventWasNotUpdated), Toast.LENGTH_SHORT).show()
 
             } else {
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.eventUpdated), Toast.LENGTH_SHORT).show()
                 Intent(this, ManageSaleDateActivity::class.java).apply {
                     putExtra("eventId", result)
                     startActivity(this)
@@ -197,7 +228,7 @@ class CreateEventActivity : AppCompatActivity() {
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@EventDetailActivity, R.drawable.spinner_border)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
