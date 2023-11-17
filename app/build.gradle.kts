@@ -45,7 +45,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.databinding:databinding-runtime:8.1.2")
+    implementation("androidx.databinding:databinding-runtime:8.1.3")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -56,9 +56,9 @@ dependencies {
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     // Fragment
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     // Activity
-    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.activity:activity-ktx:1.8.1")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -68,8 +68,10 @@ dependencies {
     implementation("com.github.gabriel-TheCode:AestheticDialogs:1.3.8")
     // QR Scanner
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
-    implementation ("androidx.cardview:cardview:1.0.0")
     //CardView
-
+    implementation ("androidx.cardview:cardview:1.0.0")
+    //lottie
     implementation("com.airbnb.android:lottie:6.1.0")
+    //material design
+    implementation("com.google.android.material:material:1.10.0")
 }

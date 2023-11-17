@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- my_exit_transition.xml -->
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <fade />
+    <!-- Puedes agregar más elementos de transición aquí -->
+</transitionSet>
+

@@ -47,7 +47,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun setSaleDate() {
-        val date = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).parse(saleDate?.saleDate.toString())
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(saleDate?.saleDate.toString())
         val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date!!)
 
         selectedDate = date

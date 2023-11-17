@@ -222,7 +222,7 @@
                 app:iconGravity="textEnd"/>
 
             <Space
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.button.MaterialButton
