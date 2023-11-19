@@ -11,5 +11,5 @@ object RetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    // .baseUrl("https://xticket.vadam.xyz/")
+    //.baseUrl("http://148.113.171.230/")
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <stroke
+                android:width="2dp"
+            android:color="@color/white" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item
+        android:right="10dp"
+        android:drawable="@drawable/baseline_keyboard_arrow_down_24_white"
+        android:gravity="right|center_vertical"
+        >
+
+    </item>
+</layer-list>

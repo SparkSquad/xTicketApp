@@ -17,17 +17,15 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        app:menu="@menu/bottom_nav_event_planner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:itemTextAppearanceActiveBoldEnabled="true"
-        app:itemIconTint="@color/darkBlue"
-        app:itemTextColor="@color/darkBlue"
-        app:compatShadowEnabled="true"
-        app:itemTextAppearanceActive="@color/cherryRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_event_planner"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:itemRippleColor="@color/cherryRedTransparent"
+        style="@style/BottomBar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

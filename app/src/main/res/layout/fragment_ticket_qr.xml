@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/transparent"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.view.TicketQrFragment"
-    android:orientation="horizontal"
-    android:layout_margin="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:elevation="8dp"
     app:cardCornerRadius="20dp"
-    android:layout_gravity="center"
-    android:backgroundTint="@color/transparent"
-    app:cardBackgroundColor="@color/transparent"
-    android:gravity="center">
+    app:strokeWidth="2dp"
+    style="@style/cardItems"
+    tools:context=".ui.view.TicketQrFragment">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,4 +41,4 @@
                 android:onClick="closeDialog"/>
         </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

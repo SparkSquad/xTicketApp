@@ -1,260 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.view.PurchaseDetailActivity"
-    android:orientation="vertical">
+    tools:context=".ui.view.PurchaseDetailActivity">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:elevation="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:cardCornerRadius="20dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/eventName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                tools:text="🔥 Majiji Fest 🔥"
-                />
+            android:elevation="8dp"
+            app:cardCornerRadius="20dp"
+            app:strokeWidth="2dp"
+            style="@style/cardItems">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="italic"
-                    android:text="@string/musicalGenreWithColon"
-                    />
-
-                <TextView
-                    android:id="@+id/eventGenre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    tools:text="Rock"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="italic"
-                    android:text="@string/locationWithColon"
-                    />
-
-                <TextView
-                    android:id="@+id/eventLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="2"
-                    android:maxLines="2"
-                    android:textSize="20sp"
-                    tools:text="México, D.F. Autódromo Hermanos Rodríguez"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:elevation="8dp"
-        app:cardCornerRadius="20dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvSaleMonth"
+                    android:id="@+id/eventName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
-                    tools:text="OCT" />
-
-                <TextView
-                    android:id="@+id/tvSaleDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="40sp"
-                    tools:text="12" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="🔥 Majiji Fest 🔥"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvStartHour"
-                        tools:text="12:00"
-                        android:textSize="20sp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/space"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        android:text="@string/musicalGenreWithColon"
+                        />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvEndHour"
-                        tools:text="12:00"
-                        android:textSize="20sp"/>
-
-                    <TextView
-                        android:id="@+id/tvOnlyAdults"
+                        android:id="@+id/eventGenre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="textEnd"
                         android:textSize="20sp"
-                        android:text="@string/adults"
-                        android:visibility="invisible"/>
+                        tools:text="Rock"
+                        />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvPrice"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    tools:text="Precio:  "/>
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTotalTickets"
-                    tools:text="Total tickets:  "
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        android:text="@string/locationWithColon"
+                        />
 
-                <TextView
-                    android:id="@+id/tvMaxTickets"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="@string/max_tickets"
-                    android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/eventLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:textSize="20sp"
+                        tools:text="México, D.F. Autódromo Hermanos Rodríguez"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tickets_for_buy"
-        android:textSize="20sp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_border_background"
-        android:hint="1"
-        android:padding="10dp"
-        android:layout_marginBottom="16dp"
-        android:drawableEnd="@drawable/baseline_airplane_ticket_24"
-        android:inputType="number"
-        android:maxLength="2"
-        android:ems="10"
-        android:id="@+id/etTickets" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/total"
-        android:textSize="20sp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_border_background"
-        android:padding="10dp"
-        android:layout_marginBottom="16dp"
-        android:drawableEnd="@drawable/baseline_attach_money_24"
-        android:inputType="number"
-        android:enabled="false"
-        android:ems="10"
-        android:id="@+id/etTotal"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:ignore="UselessParent">
+            android:elevation="8dp"
+            app:strokeWidth="2dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="20dp"
+            style="@style/cardItems">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancel"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/cancel"
-                app:icon="@drawable/baseline_cancel_24"
-                app:iconGravity="textEnd"/>
+                android:layout_margin="10dp">
 
-            <Space
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBuy"
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tvSaleMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        tools:text="OCT" />
+
+                    <TextView
+                        android:id="@+id/tvSaleDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="40sp"
+                        tools:text="12" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_calendar_month_24"
+                        tools:ignore="ContentDescription" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvStartHour"
+                            tools:text="12:00"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  -  "
+                            android:textSize="20sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvEndHour"
+                            tools:text="12:00"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:id="@+id/tvOnlyAdults"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textEnd"
+                            android:textSize="20sp"
+                            android:text="@string/adults"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        tools:text="Precio:  "/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTotalTickets"
+                        tools:text="Total tickets:  "
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/tvMaxTickets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/max_tickets"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tickets_for_buy"
+            android:layout_marginTop="10dp"
+            style="@style/SectionField" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="1"
+            android:drawableEnd="@drawable/baseline_airplane_ticket_24"
+            android:inputType="number"
+            android:maxLength="2"
+            android:ems="10"
+            android:id="@+id/etTickets"
+            android:autofillHints=""
+            style="@style/SectionFieldEditableArea"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            style="@style/SectionField" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:drawableEnd="@drawable/baseline_attach_money_24"
+            android:inputType="number"
+            android:enabled="false"
+            android:ems="10"
+            android:id="@+id/etTotal"
+            style="@style/SectionFieldEditableArea"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/buy"
-                style="@style/BasicButtonStyle"
-                app:icon="@drawable/baseline_local_grocery_store_24"
-                app:iconGravity="textEnd"/>
+                android:gravity="center"
+                tools:ignore="UselessParent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/cancel"
+                    app:icon="@drawable/baseline_cancel_24"
+                    app:iconGravity="textEnd"/>
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buy"
+                    style="@style/BasicButtonStyle"
+                    app:icon="@drawable/baseline_local_grocery_store_24"
+                    app:iconGravity="textEnd"/>
 
 
-        </TableRow>
+            </TableRow>
 
-    </TableLayout>
+        </TableLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/overlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80292727"
+        android:visibility="invisible" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:lottie_fileName="ticket.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="invisible"/>
+
+</FrameLayout>

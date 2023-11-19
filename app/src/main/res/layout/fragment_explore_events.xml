@@ -19,7 +19,8 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:padding="15dp"
-            app:drawableEndCompat="@drawable/baseline_star_24" />
+            app:drawableEndCompat="@drawable/baseline_star_24"
+            style="@style/SectionField"/>
 
         <EditText
             android:id="@+id/etSearch"
@@ -31,18 +32,17 @@
             android:hint="@string/searchEventInputHint"
             android:inputType="text"
             android:maxLength="45"
-            android:background="@drawable/edit_text_border_background"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:drawableEnd="@drawable/baseline_search_24"
             android:drawablePadding="12dp"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            style="@style/SectionFieldEditableArea"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white"
             android:gravity="center">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -51,12 +51,15 @@
                 android:id="@+id/rvSearchResults"
                 android:layout_margin="5dp"/>
 
-            <ProgressBar
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                app:lottie_fileName="ticket.json"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

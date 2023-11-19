@@ -29,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initObservables()
         initListeners()
     }
@@ -82,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
         userViewModel.showLoader.observe(this) {
             binding.overlayView.isVisible = it
-            binding.animationLoader.isVisible = it
+            binding.progressBar.isVisible = it
         }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -41,9 +42,6 @@
                 android:inputType="text"
                 android:maxLength="45"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
                 style="@style/SectionFieldEditableArea"
                 />
 
@@ -52,8 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/musicalGenre"
                 style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                android:layout_marginBottom="5dp" />
 
             <Spinner
                 android:id="@+id/musicalGenres"
@@ -61,40 +58,33 @@
                 android:layout_height="50dp"
                 android:prompt="@string/select"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/spinner_border"
-                />
+                style="@style/spinnerTheme"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
                 style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                android:layout_marginBottom="5dp" />
 
             <EditText
                 android:id="@+id/eventDescription"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_marginBottom="20dp"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
                 android:hint="@string/enterDescription"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
                 android:maxLength="300"
                 android:maxLines="5"
-                android:padding="10dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                style="@style/SectionFieldEditableArea" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
                 style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                android:layout_marginBottom="5dp" />
 
             <EditText
                 android:id="@+id/eventLocation"
@@ -104,11 +94,7 @@
                 android:inputType="text"
                 android:maxLength="100"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                style="@style/SectionFieldEditableArea" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -143,9 +129,8 @@
                     android:inputType="textCapCharacters"
                     android:maxLength="100"
                     android:autofillHints=""
-                    android:background="@drawable/edit_text_border_no_right_side"
                     android:padding="10dp"
-                    style="@style/SectionFieldEditableArea"
+                    style="@style/SectionFieldEditableAreaImage"
                     />
 
                 <ImageButton
@@ -161,13 +146,17 @@
 
             </LinearLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateEvent"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="25dp"
+                android:layout_gravity="center"
                 android:text="@string/createEvent"
+                app:icon="@drawable/baseline_airplane_ticket_24"
+                app:iconGravity="textEnd"
+                app:iconSize="25dp"
                 style="@style/BasicButtonStyle"
                 />
 
@@ -181,12 +170,14 @@
         android:background="#80292727"
         android:visibility="invisible" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/cherryRed"
+        app:lottie_fileName="ticket.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:visibility="invisible"/>
 
 </FrameLayout>

@@ -31,9 +31,7 @@ class ManageSaleDateActivity : AppCompatActivity() {
         binding = ActivityManageSaleDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvSalesDates.layoutManager = LinearLayoutManager(this)
-
         eventId = intent.getIntExtra("eventId", 1)
-        saleDateViewModel.loadSaleDates(eventId)
         initObservables()
         initListeners()
     }

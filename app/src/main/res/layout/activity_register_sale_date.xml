@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text=""
-                    android:textAlignment="center" />
+                    android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -88,8 +88,6 @@
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
                         style="@style/SectionFieldEditableArea"
                         android:hint="@string/_1000"
                         android:autofillHints=""
@@ -103,8 +101,6 @@
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
                         style="@style/SectionFieldEditableArea"
                         android:hint="@string/_1200"
                         android:autofillHints=""
@@ -144,8 +140,6 @@
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:inputType="number"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_text_border"
                         style="@style/SectionFieldEditableArea"
                         android:hint="@string/_3"
                         android:autofillHints=""
@@ -179,7 +173,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"
+                        android:background="@color/lightGray"
+                        style="@style/CustomTimePickerStyle"/>
+
                 </TableRow>
 
                 <TableRow
@@ -197,7 +194,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"
+                        android:background="@color/lightGray"/>
                 </TableRow>
 
             </TableLayout>
@@ -205,11 +203,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateSaleDate"
                 style="@style/BasicButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/create_sale_date"
                 app:icon="@drawable/baseline_airplane_ticket_24"
-                app:iconGravity="textEnd"/>
+                app:iconGravity="textEnd"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </ScrollView>

@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -96,6 +97,7 @@ class EventViewModel : ViewModel() {
             showLoader.postValue(true)
             try {
                 val result = eventUseCase.getEvent(eventId)
+                Log.d("Events", result.bandsAndArtists.toString())
                 eventModel.postValue(mutableListOf(result))
             } catch (e: Exception) {
                 errorCode.postValue(e.message)

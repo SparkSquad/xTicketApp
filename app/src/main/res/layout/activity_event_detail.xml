@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".ui.view.EventDetailActivity">
 
     <ScrollView
@@ -41,9 +41,6 @@
                 android:inputType="text"
                 android:maxLength="45"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
                 style="@style/SectionFieldEditableArea"
                 />
 
@@ -61,7 +58,7 @@
                 android:layout_height="50dp"
                 android:prompt="@string/select"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/spinner_border"
+                style="@style/spinnerTheme"
                 />
 
             <TextView
@@ -78,13 +75,11 @@
                 android:layout_height="90dp"
                 android:layout_marginBottom="20dp"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
                 android:hint="@string/enterDescription"
                 android:gravity="top|start"
                 android:inputType="textMultiLine"
                 android:maxLength="300"
                 android:maxLines="5"
-                android:padding="10dp"
                 style="@style/SectionFieldEditableArea"
                 />
 
@@ -104,9 +99,6 @@
                 android:inputType="text"
                 android:maxLength="100"
                 android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
                 style="@style/SectionFieldEditableArea"
                 />
 
@@ -122,8 +114,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerBandsAndArtists"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 tools:itemCount="10" />
 
             <LinearLayout
@@ -143,9 +134,8 @@
                     android:inputType="textCapCharacters"
                     android:maxLength="100"
                     android:autofillHints=""
-                    android:background="@drawable/edit_text_border_no_right_side"
                     android:padding="10dp"
-                    style="@style/SectionFieldEditableArea"
+                    style="@style/SectionFieldEditableAreaImage"
                     />
 
                 <ImageButton
@@ -161,31 +151,37 @@
 
             </LinearLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnManageTickets"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="15dp"
                 android:text="@string/manage_tickets"
+                app:icon="@drawable/baseline_airplane_ticket_24"
+                app:iconGravity="textEnd"
                 style="@style/BasicButtonStyle"
                 />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegisterTicketTaker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text="@string/register_ticket_taker"
+                app:icon="@drawable/baseline_person_outline_24"
+                app:iconGravity="textEnd"
                 style="@style/BasicButtonStyle"
                 />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text="@string/save_event"
+                app:icon="@drawable/baseline_edit_24"
+                app:iconGravity="textEnd"
                 style="@style/BasicButtonStyle"
                 />
 
@@ -194,17 +190,19 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancelEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="25dp"
                 android:text="@string/cancel_event"
-                style="@style/BadButtonStyle"
-                />
+                app:icon="@drawable/baseline_cancel_24"
+                app:iconGravity="textEnd"
+                style="@style/BadButtonStyle" />
 
         </LinearLayout>
+
     </ScrollView>
 
     <View
@@ -214,12 +212,14 @@
         android:background="#80292727"
         android:visibility="invisible" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/cherryRed"
+        app:lottie_fileName="ticket.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:visibility="invisible"/>
 
 </FrameLayout>

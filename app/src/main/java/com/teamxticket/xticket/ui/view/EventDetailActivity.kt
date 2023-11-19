@@ -38,18 +38,36 @@ class EventDetailActivity : AppCompatActivity() {
         binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
         eventId = intent.getIntExtra("eventId", -1)
         eventViewModel.getEvent(eventId)
 
         initSpinnerMusicalGenres()
-        initRecyclerViewBandsAndArtists(adapter)
         setupValidationOnFocusChange(binding.eventName)
         setupValidationOnFocusChange(binding.eventDescription)
         setupValidationOnFocusChange(binding.eventLocation)
-        setupBtnAddBandOrArtist(adapter)
         setupButtons()
         initObservables()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventViewModel.loadGenres()
+        initSpinnerMusicalGenres()
+
+        if(BandArtistProvider.bandArtistList.isEmpty()) {
+            eventId = intent.getIntExtra("eventId", -1)
+            eventViewModel.getEvent(eventId)
+            Log.d("BANDS", BandArtistProvider.bandArtistList.toString())
+            val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+            initRecyclerViewBandsAndArtists(adapter)
+            setupBtnAddBandOrArtist(adapter)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BandArtistProvider.bandArtistList.clear()
+        finish()
     }
 
     private fun setupBtnAddBandOrArtist(adapter: BandArtistAdapter) {
@@ -115,7 +133,6 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.eventModel.observe(this) {
             val event = it?.find { event -> event.eventId == eventId }
             if (event != null) {
-                Log.d("event", event.toString())
                 binding.eventName.setText(event.name)
                 binding.eventDescription.setText(event.description)
                 binding.eventLocation.setText(event.location)
@@ -193,18 +210,6 @@ class EventDetailActivity : AppCompatActivity() {
                 setElementView(editText, inputText.isEmpty(), getString(R.string.emptyField))
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        eventViewModel.loadGenres()
-        initSpinnerMusicalGenres()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        BandArtistProvider.bandArtistList.clear()
-        finish()
     }
 
     private fun initSpinnerMusicalGenres() {
