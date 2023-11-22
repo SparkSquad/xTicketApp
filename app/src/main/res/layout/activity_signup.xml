@@ -142,7 +142,7 @@
             <Button
                 android:id="@+id/btnSignUp"
                 style="@style/BasicButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/create_sign_up" />
 

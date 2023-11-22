@@ -23,6 +23,7 @@ class RefundActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRefundBinding
     private val ticketsViewModel: TicketsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRefundBinding.inflate(layoutInflater)

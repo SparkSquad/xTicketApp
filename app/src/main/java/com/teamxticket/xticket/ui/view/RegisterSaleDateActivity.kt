@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityRegisterSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
@@ -33,6 +34,7 @@ class RegisterSaleDateActivity : AppCompatActivity() {
     private val saleDateViewModel : SaleDateViewModel by viewModels()
     private var eventId : Int = 0
     private var selectedDate: Date = Date(0)
+    private var activeUser = ActiveUser.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,6 +168,7 @@ class RegisterSaleDateActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.success))
                 .setMessage(message)
                 .setCancelable(true)
+                .setDarkMode(activeUser.getDarkMode())
                 .setGravity(Gravity.CENTER)
                 .setAnimation(DialogAnimation.SHRINK)
                 .setOnClickListener(object : OnDialogClickListener {
@@ -180,6 +183,7 @@ class RegisterSaleDateActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.failure))
                 .setMessage(message)
                 .setCancelable(true)
+                .setDarkMode(activeUser.getDarkMode())
                 .setGravity(Gravity.CENTER)
                 .setAnimation(DialogAnimation.SHRINK)
                 .show()

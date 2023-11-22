@@ -129,4 +129,5 @@
     <string name="email_label">Email</string>
     <string name="dialog_accept_button">Aceptar</string>
     <string name="dialog_cancel_button">Cancelar</string>
+    <string name="successful_register">Registro de usuario exitoso</string>
 </resources>

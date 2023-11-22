@@ -7,6 +7,8 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.databinding.ActivitySignupBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
@@ -19,6 +21,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
     private val userViewModel : UserViewModel by viewModels()
+    private var darkDialog = ActiveUser.getInstance().getDarkMode()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
@@ -31,9 +34,10 @@ class SignUpActivity : AppCompatActivity() {
         userViewModel.successfulRegister.observe(this) { it ->
             if (it == 200) {
                 AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
-                    .setTitle("Atencion")
-                    .setMessage("Usuario registrado correctamente")
+                    .setTitle(getString(R.string.success))
+                    .setMessage(getString(R.string.successful_register))
                     .setCancelable(true)
+                    .setDarkMode(darkDialog)
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK)
                     .show()
@@ -54,7 +58,7 @@ class SignUpActivity : AppCompatActivity() {
                 val password = binding.etPassword.text.toString()
                 val type = if(binding.switchEvent.isChecked) "eventPlanner" else "assistant"
 
-                val user: User = User (
+                val user = User (
                     0,
                     email,
                     name,

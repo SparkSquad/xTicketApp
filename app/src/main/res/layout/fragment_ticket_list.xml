@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tickets"
                         style="@style/collapseTitle"/>
-                    
+
                 </LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
@@ -78,7 +78,7 @@
                     android:layout_weight="1"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/btnRefund"
                     style="@style/BasicButtonStyle"

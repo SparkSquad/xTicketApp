@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.core.RetrofitHelper
 import com.teamxticket.xticket.data.UserRepository
 import com.teamxticket.xticket.data.model.User
@@ -25,6 +26,7 @@ import com.thecode.aestheticdialogs.OnDialogClickListener
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private val userViewModel : UserViewModel by viewModels()
+    private var activeUser = ActiveUser.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -47,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
                     .setTitle(getString(R.string.emptyField))
                     .setMessage(getString(R.string.invalidUserData))
                     .setCancelable(true)
+                    .setDarkMode(activeUser.getDarkMode())
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK).show()
             }
@@ -74,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                      .setTitle(getString(R.string.notFound))
                      .setMessage(getString(R.string.invalidUser))
                      .setCancelable(true)
+                     .setDarkMode(activeUser.getDarkMode())
                      .setGravity(Gravity.CENTER)
                      .setAnimation(DialogAnimation.SHRINK).show()
              }

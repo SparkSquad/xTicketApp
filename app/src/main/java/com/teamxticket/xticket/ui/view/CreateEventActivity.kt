@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,11 +25,16 @@ import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.ActivityCreateEventBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
 
 class CreateEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateEventBinding
     private val eventViewModel : EventViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
+    private var darkDialog = ActiveUser.getInstance().getDarkMode()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,10 +105,23 @@ class CreateEventActivity : AppCompatActivity() {
 
         eventViewModel.successfulRegister.observe(this) { result ->
             if (result == -1) {
-                Toast.makeText(this, getString(R.string.eventWasNotCreated), Toast.LENGTH_SHORT).show()
-
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle(getString(R.string.failure))
+                    .setMessage(getString(R.string.eventWasNotCreated))
+                    .setCancelable(true)
+                    .setDarkMode(darkDialog)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
             } else {
-                Toast.makeText(this, getString(R.string.eventCreated), Toast.LENGTH_SHORT).show()
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle(getString(R.string.success))
+                    .setMessage(getString(R.string.eventCreated))
+                    .setCancelable(true)
+                    .setDarkMode(darkDialog)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
                 Intent(this, ManageSaleDateActivity::class.java).apply {
                     putExtra("eventId", result)
                     startActivity(this)
