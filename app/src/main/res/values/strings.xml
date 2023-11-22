@@ -125,4 +125,5 @@
     <string name="invalidUserData">Por favor, ingrese su correo y contraseña para continuar.</string>
     <string name="saleDates">Fechas de evento</string>
     <string name="eventDetails">Detalles del evento</string>
+    <string name="availableEvents">Eventos disponibles</string>
 </resources>
