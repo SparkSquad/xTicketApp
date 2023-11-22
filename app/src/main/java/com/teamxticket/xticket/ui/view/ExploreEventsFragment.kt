@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.FragmentExploreEventsBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
@@ -29,6 +30,7 @@ class ExploreEventsFragment : Fragment() {
         binding.rvSearchResults.layoutManager = LinearLayoutManager(rootView.context)
 
         eventsViewModel.searchEvents("", null, 100, 1)
+        eventsViewModel.loadGenres()
         initObservables()
         initListeners()
         return rootView
@@ -51,6 +53,10 @@ class ExploreEventsFragment : Fragment() {
         eventsViewModel.error.observe(lifecycle) { errorCode ->
             Toast.makeText(binding.root.context, errorCode, Toast.LENGTH_SHORT).show()
         }
+
+        eventsViewModel.genresModel.observe(this.viewLifecycleOwner) { genresList ->
+            populateGenresChipsGroup(genresList ?: arrayListOf())
+        }
     }
 
     private fun initListeners() {
@@ -62,6 +68,25 @@ class ExploreEventsFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
+    }
+
+    private fun populateGenresChipsGroup(genres: List<String>) {
+        binding.cgGenres.removeAllViews()
+        for(genre in genres) {
+            val chip = Chip(binding.root.context)
+            chip.text = genre
+            chip.isCheckable = true
+            chip.isCheckedIconVisible = false
+            chip.isChipIconVisible = false
+            chip.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked) {
+                    eventsViewModel.searchEvents(binding.etSearch.text.toString(), buttonView.text.toString(), 100, 1)
+                } else {
+                    eventsViewModel.searchEvents(binding.etSearch.text.toString(), null, 100, 1)
+                }
+            }
+            binding.cgGenres.addView(chip)
+        }
     }
 
     private fun onItemSelected(eventData: Event) {
