@@ -69,7 +69,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email_label"
                 style="@style/SectionField"
                 android:layout_marginBottom="5dp"
                 />
@@ -98,7 +98,7 @@
             android:id="@+id/etCPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/enterCPassword"
+            android:hint="@string/enterPasswordConfirmation"
             android:inputType="textPassword"
             android:maxLength="45"
             android:autofillHints=""
@@ -116,29 +116,6 @@
             style="@style/SwitchColor"
             android:gravity="center_horizontal"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-            <EditText
-                android:id="@+id/etCPassword"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterPasswordConfirmation"
-                android:inputType="textEmailAddress"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                />
-            <Switch
-                android:id="@+id/switchEvent"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:text="@string/isEventPlanner"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                style="@style/SwitchColor"
-                android:gravity="center_horizontal"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Button
                 android:id="@+id/btnSignUp"

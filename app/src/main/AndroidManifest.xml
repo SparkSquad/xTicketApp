@@ -55,7 +55,6 @@
             android:name=".ui.view.SignUpTicketTakerActivity"
             android:exported="false"/>
         <activity
-            android:exported="true">
             android:name=".ui.view.LandingActivity"
             android:exported="true">
             <intent-filter>
