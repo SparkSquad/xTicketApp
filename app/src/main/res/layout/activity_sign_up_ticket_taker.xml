@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.SignUpTicketTakerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/RegisterTikerTaker"
+            style="@style/SectionTitle"
+            android:layout_marginBottom="15dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            style="@style/SectionField"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterName"
+            android:inputType="text"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lastname"
+            style="@style/SectionField"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterLastName"
+            android:inputType="text"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            style="@style/SectionField"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterEmail"
+            android:inputType="textEmailAddress"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            style="@style/SectionField"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterPassword"
+            android:inputType="textPassword"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmPassword"
+            style="@style/SectionField"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/etCPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/enterCPassword"
+            android:inputType="textPassword"
+            android:maxLength="45"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_border"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <Button
+            android:id="@+id/btnSignUp"
+            style="@style/BasicButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_sign_up" />
+
+    </LinearLayout>
+
+</ScrollView>
