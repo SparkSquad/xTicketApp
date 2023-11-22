@@ -1,150 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.view.ProfileFragment">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp">
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="250dp"
+            android:fitsSystemWindows="true">
 
-            <TextView
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/profile"
-                style="@style/SectionTitle"
-                android:layout_marginBottom="15dp"
-                />
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/darkPink"
+                app:expandedTitleMarginBottom="20dp"
+                app:expandedTitleMarginStart="15dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:gravity="top">
 
-            <EditText
-                android:id="@+id/userName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterName"
-                android:inputType="text"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationView"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        app:lottie_fileName="profile.json"
+                        app:lottie_autoPlay="true" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lastname"
-                style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile"
+                        style="@style/collapseTitle"/>
+                </LinearLayout>
 
-            <EditText
-                android:id="@+id/userLastName"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterLastName"
-                android:inputType="text"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Theme.MaterialComponents.Light"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <EditText
-                android:id="@+id/userEmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterEmail"
-                android:inputType="textEmailAddress"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/password"
-                style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <EditText
-                android:id="@+id/userPassword"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterPassword"
-                android:inputType="textPassword"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                android:layout_height="match_parent"
+                android:layout_margin="15dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/confirmPassword"
-                style="@style/SectionField"
-                android:layout_marginBottom="5dp"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/userPasswordConfirmation"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/enterPasswordConfirmation"
-                android:inputType="textPassword"
-                android:maxLength="45"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"
-                android:layout_marginBottom="20dp"
-                style="@style/SectionFieldEditableArea"
-                />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name"
+                        style="@style/SectionField"
+                        android:layout_marginBottom="5dp"
+                        />
 
-            <Button
-                android:id="@+id/btnSaveProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
-                android:text="@string/save_profile"
-                style="@style/BasicButtonStyle"
-                />
-        </LinearLayout>
-    </ScrollView>
+                    <EditText
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/enterName"
+                        android:inputType="text"
+                        android:maxLength="45"
+                        android:autofillHints=""
+                        style="@style/SectionFieldEditableArea"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lastname"
+                        style="@style/SectionField"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/userLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/enterLastName"
+                        android:inputType="text"
+                        android:maxLength="45"
+                        android:autofillHints=""
+                        style="@style/SectionFieldEditableArea"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        style="@style/SectionField"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/userEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/enterEmail"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="45"
+                        android:autofillHints=""
+                        style="@style/SectionFieldEditableArea"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password"
+                        style="@style/SectionField"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/userPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/enterPassword"
+                        android:inputType="textPassword"
+                        android:maxLength="45"
+                        android:autofillHints=""
+                        style="@style/SectionFieldEditableArea"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirmPassword"
+                        style="@style/SectionField"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <EditText
+                        android:id="@+id/userPasswordConfirmation"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/enterPasswordConfirmation"
+                        android:inputType="textPassword"
+                        android:maxLength="45"
+                        android:autofillHints=""
+                        style="@style/SectionFieldEditableArea"
+                        />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/save_profile"
+                        app:icon="@drawable/baseline_edit_24"
+                        app:iconGravity="textEnd"
+                        style="@style/BasicButtonStyle"
+                        android:layout_gravity="center"
+                        />
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <View
         android:id="@+id/overlayView"
@@ -153,12 +194,14 @@
         android:background="#80292727"
         android:visibility="invisible" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/cherryRed"
+        app:lottie_fileName="ticket.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:visibility="invisible"/>
 
 </FrameLayout>

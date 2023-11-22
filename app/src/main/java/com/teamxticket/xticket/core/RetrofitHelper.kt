@@ -7,8 +7,9 @@ object RetrofitHelper {
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://xticket.vadam.xyz/")
+
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    // .baseUrl("http://10.0.2.2:3000/")
+    //.baseUrl("http://10.0.2.2:3000/")
 }

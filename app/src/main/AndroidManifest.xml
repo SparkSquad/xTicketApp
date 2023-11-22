@@ -34,9 +34,6 @@
             android:name=".ui.view.EventDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.AdministratorMenuActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.view.EventPlannerMenuActivity"
             android:exported="false" />
         <activity
@@ -55,14 +52,6 @@
             android:name=".ui.view.SignUpTicketTakerActivity"
             android:exported="false"/>
         <activity
-            android:name=".ui.view.LandingActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ui.view.RegisterSaleDateActivity"
             android:exported="false" />
         <activity
@@ -77,6 +66,14 @@
         <activity
             android:name=".ui.view.SignUpActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.view.LandingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

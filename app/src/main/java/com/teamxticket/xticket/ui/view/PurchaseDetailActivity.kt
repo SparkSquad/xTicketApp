@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.Event
@@ -117,6 +118,10 @@ class PurchaseDetailActivity : AppCompatActivity() {
                     .setAnimation(DialogAnimation.SHRINK)
                     .show()
             }
+        }
+        ticketsViewModel.showLoaderPurchase.observe(this) { it ->
+            binding.progressBar.isVisible = it
+            binding.overlayView.isVisible = it
         }
     }
 }

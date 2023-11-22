@@ -39,8 +39,9 @@
         android:textStyle="bold"
         android:layout_marginTop="200dp"
         app:icon="@drawable/baseline_person_24"
-        app:iconGravity="textStart"
-        app:iconSize="25dp"/>
+        app:iconGravity="textEnd"
+        app:iconSize="25dp"
+        style="@style/BasicButtonStyle"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
@@ -51,8 +52,9 @@
         android:text="@string/createAccount"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:iconGravity="textStart"
+        app:iconGravity="textEnd"
         app:icon="@drawable/baseline_person_outline_24"
-        app:iconSize="25dp"/>
+        app:iconSize="25dp"
+        style="@style/BasicButtonStyle"/>
 
 </LinearLayout>

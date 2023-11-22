@@ -37,7 +37,7 @@ class ManageEventFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
-        eventViewModel.loadEvents(activeUser!!.userId)
+        eventViewModel.loadEvents(activeUser?.userId ?: -1)
         initObservables()
     }
 

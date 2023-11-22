@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatDelegate
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.databinding.ActivityLandingBinding
 
@@ -14,6 +15,9 @@ class LandingActivity : AppCompatActivity() {
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initListeners()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        delegate.applyDayNight()
     }
 
     private fun initListeners() {

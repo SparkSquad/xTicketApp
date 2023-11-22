@@ -9,4 +9,5 @@
         android:id="@+id/eProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="@string/profile" />
+
 </menu>

@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,6 +18,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.utils.Logger
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
@@ -36,18 +38,36 @@ class EventDetailActivity : AppCompatActivity() {
         binding = ActivityEventDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
         eventId = intent.getIntExtra("eventId", -1)
         eventViewModel.getEvent(eventId)
 
         initSpinnerMusicalGenres()
-        initRecyclerViewBandsAndArtists(adapter)
         setupValidationOnFocusChange(binding.eventName)
         setupValidationOnFocusChange(binding.eventDescription)
         setupValidationOnFocusChange(binding.eventLocation)
-        setupBtnAddBandOrArtist(adapter)
         setupButtons()
         initObservables()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventViewModel.loadGenres()
+        initSpinnerMusicalGenres()
+
+        if(BandArtistProvider.bandArtistList.isEmpty()) {
+            eventId = intent.getIntExtra("eventId", -1)
+            eventViewModel.getEvent(eventId)
+            Log.d("BANDS", BandArtistProvider.bandArtistList.toString())
+            val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
+            initRecyclerViewBandsAndArtists(adapter)
+            setupBtnAddBandOrArtist(adapter)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        BandArtistProvider.bandArtistList.clear()
+        finish()
     }
 
     private fun setupBtnAddBandOrArtist(adapter: BandArtistAdapter) {
@@ -190,18 +210,6 @@ class EventDetailActivity : AppCompatActivity() {
                 setElementView(editText, inputText.isEmpty(), getString(R.string.emptyField))
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        eventViewModel.loadGenres()
-        initSpinnerMusicalGenres()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        BandArtistProvider.bandArtistList.clear()
-        finish()
     }
 
     private fun initSpinnerMusicalGenres() {

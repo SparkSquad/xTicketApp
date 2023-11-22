@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/landing_gradient_background"
     tools:context=".ui.view.LoginActivity">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        style="@style/loginBackground">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            app:lottie_fileName="user.json"
             app:lottie_autoPlay="true"
+            app:lottie_fileName="user.json"
             app:lottie_loop="true" />
 
         <TextView
@@ -29,36 +29,30 @@
             android:gravity="center"
             android:text="@string/welcomeBack"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:padding="10dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            style="@style/SectionTitle"/>
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:background="@drawable/edit_text_border_background"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp"
             android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="12dp"
-            android:autofillHints="" />
+            android:autofillHints=""
+            style="@style/loginFields"/>
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:background="@drawable/edit_text_border_background"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:padding="10dp"
             android:drawableStart="@drawable/baseline_lock_24"
             android:drawablePadding="12dp"
-            android:layout_marginBottom="18dp"
-            android:autofillHints="" />
+            android:autofillHints=""
+            style="@style/loginFields"/>
 
         <TextView
             android:id="@+id/tvLoginError"
@@ -68,9 +62,10 @@
             android:paddingEnd="32dp"
             android:textSize="16sp"
             android:textStyle="normal"
-            android:fontFamily="sans-serif" />
+            android:fontFamily="sans-serif"
+            style="@style/SectionField"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignInFr"
             android:layout_width="350dp"
             android:layout_height="64dp"
@@ -80,15 +75,18 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:icon="@drawable/baseline_person_outline_24"
+            app:iconGravity="textEnd"/>
 
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:text="@string/forgotPassword" />
+            android:text="@string/forgotPassword"
+            android:textSize="16sp"
+            style="@style/SectionField"/>
+
     </LinearLayout>
 
     <View
@@ -99,7 +97,7 @@
         android:visibility="invisible" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationLoader"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -107,6 +105,5 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         android:visibility="invisible"/>
-
 
 </FrameLayout>

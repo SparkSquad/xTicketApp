@@ -39,12 +39,14 @@
         android:background="#80292727"
         android:visibility="invisible" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/cherryRed"
+        app:lottie_fileName="ticket.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:visibility="invisible"/>
 
 </FrameLayout>
