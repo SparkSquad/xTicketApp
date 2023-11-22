@@ -114,7 +114,7 @@
             android:id="@+id/etCPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/enterCPassword"
+            android:hint="@string/enterPasswordConfirmation"
             android:inputType="textPassword"
             android:maxLength="45"
             android:autofillHints=""
