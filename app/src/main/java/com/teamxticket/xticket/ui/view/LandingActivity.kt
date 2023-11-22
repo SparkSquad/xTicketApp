@@ -16,7 +16,7 @@ class LandingActivity : AppCompatActivity() {
         setContentView(binding.root)
         initListeners()
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
         delegate.applyDayNight()
     }
 
