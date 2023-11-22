@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
@@ -50,18 +51,17 @@ class RefundActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(ticketData: TicketData) {
-        AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.INFO)
+        AlertDialog.Builder(this)
             .setTitle(getString(R.string.doYouWantRefund))
             .setMessage(getString(R.string.refundWarning))
             .setCancelable(true)
-            .setGravity(Gravity.CENTER)
-            .setAnimation(DialogAnimation.SHRINK)
-            .setOnClickListener(object : OnDialogClickListener {
-                override fun onClick(dialog: AestheticDialog.Builder) {
-                    dialog.dismiss()
-                    ticketsViewModel.refundTicket(ticketData.ticket.ticketId)
-                }
-            })
+            .setPositiveButton(getString(R.string.dialog_accept_button)) { dialog, which ->
+                dialog.dismiss()
+                ticketsViewModel.refundTicket(ticketData.ticket.ticketId)
+            }
+            .setNegativeButton(getString(R.string.dialog_cancel_button)) { dialog, which ->
+                dialog.dismiss()
+            }
             .show()
     }
 }

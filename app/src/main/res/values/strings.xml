@@ -126,4 +126,7 @@
     <string name="saleDates">Fechas de evento</string>
     <string name="eventDetails">Detalles del evento</string>
     <string name="availableEvents">Eventos disponibles</string>
+    <string name="email_label">Email</string>
+    <string name="dialog_accept_button">Aceptar</string>
+    <string name="dialog_cancel_button">Cancelar</string>
 </resources>
