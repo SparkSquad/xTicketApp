@@ -132,4 +132,7 @@
     <string name="successful_register">Registro de usuario exitoso</string>
     <string name="avalableTickets">Entradas disponibles</string>
     <string name="success_purchase">Compra realizada con exito</string>
+    <string name="loading_label">Cargando...</string>
+    <string name="search_results_title_bar">"Resultados para "</string>
+    <string name="explore_events_title_bar">Explorar eventos</string>
 </resources>

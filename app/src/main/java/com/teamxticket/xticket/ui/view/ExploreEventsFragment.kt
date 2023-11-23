@@ -12,11 +12,14 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.FragmentExploreEventsBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import kotlin.math.abs
 
 class ExploreEventsFragment : Fragment() {
 
@@ -46,8 +49,9 @@ class ExploreEventsFragment : Fragment() {
         }
 
         eventsViewModel.showLoader.observe(lifecycle) { visible ->
-            binding.progressBar.isVisible = visible
+            binding.progressView.isVisible = visible
             binding.rvSearchResults.isVisible = !visible
+            binding.hsvGenresChips.isVisible = !visible
         }
 
         eventsViewModel.error.observe(lifecycle) { errorCode ->
@@ -68,6 +72,21 @@ class ExploreEventsFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
+
+        binding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if(abs(verticalOffset) == appBarLayout.totalScrollRange) {
+                binding.collapsingToolbar.isTitleEnabled = true
+                if(binding.etSearch.text.isNotBlank()) {
+                    binding.collapsingToolbar.title = getString(R.string.search_results_title_bar) + "\"${binding.etSearch.text}\""
+                }
+                else {
+                    binding.collapsingToolbar.title = getString(R.string.explore_events_title_bar)
+                }
+            }
+            else {
+                binding.collapsingToolbar.isTitleEnabled = false
+            }
+        }
     }
 
     private fun populateGenresChipsGroup(genres: List<String>) {
