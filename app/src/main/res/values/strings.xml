@@ -135,4 +135,6 @@
     <string name="loading_label">Cargando...</string>
     <string name="search_results_title_bar">"Resultados para "</string>
     <string name="explore_events_title_bar">Explorar eventos</string>
+    <string name="event_hour_label">Hora: </string>
+    <string name="event_price_label">Entrada: $</string>
 </resources>
