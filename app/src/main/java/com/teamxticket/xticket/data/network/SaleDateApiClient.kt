@@ -1,6 +1,7 @@
 package com.teamxticket.xticket.data.network
 
 import com.teamxticket.xticket.data.model.ApiResponse
+import com.teamxticket.xticket.data.model.GetSaleDateResponse
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import retrofit2.Response
@@ -26,5 +27,8 @@ interface SaleDateApiClient {
 
     @DELETE("saleDate/delete/{saleDateId}")
     suspend fun deleteSaleDate(@Path("saleDateId") saleDateId: Int): Response<ApiResponse>
+
+    @GET("saleDate/get/{saleDateId}")
+    suspend fun getSaleDate(@Path("saleDateId") saleDateId: Int): Response<GetSaleDateResponse>
 
 }

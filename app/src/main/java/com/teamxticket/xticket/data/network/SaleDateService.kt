@@ -76,4 +76,20 @@ class SaleDateService {
         }
     }
 
+    suspend fun getSaleDate(saleDateId: Int): SaleDate? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = retrofit.create(SaleDateApiClient::class.java).getSaleDate(saleDateId)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.body()?.saleDate
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
+        }
+    }
+
 }

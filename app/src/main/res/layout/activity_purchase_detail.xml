@@ -249,7 +249,8 @@
                     android:layout_width="wrap_content"
                     android:text="@string/cancel"
                     app:icon="@drawable/baseline_cancel_24"
-                    app:iconGravity="textEnd"/>
+                    app:iconGravity="textEnd"
+                    style="@style/BadButtonStyle"/>
 
                 <Space
                     android:layout_width="100dp"

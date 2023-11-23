@@ -29,7 +29,6 @@ class TicketListFragment : Fragment() {
         val rootView = binding.root
         binding.rvTicketsList.layoutManager = LinearLayoutManager(requireContext())
 
-        ticketsViewModel.loadTickets(activeUser!!.userId)
         initListeners()
         initObservables()
         return rootView

@@ -86,4 +86,8 @@
         <item name="android:trackTint">@color/red</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="line">
+        <item name="background">@color/white</item>
+    </style>
 </resources>

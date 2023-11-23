@@ -130,4 +130,6 @@
     <string name="dialog_accept_button">Aceptar</string>
     <string name="dialog_cancel_button">Cancelar</string>
     <string name="successful_register">Registro de usuario exitoso</string>
+    <string name="avalableTickets">Entradas disponibles</string>
+    <string name="success_purchase">Compra realizada con exito</string>
 </resources>

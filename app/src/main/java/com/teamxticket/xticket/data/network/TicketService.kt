@@ -48,7 +48,11 @@ class TicketService {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(TicketApiClient::class.java).postTicket(newTicket)
-                if (response.code() >= 500) {
+                if (response.code() == 551) {
+                    throw Exception("You already have a ticket for this event")
+                } else if (response.code() == 550) {
+                    throw Exception("No tickets available")
+                } else if (response.code() >= 500) {
                     throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
                 } else if (response.code() >= 400) {
                     throw Exception(Resources.getSystem().getString(R.string.message_exception_400))

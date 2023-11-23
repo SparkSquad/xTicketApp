@@ -25,4 +25,8 @@ class SaleDateRepository {
     suspend fun putSaleDate(saleDateId: Int, newSaleDate: SaleDate): Int {
         return api.putSaleDate(saleDateId, newSaleDate)
     }
+
+    suspend fun getSaleDate(saleDateId: Int): SaleDate? {
+        return api.getSaleDate(saleDateId)
+    }
 }

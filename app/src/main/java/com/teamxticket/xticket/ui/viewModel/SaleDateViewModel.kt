@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class SaleDateViewModel : ViewModel() {
 
     var saleDateModel = MutableLiveData<List<SaleDate>?>()
+    var saleDateActive = MutableLiveData<SaleDate?>()
     var showLoader = MutableLiveData<Boolean>()
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderUpdate = MutableLiveData<Boolean>()
