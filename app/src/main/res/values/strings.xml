@@ -123,6 +123,7 @@
     <string name="invalidUser">El correo o la contraseña no son correctos, por favor verifique e intente de nuevo. </string>
     <string name="invalidFields">Los campos no pueden estar vacíos</string>
     <string name="invalidUserData">Por favor, ingrese su correo y contraseña para continuar.</string>
+<<<<<<< refs/remotes/origin/develop
     <string name="saleDates">Fechas de evento</string>
     <string name="eventDetails">Detalles del evento</string>
     <string name="availableEvents">Eventos disponibles</string>
@@ -132,4 +133,7 @@
     <string name="successful_register">Registro de usuario exitoso</string>
     <string name="avalableTickets">Entradas disponibles</string>
     <string name="success_purchase">Compra realizada con exito</string>
+=======
+
+>>>>>>> okei
 </resources>

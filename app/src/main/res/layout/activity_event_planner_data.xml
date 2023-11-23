@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.EventPlannerDataActivity"
+    android:orientation="vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginTop="40dp">
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif-black"
+      android:text="@string/name"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:drawableLeft="@drawable/baseline_person_24"/>
+
+  <TextView
+      android:id="@+id/tvName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif"
+      android:text="nombre"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="normal"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif-black"
+      android:text="@string/email"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:drawableLeft="@drawable/baseline_email_24"/>
+
+  <TextView
+      android:id="@+id/tvEmail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif"
+      android:text="correo electrónico"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="normal"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif-black"
+      android:text="@string/numberphone"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      android:drawableLeft="@drawable/baseline_telephone"/>
+
+  <TextView
+      android:id="@+id/tvPhoneNumber"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="6dp"
+      android:fontFamily="sans-serif"
+      android:text="teléfono"
+      android:textAlignment="textStart"
+      android:textAllCaps="true"
+      android:textSize="16sp"
+      android:textStyle="normal"/>
+
+</LinearLayout>
