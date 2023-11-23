@@ -23,7 +23,9 @@ import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.BandArtistProvider
 import com.teamxticket.xticket.data.model.Event
+import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
+import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
@@ -32,6 +34,7 @@ class EventDetailActivity : AppCompatActivity() {
     private val eventViewModel : EventViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
     private var eventId = -1
+    private var event: Event? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,11 +124,14 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
         binding.btnRegisterTicketTaker.setOnClickListener {
-
+            Intent(this, ActivitySignUpTicketTakerBinding::class.java).apply {
+                putExtra("eventId", eventId)
+                startActivity(this)
+            }
         }
 
         binding.btnCancelEvent.setOnClickListener {
-
+            eventViewModel.deleteEvent(eventId)
         }
     }
 

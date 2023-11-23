@@ -58,6 +58,9 @@
     <string name="add_sale_date">Añadir nueva fecha</string>
     <string name="adults">Adultos</string>
     <string name="RegisterTikerTaker">Registrar Portero</string>
+    <string name="ticketTakerName">Nombre del portero</string>
+    <string name="ticket_details">Detalles del boleto</string>
+    <string name="back">Regresar</string>
     <string name="_1000">1000</string>
     <string name="_1200">1200</string>
     <string name="_3">3</string>

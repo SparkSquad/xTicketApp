@@ -1,8 +1,10 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.teamxticket.xticket.R
@@ -10,6 +12,11 @@ import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.databinding.ActivitySignupBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 
 class SignUpTicketTakerActivity : AppCompatActivity() {
 
@@ -23,7 +30,36 @@ class SignUpTicketTakerActivity : AppCompatActivity() {
         initObservables()
     }
 
-    private fun initObservables() {}
+    private fun initObservables() {
+        userViewModel.successfulRegister.observe(this) { it ->
+            if (it == 200) {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                    .setTitle("Atencion")
+                    .setMessage("Ticket Taker registrado correctamente")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            val intent =
+                                Intent(this@SignUpTicketTakerActivity, EventDetailActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    })
+                    .show()
+
+            } else {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle("Atencion")
+                    .setMessage("Error al registrar el Ticket Taker")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+            }
+        }
+    }
     private fun initListeners() {
         binding.btnSignUp.setOnClickListener{
             if (validateForm()){

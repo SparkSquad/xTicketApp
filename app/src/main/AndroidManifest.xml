@@ -25,9 +25,6 @@
             android:name=".ui.view.TicketDetailsQr"
             android:exported="false" />
         <activity
-            android:name=".ui.view.ScanQrTicket"
-            android:exported="false" />
-        <activity
             android:name=".ui.view.EventDetailActivity"
             android:exported="false" />
         <activity
@@ -53,6 +50,9 @@
             android:exported="false"/>
         <activity
             android:name=".ui.view.RegisterSaleDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.ScanQrTicket"
             android:exported="false" />
         <activity
             android:name=".ui.view.CreateEventActivity"

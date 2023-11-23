@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -16,6 +17,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -40,8 +42,25 @@ class SignUpActivity : AppCompatActivity() {
                     .setDarkMode(darkDialog)
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            val intent = Intent(this@SignUpActivity, LandingActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    })
+                    .show()
+
+            } else {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle("Atencion")
+                    .setMessage("Error al registrar el usuario")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
                     .show()
             }
+
         }
 
         userViewModel.showLoader.observe(this) { showLoader ->

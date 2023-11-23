@@ -95,6 +95,22 @@ class EventService {
         }
     }
 
+    suspend fun deleteEvent(eventId: Int): Int {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = retrofit.create(EventApiClient::class.java).deleteEvent(eventId)
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.code()
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
+        }
+    }
+
     suspend fun searchEvents(query: String, genre: String?, limit: Int, page: Int): SearchEventsResponse {
         val params = mutableMapOf(
             "limit" to limit.toString(),

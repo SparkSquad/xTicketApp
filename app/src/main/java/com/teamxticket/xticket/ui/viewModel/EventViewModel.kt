@@ -18,6 +18,8 @@ class EventViewModel : ViewModel() {
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderGenres = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
+    var successfulDelete = MutableLiveData<Int>()
+    var showLoaderUpdate = MutableLiveData<Boolean>()
     var error = MutableLiveData<String>()
     var firstLoad = true
     var successfulUpdate = MutableLiveData<Int>()
@@ -103,6 +105,19 @@ class EventViewModel : ViewModel() {
                 errorCode.postValue(e.message)
             }
             showLoader.postValue(false)
+        }
+    }
+
+    fun deleteEvent(eventId: Int) {
+        viewModelScope.launch {
+            showLoaderUpdate.postValue(true)
+            try {
+                val result = eventUseCase.deleteEvent(eventId)
+                successfulDelete.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoaderUpdate.postValue(false)
         }
     }
 }

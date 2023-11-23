@@ -7,6 +7,7 @@ import com.teamxticket.xticket.data.model.GenreResponse
 import com.teamxticket.xticket.data.model.SearchEventsResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.FieldMap
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -32,4 +33,7 @@ interface EventApiClient {
 
     @GET("event/getEvent/{eventId}")
     suspend fun getEvent(@Path("eventId") eventId: Int): Response<Event>
+
+    @DELETE("event/delete/{eventId}")
+    suspend fun deleteEvent(@Path("eventId") eventId: Int): Response<CodeResponse>
 }

@@ -29,6 +29,10 @@ class EventRepository {
         return api.getEvent(eventId)
     }
 
+    suspend fun deleteEvent(eventId: Int): Int {
+        return api.deleteEvent(eventId)
+    }
+
     suspend fun searchEvents(query: String, genre: String?, limit: Int, page: Int): EventsSearchResult {
         val response = api.searchEvents(query, genre, limit, page)
         if(response.results == null || response.page == null || response.totalElems == null) throw Exception("Error searching events")
