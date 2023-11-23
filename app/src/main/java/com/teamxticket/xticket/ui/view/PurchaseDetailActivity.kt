@@ -89,7 +89,7 @@ class PurchaseDetailActivity : AppCompatActivity() {
         }
 
         ticketsViewModel.successfulPurchase.observe(this) { it ->
-            if (it == 1) {
+            if (it == 200) {
                 AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
                     .setTitle(getString(R.string.success))
                     .setMessage(getString(R.string.success_purchase))
