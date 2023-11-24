@@ -50,8 +50,20 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:paddingEnd="10dp"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/Theme.MaterialComponents.Light"/>
+                    app:popupTheme="@style/Theme.MaterialComponents.Light">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_star_24"
+                        android:textAlignment="center"
+                        android:outlineSpotShadowColor="@color/transparent"
+                        android:outlineAmbientShadowColor="@color/transparent"
+                        android:backgroundTint="@color/transparent"
+                        android:layout_gravity="center"
+                        android:contentDescription="TODO" />
+                </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

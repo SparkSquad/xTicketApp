@@ -1,24 +1,29 @@
 package com.teamxticket.xticket.ui.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.databinding.FragmentExploreEventsBinding
 import com.teamxticket.xticket.ui.view.adapter.EventAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import com.teamxticket.xticket.ui.viewModel.UserViewModel
 import kotlin.math.abs
 
 class ExploreEventsFragment : Fragment() {
@@ -26,6 +31,9 @@ class ExploreEventsFragment : Fragment() {
     private var _binding: FragmentExploreEventsBinding? = null
     private val binding get() = _binding!!
     private val eventsViewModel: EventViewModel by viewModels()
+    private val usersViewModel: UserViewModel by viewModels()
+    private val activeUser: ActiveUser = ActiveUser.getInstance()
+    private var filterFollowedEvents: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentExploreEventsBinding.inflate(inflater, container, false)
@@ -62,6 +70,10 @@ class ExploreEventsFragment : Fragment() {
         eventsViewModel.genresModel.observe(this.viewLifecycleOwner) { genresList ->
             populateGenresChipsGroup(genresList ?: arrayListOf())
         }
+
+        usersViewModel.followedEvents.observe(lifecycle) { followedList ->
+            eventsViewModel.filterFollowedEvents(followedList)
+        }
     }
 
     private fun initListeners() {
@@ -86,6 +98,19 @@ class ExploreEventsFragment : Fragment() {
             }
             else {
                 binding.collapsingToolbar.isTitleEnabled = false
+            }
+        }
+
+        binding.tvFavoriteEvents.setOnClickListener {
+            if(!filterFollowedEvents) {
+                activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvent(it1.userId) }
+                binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.yellow))
+                filterFollowedEvents = true
+            }
+            else {
+                eventsViewModel.filterFollowedEvents(null)
+                binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.white))
+                filterFollowedEvents = false
             }
         }
     }

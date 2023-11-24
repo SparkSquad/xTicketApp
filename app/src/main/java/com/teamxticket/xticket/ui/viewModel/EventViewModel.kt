@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.EventRepository
 import com.teamxticket.xticket.data.model.Event
+import com.teamxticket.xticket.data.model.EventFollow
 import com.teamxticket.xticket.data.model.EventProvider
 import com.teamxticket.xticket.domain.EventUseCase
 import kotlinx.coroutines.launch
@@ -50,6 +51,20 @@ class EventViewModel : ViewModel() {
             EventProvider.eventsList.addAll(search.results)
             eventModel.postValue(search.results)
             showLoader.postValue(false)
+        }
+    }
+
+    fun filterFollowedEvents(followedEvents: List<EventFollow>?) {
+        viewModelScope.launch {
+            if(followedEvents != null) {
+                val list = EventProvider.eventsList.filter { event ->
+                    followedEvents.find { eventFollow -> event.eventId == eventFollow.eventId } != null
+                }
+                eventModel.postValue(list)
+            }
+            else {
+                eventModel.postValue(EventProvider.eventsList)
+            }
         }
     }
 

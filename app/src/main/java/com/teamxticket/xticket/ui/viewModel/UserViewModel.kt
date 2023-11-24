@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.UserRepository
+import com.teamxticket.xticket.data.model.EventFollow
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.domain.UserUseCase
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
     private val userUseCase = UserUseCase()
     var receivedUser = MutableLiveData<UserResponse>()
+    var followedEvents = MutableLiveData<List<EventFollow>>()
     var showLoader = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
     var successfulUpdate = MutableLiveData<Int>()
@@ -48,6 +50,17 @@ class UserViewModel : ViewModel() {
                 errorCode.postValue(e.message)
             }
             showLoader.postValue(false)
+        }
+    }
+
+    fun loadFollowedEvent(userId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = UserRepository().getUserEventFollows(userId)
+                followedEvents.postValue(result.response)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
         }
     }
 }
