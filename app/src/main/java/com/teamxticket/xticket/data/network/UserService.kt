@@ -5,6 +5,7 @@ import android.content.res.Resources
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.RetrofitHelper
 import com.teamxticket.xticket.data.model.CodeResponse
+import com.teamxticket.xticket.data.model.SearchEventPlannerResponse
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import kotlinx.coroutines.Dispatchers
@@ -62,4 +63,17 @@ class UserService{
             }
         }
     }
+
+    suspend fun searchEventPlanners(query: String, limit: Int, page: Int): SearchEventPlannerResponse {
+            val params = mutableMapOf(
+                "limit" to limit.toString(),
+                "page" to page.toString()
+            )
+        return withContext(Dispatchers.IO) {
+                val response = retrofit.create(UsersApiClient::class.java).searchEventPlanners(query, params.toMap())
+                response.body() ?: SearchEventPlannerResponse(null, null, null)
+            }
+
+    }
+
 }

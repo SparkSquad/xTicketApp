@@ -135,4 +135,7 @@
     <string name="successful_register">Registro de usuario exitoso</string>
     <string name="avalableTickets">Entradas disponibles</string>
     <string name="success_purchase">Compra realizada con exito</string>
+    <string name="searchEventPlanner">Buscar organizador</string>
+    <string name="disabled">DESHABILITADO</string>
+    <string name="enabled">HABILITADO</string>
 </resources>

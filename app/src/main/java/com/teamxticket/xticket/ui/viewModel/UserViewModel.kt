@@ -8,12 +8,15 @@ import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.domain.UserUseCase
 import kotlinx.coroutines.launch
+import java.time.temporal.TemporalQuery
+
 class UserViewModel : ViewModel() {
     private val userUseCase = UserUseCase()
     var receivedUser = MutableLiveData<UserResponse>()
     var showLoader = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
     var successfulUpdate = MutableLiveData<Int>()
+    var eventPlannerSearchResult = MutableLiveData<List<User>?>()
     var errorCode = MutableLiveData<String>()
 
     fun searchUser(user : User) {
@@ -49,5 +52,15 @@ class UserViewModel : ViewModel() {
             }
             showLoader.postValue(false)
         }
+    }
+
+    fun searchEventPlanners(query: String, limit: Int, page: Int) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            val search = userUseCase.searchEventPlanners(query, limit, page)
+            eventPlannerSearchResult.postValue(search.results)
+            showLoader.postValue(false)
+        }
+
     }
 }

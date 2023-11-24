@@ -6,5 +6,6 @@ data class User(
     val name: String,
     val type: String,
     val password: String,
-    val surnames: String
+    val surnames: String,
+    val disabled: Boolean
 )
