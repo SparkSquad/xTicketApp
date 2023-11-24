@@ -2,6 +2,8 @@ package com.teamxticket.xticket.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
@@ -43,7 +45,7 @@ class PurchaseDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         eventId = intent.getIntExtra("eventId", 1)
-        saleDateId = intent.getIntExtra("saleDateId", 4)
+        saleDateId = intent.getIntExtra("saleDateId", 1)
 
         initListeners()
         initObservables()
@@ -62,6 +64,37 @@ class PurchaseDetailActivity : AppCompatActivity() {
         binding.btnBuy.setOnClickListener {
             purchaseTicket()
         }
+
+        binding.etTickets.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (binding.etTickets.text.toString().isNotEmpty()) {
+                    val total = dateActive.price * binding.etTickets.text.toString().toInt()
+                    binding.etTotal.setText(buildString {
+                        append(getString(R.string.total))
+                        append(total.toString())
+                    })
+                }
+            }
+        }
+
+        binding.etTickets.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No se utiliza en este caso
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No se utiliza en este caso
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                editable?.let {
+                    val currentValue = it.toString().toIntOrNull() ?: 0
+                    if (currentValue > dateActive.maxTickets) {
+                        binding.etTickets.setText(dateActive.maxTickets.toString())
+                    }
+                }
+            }
+        })
     }
 
     private fun purchaseTicket() {
@@ -128,6 +161,8 @@ class PurchaseDetailActivity : AppCompatActivity() {
             if (saleDate != null) {
                 calendar.time = saleDate
             }
+
+            binding.tvMessageTickets.text = dateActive.toString()
 
             val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()

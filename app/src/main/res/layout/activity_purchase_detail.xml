@@ -205,6 +205,7 @@
             style="@style/SectionField" />
 
         <EditText
+            android:id="@+id/etTickets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="1"
@@ -212,9 +213,14 @@
             android:inputType="number"
             android:maxLength="2"
             android:ems="10"
-            android:id="@+id/etTickets"
             android:autofillHints=""
             style="@style/SectionFieldEditableArea"/>
+
+        <TextView
+            android:id="@+id/tvMessageTickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -231,7 +237,8 @@
             android:enabled="false"
             android:ems="10"
             android:id="@+id/etTotal"
-            style="@style/SectionFieldEditableArea"/>
+            style="@style/SectionFieldEditableArea"
+            android:autofillHints=""/>
 
         <TableLayout
             android:layout_width="match_parent"
