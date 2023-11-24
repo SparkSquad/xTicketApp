@@ -107,7 +107,7 @@ class EventDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists, null, null)
+                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists, null, null, null)
                 eventViewModel.updateEvent(event)
 
             }

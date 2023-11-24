@@ -88,7 +88,7 @@ class EventService {
                 } else if (response.code() >= 400) {
                     throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
-                response.body() ?: Event(-1, "", "", "", "", -1, mutableListOf(), null, null)
+                response.body() ?: Event(-1, "", "", "", "", -1, mutableListOf(), mutableListOf(), mutableListOf(), null)
             } catch (e: SocketTimeoutException) {
                 throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
