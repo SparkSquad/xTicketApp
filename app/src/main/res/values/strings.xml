@@ -148,4 +148,5 @@
     <string name="event_ticket_price_format">$ %.2f</string>
     <string name="age_restriction">Mayores de 18</string>
     <string name="event_capacity_format">%d personas</string>
+    <string name="event_details">Detalles de evento</string>
 </resources>
