@@ -1,6 +1,8 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,7 @@ import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
 import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import java.util.UUID
 
 class EventDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEventDetailBinding
@@ -35,6 +38,8 @@ class EventDetailActivity : AppCompatActivity() {
     private var activeUser = ActiveUser.getInstance().getUser()
     private var eventId = -1
     private var event: Event? = null
+    private lateinit var preferences: SharedPreferences
+    private lateinit var ticketTakerCode: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,14 @@ class EventDetailActivity : AppCompatActivity() {
 
         eventId = intent.getIntExtra("eventId", -1)
         eventViewModel.getEvent(eventId)
+        preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        ticketTakerCode = preferences.getString("ticketTakerCode", null) ?: generateRandomCode()
+
+        binding.etTicketTakerCode.setText(ticketTakerCode)
+
+        if (ticketTakerCode == null) {
+            preferences.edit().putString("ticketTakerCode", ticketTakerCode).apply()
+        }
 
         initSpinnerMusicalGenres()
         setupValidationOnFocusChange(binding.eventName)
@@ -100,6 +113,7 @@ class EventDetailActivity : AppCompatActivity() {
             val eventLocation = binding.eventLocation.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val bandsAndArtists = BandArtistProvider.bandArtistList
 
+
             setElementView(binding.eventName, eventName.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.musicalGenres, (musicalGenres.selectedItemPosition == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
@@ -110,7 +124,7 @@ class EventDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists, null, null)
+                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, ticketTakerCode, bandsAndArtists, null, null)
                 eventViewModel.updateEvent(event)
 
             }
@@ -123,12 +137,7 @@ class EventDetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnRegisterTicketTaker.setOnClickListener {
-            Intent(this, ActivitySignUpTicketTakerBinding::class.java).apply {
-                putExtra("eventId", eventId)
-                startActivity(this)
-            }
-        }
+
 
         binding.btnCancelEvent.setOnClickListener {
             eventViewModel.deleteEvent(eventId)
@@ -253,5 +262,12 @@ class EventDetailActivity : AppCompatActivity() {
     private fun initRecyclerViewBandsAndArtists(adapter: BandArtistAdapter) {
         binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
         binding.recyclerBandsAndArtists.adapter = adapter
+    }
+
+    private fun generateRandomCode(): String {
+        val allowedChars = ('A'..'Z') + ('0'..'9')
+        return (1..10)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
@@ -20,11 +21,13 @@ import com.budiyev.android.codescanner.ScanMode
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.TicketData
+import com.teamxticket.xticket.ui.viewModel.EventViewModel
 
 class ScanQrTicket : AppCompatActivity() {
 
     private lateinit var codeScanner: CodeScanner
     private lateinit var mainLayout: FrameLayout
+    private val eventViewModel : EventViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,22 +51,10 @@ class ScanQrTicket : AppCompatActivity() {
             }
         }
 
+
+
         // Parameters (default values)
         codeScanner.camera = CodeScanner.CAMERA_BACK
-        codeScanner.setDecodeCallback { result ->
-            runOnUiThread {
-
-                if (result.text.startsWith("xTicket")) {
-                    Toast.makeText(this, "Valid Ticket",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, TicketDetailsQr::class.java)
-                    startActivity(intent)
-                    finish()
-
-                } else {
-                    Toast.makeText(this, "Invalid Ticket",Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
         codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
         codeScanner.scanMode = ScanMode.CONTINUOUS // or CONTINUOUS or PREVIEW
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
@@ -75,12 +66,21 @@ class ScanQrTicket : AppCompatActivity() {
 
                 if (result.text.startsWith("xTicket")) {
                     val ticketData = parseTicketData(result.text)
-                    val intent = Intent(this, TicketDetailsQr::class.java)
-                    startActivity(intent)
-                    finish()
-
+                    ticketData?.let { event ->
+                        eventViewModel.getEvent(event.eventId)
+                        eventViewModel.eventModel.observe(this) { events ->
+                            if (!events.isNullOrEmpty()) {
+                                val eventId = events[0].eventId
+                                val intent = Intent(this, TicketDetailsQr::class.java)
+                                intent.putExtra("EVENT_ID", eventId)
+                                startActivity(intent)
+                            } else {
+                                // Maneja el caso en que no se obtuvo ningún evento
+                            }
+                        }
+                    }
                 } else {
-                    Toast.makeText(this, "Invalid Ticket",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Invalid Ticket", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -108,7 +108,7 @@ class ScanQrTicket : AppCompatActivity() {
 
             // Verifica si la conversión fue exitosa
             if (eventId != null) {
-                return Event(eventId, "", "", "", "", 0, null, null, null)
+                //return Event(eventId, "", "", "", "", 0, null, null, null)
             }
         }
 

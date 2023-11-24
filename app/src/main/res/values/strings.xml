@@ -36,6 +36,7 @@
     <string name="enterPassword">Ingrese una contraseña</string>
     <string name="enterEmail">Ingrese su email</string>
     <string name="password">Contraseña</string>
+    <string name="passwordConfirmationTickteTaker">Codigo del evento</string>
     <string name="enterPasswordConfirmation">Ingrese de nuevo la contraseña</string>
     <string name="confirmPassword">Confirme su contraseña</string>
     <string name="create_sign_up">Registrarse</string>
@@ -52,14 +53,17 @@
     <string name="start_hour">Hora de inicio</string>
     <string name="create_sale_date">Crear fecha</string>
     <string name="signIn">INICIAR SESIÓN</string>
+    <string name="signInTicketTaker">INICIAR SESIÓN COMO PORTERO</string>
     <string name="createAccount">CREAR CUENTA</string>
     <string name="email">Correo electrónico</string>
     <string name="forgotPassword">Olvidaste tu contraseña?</string>
+    <string name="forgotTicketTaker">Eres un portero?</string>
     <string name="add_sale_date">Añadir nueva fecha</string>
     <string name="adults">Adultos</string>
     <string name="RegisterTikerTaker">Registrar Portero</string>
     <string name="ticketTakerName">Nombre del portero</string>
     <string name="ticket_details">Detalles del boleto</string>
+    <string name="enterTicketTakerCode">Codigo de inicio de sesion para el portero</string>
     <string name="back">Regresar</string>
     <string name="_1000">1000</string>
     <string name="_1200">1200</string>
@@ -90,6 +94,7 @@
     <string name="message_can_not_connect_with_server">No se ha podido conectar con el servidor</string>
     <string name="xticket_logo">xTICKET</string>
     <string name="welcomeBack">¡Bienvenido de nuevo!</string>
+    <string name="welcomeTickerTaker">!Bienvenido Portero!</string>
     <string name="durationError">La hora de finalización debe ser posterior a la hora de inicio</string>
     <string name="saleDateCreated">Fecha de evento creada</string>
     <string name="saleDateNotCreated">Error al crear la fecha de evento</string>
@@ -126,6 +131,7 @@
     <string name="invalidUser">El correo o la contraseña no son correctos, por favor verifique e intente de nuevo. </string>
     <string name="invalidFields">Los campos no pueden estar vacíos</string>
     <string name="invalidUserData">Por favor, ingrese su correo y contraseña para continuar.</string>
+    <string name="invalidTicketTakerData">Por favor, ingrese el codigo de evento para continuar.</string>
     <string name="saleDates">Fechas de evento</string>
     <string name="eventDetails">Detalles del evento</string>
     <string name="availableEvents">Eventos disponibles</string>

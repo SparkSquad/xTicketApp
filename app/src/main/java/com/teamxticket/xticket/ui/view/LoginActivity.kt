@@ -33,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         initObservables()
         initListeners()
+        binding.btnSignInTicketTaker.setOnClickListener {
+            val intent = Intent(this@LoginActivity, LoginTicketTaker::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initListeners () {
@@ -54,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     .setAnimation(DialogAnimation.SHRINK).show()
             }
         }
+
     }
 
     private fun initObservables () {
@@ -88,4 +93,5 @@ class LoginActivity : AppCompatActivity() {
             binding.progressBar.isVisible = it
         }
     }
+
 }
