@@ -135,4 +135,8 @@
     <string name="successful_register">Registro de usuario exitoso</string>
     <string name="avalableTickets">Entradas disponibles</string>
     <string name="success_purchase">Compra realizada con exito</string>
+    <string name="inputEmail">Introduce tu correo electrónico</string>
+    <string name="sendOneTimeUseCode">Enviar código de un solo uso</string>
+    <string name="inputOneTimeUseCode">Introduce el código que recibiste</string>
+    <string name="code">Código</string>
 </resources>

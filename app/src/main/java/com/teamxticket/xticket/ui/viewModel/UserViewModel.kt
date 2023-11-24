@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.UserRepository
+import com.teamxticket.xticket.data.model.OneTimeUseCode
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.domain.UserUseCase
@@ -28,6 +29,19 @@ class UserViewModel : ViewModel() {
             }
         }
     }
+
+    fun searchUserByCode(code: OneTimeUseCode) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            try {
+                val result = UserRepository().codeLogin(code)
+                receivedUser.postValue(result)
+            } catch (e: Exception) {
+                receivedUser.postValue(UserResponse("", e.message, "", null))
+                showLoader.postValue(false)
+            }
+        }
+    }
     
     fun registerUser(user: User) {
         viewModelScope.launch {
@@ -44,6 +58,18 @@ class UserViewModel : ViewModel() {
             try {
                 val result = userUseCase.putUser(user)
                 successfulUpdate.postValue(result)
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+            }
+            showLoader.postValue(false)
+        }
+    }
+
+    fun recoverPassword(email: String) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+            try {
+                UserRepository().requestOTUCode(email)
             } catch (e: Exception) {
                 errorCode.postValue(e.message)
             }
