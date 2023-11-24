@@ -43,7 +43,8 @@ class ExploreEventsFragment : Fragment() {
         val lifecycle = this.viewLifecycleOwner
 
         eventsViewModel.eventModel.observe(lifecycle) { eventsList ->
-            val eventsData : MutableList<Event> = eventsList?.toMutableList() ?: arrayListOf()
+            var eventsData : MutableList<Event> = eventsList?.toMutableList() ?: arrayListOf()
+            eventsData = eventsData.filter { event -> event.saleDates?.isNotEmpty() ?: false }.toMutableList()
             val adapter = EventAdapter(eventsData) { eventData -> onItemSelected(eventData) }
             binding.rvSearchResults.adapter = adapter
         }

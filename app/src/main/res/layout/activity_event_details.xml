@@ -14,18 +14,20 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvEventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GORILLAZ"
+            tools:text="GORILLAZ"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tvEventLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Beaumont, TX, USA. Civic Center"
+            tools:text="Beaumont, TX, USA. Civic Center"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
@@ -33,12 +35,13 @@
             android:layout_marginBottom="6dp"/>
 
         <TextView
+            android:id="@+id/tvEventPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$ 1050.00"
+            tools:text="$ 1050.00"
             android:textAlignment="textStart"
             android:fontFamily="sans-serif-medium"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:layout_marginBottom="10dp"/>
 
         <Button
@@ -46,29 +49,30 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/darkBlue"
-            android:text="Comprar boletos"
+            android:text="@string/buy_ticket_button"
             android:textAllCaps="true"
             android:fontFamily="sans-serif-medium"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvEventMaxTicketsPerPerson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Máximo 3 boletos por persona"
+            tools:text="Máximo 3 boletos por persona"
             android:textAlignment="textEnd"
             android:fontFamily="sans-serif-medium"
             android:textSize="16sp"
-            android:drawableEnd="@drawable/baseline_info_24"
             android:textColor="#606060"
             android:drawablePadding="8dp"
-            android:drawableTint="#606060"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="6dp"
+            app:drawableEndCompat="@drawable/baseline_info_24"
+            app:drawableTint="#606060" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción"
+            android:text="@string/event_description_label"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
@@ -78,18 +82,19 @@
             android:textAllCaps="true"/>
 
         <TextView
+            android:id="@+id/tvEventDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl."
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl."
             android:textAlignment="textStart"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha"
+            android:text="@string/event_dates_label"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
@@ -98,19 +103,39 @@
             android:layout_marginBottom="6dp"
             android:textAllCaps="true"/>
 
+        <LinearLayout
+            android:id="@+id/llEventDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="6dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sábado 20 de Noviembre de 2021"
+            android:text="@string/event_age_restriction_label"
             android:textAlignment="textStart"
-            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/tvAgeRestriction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/no_age_restriction"
+            android:textAlignment="textStart"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hora"
+            android:text="@string/event_max_capacity"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
@@ -120,18 +145,19 @@
             android:textAllCaps="true"/>
 
         <TextView
+            android:id="@+id/tvEventMaxCapacity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="8:00 PM"
+            tools:text="2000 personas"
             android:textAlignment="textStart"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif"
             android:textSize="16sp"
             android:layout_marginBottom="6dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Clasificación"
+            android:text="@string/event_planner_label"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
@@ -141,51 +167,11 @@
             android:textAllCaps="true"/>
 
         <TextView
+            android:id="@+id/tvEventPlannerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Apto para todas las edades"
-            android:textAlignment="textStart"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="16sp"
-            android:layout_marginBottom="6dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Capacidad máxima"
-            android:textAlignment="textStart"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="6dp"
-            android:textAllCaps="true"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2000 personas"
-            android:textAlignment="textStart"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="16sp"
-            android:layout_marginBottom="6dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Organizador"
-            android:textAlignment="textStart"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="6dp"
-            android:textAllCaps="true"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jose Carlos Castillo Aguilar"
+            tools:text="Jose Carlos Castillo Aguilar"
+            android:textColor="@color/darkBlue"
             android:textAlignment="textStart"
             android:fontFamily="sans-serif-medium"
             android:textSize="16sp"

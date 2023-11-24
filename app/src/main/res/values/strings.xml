@@ -137,4 +137,15 @@
     <string name="explore_events_title_bar">Explorar eventos</string>
     <string name="event_hour_label">Hora: </string>
     <string name="event_price_label">Entrada: $</string>
+    <string name="buy_ticket_button">Comprar boletos</string>
+    <string name="event_description_label">Descripción</string>
+    <string name="event_dates_label">Fechas</string>
+    <string name="no_age_restriction">Apto para todas las edades</string>
+    <string name="event_age_restriction_label">Clasificación</string>
+    <string name="event_max_capacity">Capacidad máxima</string>
+    <string name="event_planner_label">Organizador</string>
+    <string name="event_max_tickets_per_person_format">Máximo %d entradas por persona</string>
+    <string name="event_ticket_price_format">$ %.2f</string>
+    <string name="age_restriction">Mayores de 18</string>
+    <string name="event_capacity_format">%d personas</string>
 </resources>
