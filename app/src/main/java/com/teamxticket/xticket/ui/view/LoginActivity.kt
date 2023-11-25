@@ -58,7 +58,12 @@ class LoginActivity : AppCompatActivity() {
                     .setAnimation(DialogAnimation.SHRINK).show()
             }
         }
-
+        binding.tvForgotPassword.setOnClickListener(){
+            Intent (this, RecoverPasswordActivity::class.java).apply {
+                finish()
+                startActivity(this)
+            }
+        }
     }
 
     private fun initObservables () {

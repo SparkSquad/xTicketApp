@@ -1,5 +1,7 @@
 import com.teamxticket.xticket.data.model.ApiResponse
 import com.teamxticket.xticket.data.model.CodeResponse
+import com.teamxticket.xticket.data.model.OneTimeUseCode
+import com.teamxticket.xticket.data.model.OneTimeUseCodeResponse
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
@@ -18,4 +20,8 @@ interface UsersApiClient {
 
     @PUT("auth/update")
     suspend fun putUser(@Body user: User): Response<CodeResponse>
+    @POST("user/requestOTUCode")
+    suspend fun requestOTUCode(email: String): Response<OneTimeUseCodeResponse>
+    @POST("auth/codeLogin")
+    suspend fun codeLogin(@Body oneTUCode: OneTimeUseCode): Response<UserResponse>
 }
