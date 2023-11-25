@@ -1,21 +1,21 @@
 package com.teamxticket.xticket.ui.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
@@ -25,6 +25,7 @@ import com.teamxticket.xticket.ui.view.adapter.EventAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
 import kotlin.math.abs
+
 
 class ExploreEventsFragment : Fragment() {
 
@@ -72,7 +73,19 @@ class ExploreEventsFragment : Fragment() {
         }
 
         usersViewModel.followedEvents.observe(lifecycle) { followedList ->
-            eventsViewModel.filterFollowedEvents(followedList)
+            eventsViewModel.filterFollowedEvents(filterFollowedEvents, followedList)
+        }
+    }
+
+    private fun setTextViewDrawableColor(textView: TextView, color: Int) {
+        for (drawable in textView.compoundDrawablesRelative) {
+            if (drawable != null) {
+                drawable.colorFilter =
+                    PorterDuffColorFilter(
+                        ContextCompat.getColor(textView.context, color),
+                        PorterDuff.Mode.SRC_IN
+                    )
+            }
         }
     }
 
@@ -103,14 +116,16 @@ class ExploreEventsFragment : Fragment() {
 
         binding.tvFavoriteEvents.setOnClickListener {
             if(!filterFollowedEvents) {
-                activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvent(it1.userId) }
                 binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.yellow))
+                setTextViewDrawableColor(binding.tvFavoriteEvents, R.color.yellow)
                 filterFollowedEvents = true
+                activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvent(it1.userId) }
             }
             else {
-                eventsViewModel.filterFollowedEvents(null)
                 binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.white))
+                setTextViewDrawableColor(binding.tvFavoriteEvents, R.color.white)
                 filterFollowedEvents = false
+                eventsViewModel.filterFollowedEvents(false, null)
             }
         }
     }

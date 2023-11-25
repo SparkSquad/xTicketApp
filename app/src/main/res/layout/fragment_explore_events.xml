@@ -26,6 +26,13 @@
                 app:contentScrim="@color/darkPink"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Theme.MaterialComponents.Light" />
+
                 <LinearLayout
                     android:id="@+id/collapsingToolbarContent"
                     android:layout_width="match_parent"
@@ -45,8 +52,7 @@
                         android:padding="15dp"
                         app:drawableEndCompat="@drawable/baseline_star_24"
                         style="@style/SectionFieldDark"
-                        android:clickable="true"
-                        android:onClick=""/>
+                        android:clickable="true"/>
 
                     <EditText
                         android:id="@+id/etSearch"
@@ -81,13 +87,6 @@
                             app:singleSelection="true"/>
                     </HorizontalScrollView>
                 </LinearLayout>
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/Theme.MaterialComponents.Light" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

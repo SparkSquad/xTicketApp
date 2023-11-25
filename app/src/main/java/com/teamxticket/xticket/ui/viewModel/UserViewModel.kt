@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -59,6 +60,7 @@ class UserViewModel : ViewModel() {
                 val result = UserRepository().getUserEventFollows(userId)
                 followedEvents.postValue(result.response)
             } catch (e: Exception) {
+                Log.d("UserViewModel", "loadFollowedEvent: {${e.message}}")
                 errorCode.postValue(e.message)
             }
         }

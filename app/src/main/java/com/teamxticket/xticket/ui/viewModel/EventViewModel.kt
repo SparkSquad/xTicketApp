@@ -54,11 +54,11 @@ class EventViewModel : ViewModel() {
         }
     }
 
-    fun filterFollowedEvents(followedEvents: List<EventFollow>?) {
+    fun filterFollowedEvents(filter: Boolean, followedEvents: List<EventFollow>?) {
         viewModelScope.launch {
-            if(followedEvents != null) {
+            if(filter) {
                 val list = EventProvider.eventsList.filter { event ->
-                    followedEvents.find { eventFollow -> event.eventId == eventFollow.eventId } != null
+                    followedEvents?.find { eventFollow -> event.eventId == eventFollow.eventId } != null
                 }
                 eventModel.postValue(list)
             }
