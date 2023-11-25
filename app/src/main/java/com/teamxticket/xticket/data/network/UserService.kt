@@ -81,7 +81,7 @@ class UserService{
         }
     }
 
-    suspend fun requestOTUCode(email: String): OneTimeUseCodeResponse {
+    suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse {
         return withContext(Dispatchers.IO) {
             try {
                 val response = retrofit.create(UsersApiClient::class.java).requestOTUCode(email)
@@ -90,7 +90,7 @@ class UserService{
                 } else if (response.code() >= 400) {
                     throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
-                response.body() ?: OneTimeUseCodeResponse("")
+                response.body() ?: OneTimeUseCodeResponse("", -1)
             } catch (e: SocketTimeoutException) {
                 throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }

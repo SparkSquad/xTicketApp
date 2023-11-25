@@ -9,5 +9,5 @@ class UserUseCase {
     private val repository = UserRepository()
 
     suspend fun putUser(user: User): Int = repository.putUser(user)
-    suspend fun requestOTUCode(email: String): OneTimeUseCodeResponse = repository.requestOTUCode(email)
+    suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse = repository.requestOTUCode(email)
 }

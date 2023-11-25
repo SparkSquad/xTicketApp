@@ -37,7 +37,7 @@ class UserRepository {
         return api.putUser(user).code
     }
 
-    suspend fun requestOTUCode(email: String): OneTimeUseCodeResponse {
-        return api.requestOTUCode("asldjfh")
+    suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse {
+        return api.requestOTUCode(email)
     }
 }

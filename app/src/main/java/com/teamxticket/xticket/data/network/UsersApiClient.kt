@@ -20,8 +20,10 @@ interface UsersApiClient {
 
     @PUT("auth/update")
     suspend fun putUser(@Body user: User): Response<CodeResponse>
+
     @POST("user/requestOTUCode")
-    suspend fun requestOTUCode(email: String): Response<OneTimeUseCodeResponse>
+    suspend fun requestOTUCode(@Body email: OneTimeUseCode): Response<OneTimeUseCodeResponse>
+
     @POST("auth/codeLogin")
     suspend fun codeLogin(@Body oneTUCode: OneTimeUseCode): Response<UserResponse>
 }

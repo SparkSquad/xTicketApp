@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.teamxticket.xticket.data.model.OneTimeUseCode
 import com.teamxticket.xticket.databinding.ActivityRecoverPasswordBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
 
@@ -29,6 +30,14 @@ class RecoverPasswordActivity : AppCompatActivity() {
             binding.overlayView.isVisible = visible
         }
 
+        recoverPasswordViewModel.successfulOTUCodeRequest.observe(this) { code ->
+            if (code.userId != -1) {
+                val intent = Intent(this, SendOneTimeUseCodeActivity::class.java)
+                intent.putExtra("email", binding.etEmail.text.toString())
+                startActivity(intent)
+            }
+        }
+
         recoverPasswordViewModel.errorCode.observe(this) { errorCode ->
             Toast.makeText(this, errorCode, Toast.LENGTH_SHORT).show()
         }
@@ -37,12 +46,8 @@ class RecoverPasswordActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.btnSendOTUCode.setOnClickListener() {
             val email = binding.etEmail.text.toString()
-            recoverPasswordViewModel.recoverPassword(email)
-            Intent(this, SendOneTimeUseCodeActivity::class.java).apply {
-                startActivity(this)
-            }
+            var oneTimeUseCode = OneTimeUseCode(email, "")
+            recoverPasswordViewModel.recoverPassword(oneTimeUseCode)
         }
-
     }
-
 }

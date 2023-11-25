@@ -21,18 +21,21 @@ class SendOneTimeUseCodeActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySendOneTimeUseCodeBinding
     private val userViewModel : UserViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance()
+    private lateinit var email : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySendOneTimeUseCodeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        email = intent.getStringExtra("email").toString()
         initObservables()
         initListeners()
     }
 
     private fun initListeners(){
         binding.btnSignInFr.setOnClickListener(){
-            val code : OneTimeUseCode = OneTimeUseCode(binding.etCode.text.toString())
+            val code = OneTimeUseCode(email , binding.etCode.text.toString())
 
             if(binding.etCode.text.isNotEmpty()){
                 userViewModel.searchUserByCode(code)
