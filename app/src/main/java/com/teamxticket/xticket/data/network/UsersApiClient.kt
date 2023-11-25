@@ -1,5 +1,6 @@
 import com.teamxticket.xticket.data.model.ApiResponse
 import com.teamxticket.xticket.data.model.CodeResponse
+import com.teamxticket.xticket.data.model.EventFollow
 import com.teamxticket.xticket.data.model.SaleDateResponse
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserEventFollowsResponse
@@ -24,4 +25,7 @@ interface UsersApiClient {
 
     @GET("user/eventFollows/{userId}")
     suspend fun getUserEventFollows(@Path("userId") userId: Int) : Response<UserEventFollowsResponse>
+
+    @POST("user//eventFollow/{userId}")
+    suspend fun followEvent(@Path("userId") userId: Int, @Body eventId: EventFollow) : Response<ApiResponse>
 }

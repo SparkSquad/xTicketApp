@@ -30,4 +30,8 @@ class UserRepository {
     suspend fun getUserEventFollows(userId: Int): UserEventFollowsResponse {
         return api.getUserEventFollows(userId)
     }
+
+    suspend fun followEvent(userId: Int, eventId: Int) {
+        api.followEvent(userId, eventId)
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.databinding.ActivityEventDetailsBinding
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
@@ -23,6 +24,7 @@ class EventDetailsActivity : AppCompatActivity() {
     private var eventId: Int? = null
     private val eventViewModel: EventViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private val activeUser: ActiveUser = ActiveUser.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +92,10 @@ class EventDetailsActivity : AppCompatActivity() {
             Intent(this, PurchaseDetailActivity::class.java).apply {
                 startActivity(this)
             }
+        }
+
+        binding.fbFollowEvent.setOnClickListener {
+            activeUser.getUser()?.let { it1 -> userViewModel.followEvent(it1.userId, eventId!!) }
         }
     }
 }

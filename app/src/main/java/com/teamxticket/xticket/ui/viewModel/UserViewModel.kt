@@ -65,4 +65,15 @@ class UserViewModel : ViewModel() {
             }
         }
     }
+
+    fun followEvent(userId: Int, eventId: Int) {
+        viewModelScope.launch {
+            try {
+                userUseCase.followEvent(userId, eventId)
+            } catch (e: Exception) {
+                Log.d("UserViewModel", "followEvent: {${e.message}}")
+                errorCode.postValue(e.message)
+            }
+        }
+    }
 }
