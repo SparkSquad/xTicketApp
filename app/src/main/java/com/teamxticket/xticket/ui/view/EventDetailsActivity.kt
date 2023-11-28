@@ -47,14 +47,15 @@ class EventDetailsActivity : AppCompatActivity() {
                 binding.tvEventDescription.text = event.description
 
                 val currentDate = Date()
-                val formatter = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES"))
-                val sortedDates = event.saleDates?.sortedBy { kotlin.math.abs(formatter.parse(it.saleDate).time - currentDate.time) }
+                val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val originFormatter = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES"))
+                val sortedDates = event.saleDates?.sortedBy { kotlin.math.abs(originFormatter.parse(it.saleDate).time - currentDate.time) }
                 val calendar = Calendar.getInstance()
 
                 if (sortedDates != null) {
                     var maxTickets = 0
                     sortedDates.forEach { saleDate ->
-                        calendar.time = formatter.parse(saleDate.saleDate)!!
+                        calendar.time = originFormatter.parse(saleDate.saleDate)!!
                         val date = formatter.format(calendar.time)
 
                         val startTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(saleDate.startTime)
