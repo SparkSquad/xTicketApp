@@ -11,5 +11,6 @@ data class Event (
     val ticketTakerCode: String,
     val bandsAndArtists: MutableList<String>? = mutableListOf(),
     val artists: List<Artist>?,
-    val saleDates: List<SaleDate>?
+    val saleDates: List<SaleDate>?,
+    val eventPlanner: User?
 )
