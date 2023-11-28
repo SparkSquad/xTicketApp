@@ -39,14 +39,18 @@ class EventAdapter(private var eventList: MutableList<Event>, private val onItem
                 val calendar = Calendar.getInstance()
                 if (!sortedDates.isNullOrEmpty()) {
                     calendar.time = formatter.parse(sortedDates.first().saleDate)!!
+                    val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
+                    val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
+                    tvSaleMonth.text = month
+                    tvSaleDay.text = day
+                } else {
+                    tvSaleMonth.text = "---"
+                    tvSaleDay.text = "--"
                 }
-                val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
-                val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
-
-                tvSaleMonth.text = month
-                tvSaleDay.text = day
-
-                eventPrice.text = sortedDates?.first()!!.price.toString()
+                
+                if (sortedDates?.first() != null) {
+                    eventPrice.text = sortedDates?.first()!!.price.toString()
+                }
             }
         }
     }
