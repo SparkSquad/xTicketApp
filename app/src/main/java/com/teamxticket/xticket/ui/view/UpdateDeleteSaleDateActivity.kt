@@ -31,7 +31,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     private val saleDateViewModel : SaleDateViewModel by viewModels()
     private lateinit var binding : ActivityUpdateDeleteSaleDateBinding
     private var saleDate: SaleDate? = null
-    private var selectedDate: Date = Date(0)
+    private var selectedDate: Date = Date()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateDeleteSaleDateBinding.inflate(layoutInflater)
@@ -155,6 +155,10 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
         }
         if (isEndTimeAfterStartTime()) {
             Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (selectedDate.time < Date().time) {
+            Toast.makeText(this, getString(R.string.dateError), Toast.LENGTH_SHORT).show()
             return false
         }
         return true

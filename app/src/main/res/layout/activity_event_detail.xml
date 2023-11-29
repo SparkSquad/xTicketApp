@@ -164,11 +164,13 @@
                 android:inputType="none"
                 android:cursorVisible="false"
                 android:longClickable="false"
-                android:editable="false"
+                android:enabled="false"
                 android:hint="@string/enterTicketTakerCode"
                 android:maxLength="100"
                 android:autofillHints=""
                 style="@style/SectionFieldEditableArea" />
+
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnManageTickets"
                 android:layout_width="match_parent"

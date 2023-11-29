@@ -162,4 +162,5 @@
     <string name="sendOneTimeUseCode">Enviar código de un solo uso</string>
     <string name="inputOneTimeUseCode">Ingresa el código que recibiste</string>
     <string name="code">Código</string>
+    <string name="dateError">Seleccione una fecha valida</string>
 </resources>

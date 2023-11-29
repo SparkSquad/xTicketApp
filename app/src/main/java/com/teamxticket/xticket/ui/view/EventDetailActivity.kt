@@ -137,11 +137,13 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.eventModel.observe(this) {
             val event = it?.find { event -> event.eventId == eventId }
             if (event != null) {
+                Log.e("EVENT", event.ticketTakerCode)
                 binding.eventName.setText(event.name)
                 binding.eventDescription.setText(event.description)
                 binding.eventLocation.setText(event.location)
                 binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
                 binding.etTicketTakerCode.setText(event.ticketTakerCode)
+
                 BandArtistProvider.bandArtistList.clear()
                 for(artist in event.bandsAndArtists!!) {
                     BandArtistProvider.bandArtistList.add(artist)
