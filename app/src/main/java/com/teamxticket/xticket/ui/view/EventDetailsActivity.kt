@@ -47,8 +47,8 @@ class EventDetailsActivity : AppCompatActivity() {
                 binding.tvEventDescription.text = event.description
 
                 val currentDate = Date()
-                val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val originFormatter = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES"))
+                val formatter = SimpleDateFormat("dd/MMM/yyyy", Locale("es", "ES"))
+                val originFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val sortedDates = event.saleDates?.sortedBy { kotlin.math.abs(originFormatter.parse(it.saleDate).time - currentDate.time) }
                 val calendar = Calendar.getInstance()
 
