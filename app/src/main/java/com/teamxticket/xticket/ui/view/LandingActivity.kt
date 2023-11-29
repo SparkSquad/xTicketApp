@@ -28,7 +28,6 @@ class LandingActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.btnSignIn.setOnClickListener {
             Intent(this, LoginActivity::class.java).apply {
-                finish()
                 startActivity(this)
             }
         }

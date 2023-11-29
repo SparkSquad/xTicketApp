@@ -31,6 +31,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 import java.util.UUID
 
 class CreateEventActivity : AppCompatActivity() {
@@ -45,6 +46,8 @@ class CreateEventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateEventBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val savedCode = preferences.getString("ticketTakerCode", null)
         val eventId = preferences.getInt("eventId", 0)
@@ -55,10 +58,6 @@ class CreateEventActivity : AppCompatActivity() {
         if (savedCode == null) {
             preferences.edit().putString("ticketTakerCode", ticketTakerCode).apply()
         }
-
-
-
-        setContentView(binding.root)
 
         val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
 
@@ -137,19 +136,24 @@ class CreateEventActivity : AppCompatActivity() {
                     .setAnimation(DialogAnimation.SHRINK)
                     .show()
             } else {
-                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
                     .setTitle(getString(R.string.success))
                     .setMessage(getString(R.string.eventCreated))
                     .setCancelable(true)
                     .setDarkMode(darkDialog)
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            dialog.dismiss()
+                            Intent(this@CreateEventActivity, ManageSaleDateActivity::class.java).apply {
+                                putExtra("eventId", result)
+                                startActivity(this)
+                            }
+                            finish()
+                        }
+                    })
                     .show()
-                Intent(this, ManageSaleDateActivity::class.java).apply {
-                    putExtra("eventId", result)
-                    startActivity(this)
-                }
-
             }
         }
     }

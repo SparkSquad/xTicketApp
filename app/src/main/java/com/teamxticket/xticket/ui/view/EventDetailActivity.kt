@@ -47,16 +47,6 @@ class EventDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         eventId = intent.getIntExtra("eventId", -1)
-        eventViewModel.getEvent(eventId)
-        preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        ticketTakerCode = preferences.getString("ticketTakerCode", null) ?: generateRandomCode()
-
-        binding.etTicketTakerCode.setText(ticketTakerCode)
-
-        if (ticketTakerCode == null) {
-            preferences.edit().putString("ticketTakerCode", ticketTakerCode).apply()
-        }
-
         initSpinnerMusicalGenres()
         setupValidationOnFocusChange(binding.eventName)
         setupValidationOnFocusChange(binding.eventDescription)
@@ -69,6 +59,7 @@ class EventDetailActivity : AppCompatActivity() {
         super.onResume()
         eventViewModel.loadGenres()
         initSpinnerMusicalGenres()
+        eventViewModel.getEvent(eventId)
 
         if(BandArtistProvider.bandArtistList.isEmpty()) {
             eventId = intent.getIntExtra("eventId", -1)
@@ -137,8 +128,6 @@ class EventDetailActivity : AppCompatActivity() {
             }
         }
 
-
-
         binding.btnCancelEvent.setOnClickListener {
             eventViewModel.deleteEvent(eventId)
         }
@@ -152,6 +141,8 @@ class EventDetailActivity : AppCompatActivity() {
                 binding.eventDescription.setText(event.description)
                 binding.eventLocation.setText(event.location)
                 binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
+                binding.etTicketTakerCode.setText(event.ticketTakerCode)
+                BandArtistProvider.bandArtistList.clear()
                 for(artist in event.bandsAndArtists!!) {
                     BandArtistProvider.bandArtistList.add(artist)
                 }
@@ -166,7 +157,6 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.successfulUpdate.observe(this) { result ->
             if (result == -1) {
                 Toast.makeText(this, getString(R.string.eventWasNotUpdated), Toast.LENGTH_SHORT).show()
-
             } else {
                 Toast.makeText(this, getString(R.string.eventUpdated), Toast.LENGTH_SHORT).show()
                 Intent(this, ManageSaleDateActivity::class.java).apply {
@@ -264,10 +254,4 @@ class EventDetailActivity : AppCompatActivity() {
         binding.recyclerBandsAndArtists.adapter = adapter
     }
 
-    private fun generateRandomCode(): String {
-        val allowedChars = ('A'..'Z') + ('0'..'9')
-        return (1..10)
-            .map { allowedChars.random() }
-            .joinToString("")
-    }
 }
