@@ -22,6 +22,7 @@ class EventDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEventDetailsBinding
     private var eventId: Int? = null
+    private var saleDateId: Int? = null
     private val eventViewModel: EventViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
     private val activeUser: ActiveUser = ActiveUser.getInstance()
@@ -32,6 +33,7 @@ class EventDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         eventId = intent.extras?.getInt("eventId")
+        saleDateId = intent.extras?.getInt("saleDateId")
 
         eventViewModel.getEvent(eventId!!)
         initListeners()
@@ -91,6 +93,8 @@ class EventDetailsActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.btnBuyTickets.setOnClickListener {
             Intent(this, PurchaseDetailActivity::class.java).apply {
+                this.putExtra("eventId", eventId)
+                this.putExtra("saleDateId", saleDateId)
                 startActivity(this)
             }
         }

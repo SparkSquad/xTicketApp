@@ -152,6 +152,7 @@ class ExploreEventsFragment : Fragment() {
     private fun onItemSelected(eventData: Event) {
         Intent(requireContext(), EventDetailsActivity::class.java).apply {
             this.putExtra("eventId", eventData.eventId)
+            this.putExtra("saleDateId", eventData.saleDates?.first()?.saleDateId)
             startActivity(this)
         }
     }

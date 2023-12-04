@@ -159,8 +159,8 @@ class CreateEventActivity : AppCompatActivity() {
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-
+        val darkMode = ActiveUser.getInstance().getDarkMode()
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
         editText.apply {
             error = if (isError) message else null
             setHintTextColor(errorColor)
@@ -169,9 +169,10 @@ class CreateEventActivity : AppCompatActivity() {
     }
 
     private fun setElementView(spinner: Spinner, isError: Boolean, message: String) {
+        val darkMode = ActiveUser.getInstance().getDarkMode()
         val selectedView = spinner.selectedView as TextView
-        val errorColor = if (isError) Color.RED else Color.BLACK
-        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else R.drawable.spinner_border
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
+        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else (if (darkMode) R.drawable.spinner_border_dark else R.drawable.spinner_border )
 
         selectedView.apply {
             error = if (isError) message else null
@@ -242,8 +243,8 @@ class CreateEventActivity : AppCompatActivity() {
                 if(position == 0)
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
-                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(if (ActiveUser.getInstance().getDarkMode()) Color.WHITE else Color.BLACK)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, (if (ActiveUser.getInstance().getDarkMode()) R.drawable.spinner_border_dark else R.drawable.spinner_border ))
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 

@@ -47,7 +47,7 @@
     <string name="sale_date">Fecha de evento</string>
     <string name="only_adults">Solo adultos</string>
     <string name="number_of_tickets">Cantidad de boletos: </string>
-    <string name="price">Precio: </string>
+    <string name="price">Precio:  </string>
     <string name="end_hour">Hora de fin</string>
     <string name="max_tickets">Max. boletos por usuario: </string>
     <string name="start_hour">Hora de inicio</string>
@@ -87,7 +87,7 @@
     <string name="profile">Perfil</string>
     <string name="tickets">Mis entradas</string>
     <string name="explore">Explorar</string>
-    <string name="tickets_for_buy">Boletos por comprar:</string>
+    <string name="tickets_for_buy">Boletos por comprar: </string>
     <string name="total">Total a pagar:</string>
     <string name="message_exception_500">No se ha podido conectar con el servidor, intente de nuevo más tarde</string>
     <string name="message_exception_400">El servidor no ha podido procesar su solicitud, intente de nuevo más tarde</string>
@@ -139,7 +139,7 @@
     <string name="dialog_accept_button">Aceptar</string>
     <string name="dialog_cancel_button">Cancelar</string>
     <string name="successful_register">Registro de usuario exitoso</string>
-    <string name="avalableTickets">Entradas disponibles</string>
+    <string name="availableTickets">Entradas disponibles: </string>
     <string name="success_purchase">Compra realizada con exito</string>
     <string name="loading_label">Cargando...</string>
     <string name="search_results_title_bar">"Resultados para "</string>
@@ -163,4 +163,5 @@
     <string name="inputOneTimeUseCode">Ingresa el código que recibiste</string>
     <string name="code">Código</string>
     <string name="dateError">Seleccione una fecha valida</string>
+    <string name="empty_tickets">Ingrese la cantidad de tickets</string>
 </resources>
