@@ -69,7 +69,7 @@
                         android:drawableEnd="@drawable/baseline_search_24"
                         android:drawablePadding="12dp"
                         android:importantForAutofill="no"
-                        style="@style/SectionFieldEditableArea"/>
+                        style="@style/SectionFieldSearchArea"/>
 
                     <HorizontalScrollView
                         android:id="@+id/hsvGenresChips"

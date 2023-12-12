@@ -50,6 +50,16 @@
         <item name="android:layout_marginBottom">20dp</item>
     </style>
 
+    <style name="SectionFieldSearchArea" parent="@android:style/TextAppearance">
+        <item name="android:drawableTint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/edit_text_border_background</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
     <style name="SectionFieldEditableAreaError" parent="@android:style/TextAppearance">
         <item name="android:drawableTint">@color/red</item>
         <item name="android:textColor">@color/black</item>
