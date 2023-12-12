@@ -10,4 +10,5 @@ class UserUseCase {
 
     suspend fun putUser(user: User): Int = repository.putUser(user)
     suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse = repository.requestOTUCode(email)
+    suspend fun followEvent(userId: Int, eventId: Int) = repository.followEvent(userId, eventId)
 }

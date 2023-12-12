@@ -31,6 +31,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 import java.util.UUID
 
 class CreateEventActivity : AppCompatActivity() {
@@ -45,6 +46,8 @@ class CreateEventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateEventBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val savedCode = preferences.getString("ticketTakerCode", null)
         val eventId = preferences.getInt("eventId", 0)
@@ -55,10 +58,6 @@ class CreateEventActivity : AppCompatActivity() {
         if (savedCode == null) {
             preferences.edit().putString("ticketTakerCode", ticketTakerCode).apply()
         }
-
-
-
-        setContentView(binding.root)
 
         val adapter = BandArtistAdapter(BandArtistProvider.bandArtistList)
 
@@ -113,7 +112,7 @@ class CreateEventActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, ticketTakerCode, bandsAndArtists, null, null)
+                val event = Event(0, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, ticketTakerCode, bandsAndArtists, null, null, null)
                 eventViewModel.registerEvent(event)
                 
             }
@@ -137,26 +136,31 @@ class CreateEventActivity : AppCompatActivity() {
                     .setAnimation(DialogAnimation.SHRINK)
                     .show()
             } else {
-                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
                     .setTitle(getString(R.string.success))
                     .setMessage(getString(R.string.eventCreated))
                     .setCancelable(true)
                     .setDarkMode(darkDialog)
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            dialog.dismiss()
+                            Intent(this@CreateEventActivity, ManageSaleDateActivity::class.java).apply {
+                                putExtra("eventId", result)
+                                startActivity(this)
+                            }
+                            finish()
+                        }
+                    })
                     .show()
-                Intent(this, ManageSaleDateActivity::class.java).apply {
-                    putExtra("eventId", result)
-                    startActivity(this)
-                }
-
             }
         }
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-
+        val darkMode = ActiveUser.getInstance().getDarkMode()
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
         editText.apply {
             error = if (isError) message else null
             setHintTextColor(errorColor)
@@ -165,9 +169,10 @@ class CreateEventActivity : AppCompatActivity() {
     }
 
     private fun setElementView(spinner: Spinner, isError: Boolean, message: String) {
+        val darkMode = ActiveUser.getInstance().getDarkMode()
         val selectedView = spinner.selectedView as TextView
-        val errorColor = if (isError) Color.RED else Color.BLACK
-        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else R.drawable.spinner_border
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
+        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else (if (darkMode) R.drawable.spinner_border_dark else R.drawable.spinner_border )
 
         selectedView.apply {
             error = if (isError) message else null
@@ -238,8 +243,8 @@ class CreateEventActivity : AppCompatActivity() {
                 if(position == 0)
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
-                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, R.drawable.spinner_border)
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(if (ActiveUser.getInstance().getDarkMode()) Color.WHITE else Color.BLACK)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@CreateEventActivity, (if (ActiveUser.getInstance().getDarkMode()) R.drawable.spinner_border_dark else R.drawable.spinner_border ))
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 

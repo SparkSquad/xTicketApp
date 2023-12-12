@@ -1,11 +1,13 @@
 package com.teamxticket.xticket.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.UserRepository
 import com.teamxticket.xticket.data.model.OneTimeUseCode
 import com.teamxticket.xticket.data.model.OneTimeUseCodeResponse
+import com.teamxticket.xticket.data.model.EventFollow
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.domain.UserUseCase
@@ -13,6 +15,7 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
     private val userUseCase = UserUseCase()
     var receivedUser = MutableLiveData<UserResponse>()
+    var followedEvents = MutableLiveData<List<EventFollow>>()
     var showLoader = MutableLiveData<Boolean>()
     var successfulRegister = MutableLiveData<Int>()
     var successfulUpdate = MutableLiveData<Int>()
@@ -77,6 +80,29 @@ class UserViewModel : ViewModel() {
                 errorCode.postValue(e.message)
             }
             showLoader.postValue(false)
+        }
+    }
+
+    fun loadFollowedEvent(userId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = UserRepository().getUserEventFollows(userId)
+                followedEvents.postValue(result.response)
+            } catch (e: Exception) {
+                Log.d("UserViewModel", "loadFollowedEvent: {${e.message}}")
+                errorCode.postValue(e.message)
+            }
+        }
+    }
+
+    fun followEvent(userId: Int, eventId: Int) {
+        viewModelScope.launch {
+            try {
+                userUseCase.followEvent(userId, eventId)
+            } catch (e: Exception) {
+                Log.d("UserViewModel", "followEvent: {${e.message}}")
+                errorCode.postValue(e.message)
+            }
         }
     }
 }
