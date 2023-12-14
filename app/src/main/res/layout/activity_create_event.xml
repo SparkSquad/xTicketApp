@@ -144,7 +144,29 @@
                     android:background="@drawable/round_corners_no_left_side"
                     />
 
+
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enterTicketTakerCode"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etTicketTakerCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="none"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                android:editable="false"
+                android:hint="@string/enterTicketTakerCode"
+                android:maxLength="100"
+                android:autofillHints=""
+                style="@style/SectionFieldEditableArea" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateEvent"
@@ -165,8 +187,8 @@
 
     <View
         android:id="@+id/overlayView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="439dp"
+        android:layout_height="721dp"
         android:background="#80292727"
         android:visibility="invisible" />
 

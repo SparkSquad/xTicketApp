@@ -5,6 +5,10 @@ import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
 import com.teamxticket.xticket.data.model.GenreResponse
 import com.teamxticket.xticket.data.model.SearchEventsResponse
+import com.teamxticket.xticket.data.model.TicketTakerRequest
+import com.teamxticket.xticket.data.model.TicketTakerResponse
+import com.teamxticket.xticket.data.model.User
+import com.teamxticket.xticket.data.model.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,4 +40,7 @@ interface EventApiClient {
 
     @DELETE("event/delete/{eventId}")
     suspend fun deleteEvent(@Path("eventId") eventId: Int): Response<CodeResponse>
+
+    @POST("event/loginTickerTaker")
+    suspend fun loginTickerTaker(@Body request: TicketTakerRequest): Response<TicketTakerResponse>
 }

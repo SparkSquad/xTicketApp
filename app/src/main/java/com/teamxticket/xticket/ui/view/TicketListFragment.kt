@@ -22,6 +22,7 @@ class TicketListFragment : Fragment() {
     private val binding get() = _binding!!
     private val ticketsViewModel: TicketsViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -66,7 +67,7 @@ class TicketListFragment : Fragment() {
 
     private fun onItemSelected(ticketData: TicketData) {
         val content =
-            "xTicket/${ticketData.ticket.uuid}/Event/${ticketData.eventName}/Date/${ticketData.saleDate.saleDate}${ticketData.ticket.price}/Total/${ticketData.ticket.totalTickets}/Purchase/${ticketData.ticket.purchaseDate}"
+            "xTicket/${ticketData.ticket.uuid}/EventId/${ticketData.saleDate.eventId}/Date/${ticketData.saleDate.saleDate}${ticketData.ticket.price}/Total/${ticketData.ticket.totalTickets}/Purchase/${ticketData.ticket.purchaseDate}"
         val fragment = TicketQrFragment.newInstance(content)
         fragment.show(parentFragmentManager, "ticketQrFragment")
     }

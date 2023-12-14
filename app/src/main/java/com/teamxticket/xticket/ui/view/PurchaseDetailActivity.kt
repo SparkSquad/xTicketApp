@@ -1,8 +1,10 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
@@ -24,6 +26,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
+import com.thecode.aestheticdialogs.OnDialogClickListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -44,8 +47,8 @@ class PurchaseDetailActivity : AppCompatActivity() {
         binding = ActivityPurchaseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        eventId = intent.getIntExtra("eventId", 1)
-        saleDateId = intent.getIntExtra("saleDateId", 1)
+        eventId = intent.getIntExtra("eventId", -1)
+        saleDateId = intent.getIntExtra("saleDateId", -1)
 
         initListeners()
         initObservables()
@@ -57,24 +60,12 @@ class PurchaseDetailActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-       binding.btnCancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
            finish()
        }
 
         binding.btnBuy.setOnClickListener {
             purchaseTicket()
-        }
-
-        binding.etTickets.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                if (binding.etTickets.text.toString().isNotEmpty()) {
-                    val total = dateActive.price * binding.etTickets.text.toString().toInt()
-                    binding.etTotal.setText(buildString {
-                        append(getString(R.string.total))
-                        append(total.toString())
-                    })
-                }
-            }
         }
 
         binding.etTickets.addTextChangedListener(object : TextWatcher {
@@ -83,23 +74,23 @@ class PurchaseDetailActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No se utiliza en este caso
+                if (binding.etTickets.text.toString().isNotEmpty()) {
+                    val total = dateActive.price * binding.etTickets.text.toString().toInt()
+                    binding.etTotal.setText(buildString {
+                        append("$")
+                        append(total.toString())
+                    })
+                }
             }
 
             override fun afterTextChanged(editable: Editable?) {
-                editable?.let {
-                    val currentValue = it.toString().toIntOrNull() ?: 0
-                    if (currentValue > dateActive.maxTickets) {
-                        binding.etTickets.setText(dateActive.maxTickets.toString())
-                    }
-                }
+                // No se utiliza en este caso
             }
         })
     }
 
     private fun purchaseTicket() {
         if (binding.etTickets.text.toString().isNotEmpty()) {
-            binding.etTickets.error = "Please enter the number of tickets you want to purchase"
             val total = dateActive.price * binding.etTickets.text.toString().toInt()
             val userId = activeUser.getUser()!!.userId
             val ticket = Ticket (
@@ -112,7 +103,8 @@ class PurchaseDetailActivity : AppCompatActivity() {
                 ""
             )
             ticketsViewModel.purchaseTicket(ticket)
-        }
+        } else
+            binding.etTickets.error = getString(R.string.empty_tickets)
     }
 
     private fun initObservables() {
@@ -130,6 +122,12 @@ class PurchaseDetailActivity : AppCompatActivity() {
                     .setDarkMode(activeUser.getDarkMode())
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            dialog.dismiss()
+                            finish()
+                        }
+                    })
                     .show()
             }
         }
@@ -142,6 +140,12 @@ class PurchaseDetailActivity : AppCompatActivity() {
                 .setDarkMode(activeUser.getDarkMode())
                 .setGravity(Gravity.CENTER)
                 .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(object : OnDialogClickListener {
+                    override fun onClick(dialog: AestheticDialog.Builder) {
+                        dialog.dismiss()
+                        finish()
+                    }
+                })
                 .show()
         }
 
@@ -156,13 +160,24 @@ class PurchaseDetailActivity : AppCompatActivity() {
 
         ticketsViewModel.saleDateActive.observe(this) { it ->
             dateActive = it!!
-            val saleDate = SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).parse(dateActive.saleDate)
+            val saleDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dateActive.saleDate)
             val calendar = Calendar.getInstance()
             if (saleDate != null) {
                 calendar.time = saleDate
             }
 
-            binding.tvMessageTickets.text = dateActive.toString()
+            binding.tvMessageTickets.text = dateActive.maxTickets.toString()
+
+
+            val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+                val inputText = dest.subSequence(0, dstart).toString() + source.subSequence(start, end) + dest.subSequence(dend, dest.length)
+                val value = inputText.toIntOrNull() ?: 0
+                if (value <= dateActive.maxTickets.toString().toInt()) null else ""
+            }
+
+            binding.etTickets.filters = arrayOf(inputFilter)
+
+
 
             val month = SimpleDateFormat("MMM", Locale("es", "ES")).format(calendar.time).uppercase()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
@@ -186,7 +201,7 @@ class PurchaseDetailActivity : AppCompatActivity() {
             }
 
             binding.tvTotalTickets.text = buildString {
-                append(getString(R.string.avalableTickets))
+                append(getString(R.string.availableTickets))
                 append(dateActive.tickets.toString())
             }
 

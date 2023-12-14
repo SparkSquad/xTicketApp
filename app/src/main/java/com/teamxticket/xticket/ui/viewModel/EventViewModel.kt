@@ -5,8 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamxticket.xticket.data.EventRepository
+import com.teamxticket.xticket.data.UserRepository
 import com.teamxticket.xticket.data.model.Event
+import com.teamxticket.xticket.data.model.EventFollow
 import com.teamxticket.xticket.data.model.EventProvider
+import com.teamxticket.xticket.data.model.TicketTakerResponse
+import com.teamxticket.xticket.data.model.User
+import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.domain.EventUseCase
 import kotlinx.coroutines.launch
 
@@ -25,6 +30,7 @@ class EventViewModel : ViewModel() {
     var successfulUpdate = MutableLiveData<Int>()
     var errorCode = MutableLiveData<String>()
     var repository = EventUseCase()
+    val receivedTicketTakerCode = MutableLiveData<String>()
 
     fun loadEvents(userId: Int) {
         viewModelScope.launch {
@@ -52,6 +58,20 @@ class EventViewModel : ViewModel() {
             EventProvider.eventsList.addAll(search.results)
             eventModel.postValue(search.results)
             showLoader.postValue(false)
+        }
+    }
+
+    fun filterFollowedEvents(filter: Boolean, followedEvents: List<EventFollow>?) {
+        viewModelScope.launch {
+            if(filter) {
+                val list = EventProvider.eventsList.filter { event ->
+                    followedEvents?.find { eventFollow -> event.eventId == eventFollow.eventId } != null
+                }
+                eventModel.postValue(list)
+            }
+            else {
+                eventModel.postValue(EventProvider.eventsList)
+            }
         }
     }
 
@@ -118,6 +138,24 @@ class EventViewModel : ViewModel() {
                 errorCode.postValue(e.message)
             }
             showLoaderUpdate.postValue(false)
+        }
+    }
+
+    fun searchTicketTaker(ticketTakerCode: String) {
+        viewModelScope.launch {
+            showLoader.postValue(true)
+
+            try {
+                val result = EventRepository().loginTicketTaker(ticketTakerCode)
+                if (result != null) {
+                    receivedTicketTakerCode.postValue(ticketTakerCode)
+                } else {
+                    errorCode.postValue("Error")
+                }
+            } catch (e: Exception) {
+                errorCode.postValue(e.message)
+                showLoader.postValue(false)
+            }
         }
     }
 }

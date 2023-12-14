@@ -106,7 +106,7 @@ class RegisterSaleDateActivity : AppCompatActivity() {
                 addOnPositiveButtonClickListener {
                     selectedDate = Date(it)
                     binding.eventDate.text =
-                        SimpleDateFormat("dd/MM/yyyy", Locale.ROOT).format(it)
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it)
                 }
             }
         datePicker.show(supportFragmentManager, getString(R.string.eventDate))
@@ -131,6 +131,10 @@ class RegisterSaleDateActivity : AppCompatActivity() {
         }
         if (isEndTimeAfterStartTime()) {
             Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (selectedDate.time == 0L) {
+            Toast.makeText(this, getString(R.string.dateError), Toast.LENGTH_SHORT).show()
             return false
         }
         return true

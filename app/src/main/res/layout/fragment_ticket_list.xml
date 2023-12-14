@@ -36,7 +36,7 @@
                         android:id="@+id/animationView"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
-                        app:lottie_fileName="ticket.json"
+                        app:lottie_fileName="tickets.json"
                         app:lottie_autoPlay="true" />
 
                     <TextView

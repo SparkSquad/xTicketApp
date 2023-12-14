@@ -33,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         initObservables()
         initListeners()
+        binding.btnSignInTicketTaker.setOnClickListener {
+            val intent = Intent(this@LoginActivity, LoginTicketTaker::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initListeners () {
@@ -52,6 +56,12 @@ class LoginActivity : AppCompatActivity() {
                     .setDarkMode(activeUser.getDarkMode())
                     .setGravity(Gravity.CENTER)
                     .setAnimation(DialogAnimation.SHRINK).show()
+            }
+        }
+        binding.tvForgotPassword.setOnClickListener(){
+            Intent (this, RecoverPasswordActivity::class.java).apply {
+                finish()
+                startActivity(this)
             }
         }
     }
@@ -88,4 +98,5 @@ class LoginActivity : AppCompatActivity() {
             binding.progressBar.isVisible = it
         }
     }
+
 }

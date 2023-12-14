@@ -1,6 +1,8 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -28,13 +30,14 @@ import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
 import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import java.util.UUID
 
 class EventDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEventDetailBinding
     private val eventViewModel : EventViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
     private var eventId = -1
-    private var event: Event? = null
+    private lateinit var ticketTakerCode: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +45,6 @@ class EventDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         eventId = intent.getIntExtra("eventId", -1)
-        eventViewModel.getEvent(eventId)
-
         initSpinnerMusicalGenres()
         setupValidationOnFocusChange(binding.eventName)
         setupValidationOnFocusChange(binding.eventDescription)
@@ -56,6 +57,7 @@ class EventDetailActivity : AppCompatActivity() {
         super.onResume()
         eventViewModel.loadGenres()
         initSpinnerMusicalGenres()
+        eventViewModel.getEvent(eventId)
 
         if(BandArtistProvider.bandArtistList.isEmpty()) {
             eventId = intent.getIntExtra("eventId", -1)
@@ -100,6 +102,7 @@ class EventDetailActivity : AppCompatActivity() {
             val eventLocation = binding.eventLocation.text.toString().replace("\\s+".toRegex(), " ").uppercase().trim()
             val bandsAndArtists = BandArtistProvider.bandArtistList
 
+
             setElementView(binding.eventName, eventName.isEmpty(), getString(R.string.emptyField))
             setElementView(binding.musicalGenres, (musicalGenres.selectedItemPosition == 0), getString(R.string.emptyField))
             setElementView(binding.eventDescription, eventDescription.isEmpty(), getString(R.string.emptyField))
@@ -110,7 +113,7 @@ class EventDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_SHORT).show()
 
             } else {
-                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, bandsAndArtists, null, null)
+                val event = Event(eventId, eventName, musicalGenres.selectedItem.toString(), eventDescription, eventLocation, activeUser!!.userId, ticketTakerCode, bandsAndArtists, null, null, null)
                 eventViewModel.updateEvent(event)
 
             }
@@ -118,13 +121,6 @@ class EventDetailActivity : AppCompatActivity() {
 
         binding.btnManageTickets.setOnClickListener {
             Intent(this, ManageSaleDateActivity::class.java).apply {
-                putExtra("eventId", eventId)
-                startActivity(this)
-            }
-        }
-
-        binding.btnRegisterTicketTaker.setOnClickListener {
-            Intent(this, ActivitySignUpTicketTakerBinding::class.java).apply {
                 putExtra("eventId", eventId)
                 startActivity(this)
             }
@@ -139,10 +135,14 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.eventModel.observe(this) {
             val event = it?.find { event -> event.eventId == eventId }
             if (event != null) {
+                Log.e("EVENT", event.ticketTakerCode)
                 binding.eventName.setText(event.name)
                 binding.eventDescription.setText(event.description)
                 binding.eventLocation.setText(event.location)
                 binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
+                binding.etTicketTakerCode.setText(event.ticketTakerCode)
+                ticketTakerCode = event.ticketTakerCode
+                BandArtistProvider.bandArtistList.clear()
                 for(artist in event.bandsAndArtists!!) {
                     BandArtistProvider.bandArtistList.add(artist)
                 }
@@ -157,7 +157,6 @@ class EventDetailActivity : AppCompatActivity() {
         eventViewModel.successfulUpdate.observe(this) { result ->
             if (result == -1) {
                 Toast.makeText(this, getString(R.string.eventWasNotUpdated), Toast.LENGTH_SHORT).show()
-
             } else {
                 Toast.makeText(this, getString(R.string.eventUpdated), Toast.LENGTH_SHORT).show()
                 Intent(this, ManageSaleDateActivity::class.java).apply {
@@ -170,8 +169,8 @@ class EventDetailActivity : AppCompatActivity() {
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-
+        val darkMode = ActiveUser.getInstance().getDarkMode()
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
         editText.apply {
             error = if (isError) message else null
             setHintTextColor(errorColor)
@@ -182,7 +181,7 @@ class EventDetailActivity : AppCompatActivity() {
     private fun setElementView(spinner: Spinner, isError: Boolean, message: String) {
         val selectedView = spinner.selectedView as TextView
         val errorColor = if (isError) Color.RED else Color.BLACK
-        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else R.drawable.spinner_border
+        val backgroundResource = if (isError) R.drawable.spinner_border_on_error else (if (ActiveUser.getInstance().getDarkMode()) R.drawable.spinner_border_dark else R.drawable.spinner_border )
 
         selectedView.apply {
             error = if (isError) message else null
@@ -241,8 +240,8 @@ class EventDetailActivity : AppCompatActivity() {
                 if(position == 0)
                     (binding.musicalGenres.selectedView as TextView).setTextColor(Color.GRAY)
                 else
-                    (binding.musicalGenres.selectedView as TextView).setTextColor(Color.BLACK)
-                binding.musicalGenres.background = AppCompatResources.getDrawable(this@EventDetailActivity, R.drawable.spinner_border)
+                    (binding.musicalGenres.selectedView as TextView).setTextColor(if (ActiveUser.getInstance().getDarkMode()) Color.WHITE else Color.BLACK)
+                binding.musicalGenres.background = AppCompatResources.getDrawable(this@EventDetailActivity,  (if (ActiveUser.getInstance().getDarkMode()) R.drawable.spinner_border_dark else R.drawable.spinner_border ))
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -254,4 +253,5 @@ class EventDetailActivity : AppCompatActivity() {
         binding.recyclerBandsAndArtists.layoutManager = LinearLayoutManager(this)
         binding.recyclerBandsAndArtists.adapter = adapter
     }
+
 }

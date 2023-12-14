@@ -150,6 +150,26 @@
                     />
 
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enterTicketTakerCode"
+                style="@style/SectionField"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etTicketTakerCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="none"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                android:enabled="false"
+                android:hint="@string/enterTicketTakerCode"
+                android:maxLength="100"
+                android:autofillHints=""
+                style="@style/SectionFieldEditableArea" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnManageTickets"
@@ -163,16 +183,7 @@
                 style="@style/BasicButtonStyle"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegisterTicketTaker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="@string/register_ticket_taker"
-                app:icon="@drawable/baseline_person_outline_24"
-                app:iconGravity="textEnd"
-                style="@style/BasicButtonStyle"
-                />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveEvent"

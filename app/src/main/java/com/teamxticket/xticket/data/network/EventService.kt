@@ -8,6 +8,10 @@ import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventResponse
 import com.teamxticket.xticket.data.model.GenreResponse
 import com.teamxticket.xticket.data.model.SearchEventsResponse
+import com.teamxticket.xticket.data.model.TicketTakerRequest
+import com.teamxticket.xticket.data.model.TicketTakerResponse
+import com.teamxticket.xticket.data.model.User
+import com.teamxticket.xticket.data.model.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.SocketTimeoutException
@@ -88,7 +92,7 @@ class EventService {
                 } else if (response.code() >= 400) {
                     throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
                 }
-                response.body() ?: Event(-1, "", "", "", "", -1, mutableListOf(), null, null)
+                response.body() ?: Event(-1, "", "", "", "", -1, "", mutableListOf(), mutableListOf(), mutableListOf(), null)
             } catch (e: SocketTimeoutException) {
                 throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
             }
@@ -122,6 +126,24 @@ class EventService {
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(EventApiClient::class.java).searchEvents(query, params.toMap())
             response.body() ?: SearchEventsResponse(null, null, null)
+        }
+    }
+
+    suspend fun loginTickerTaker(ticketTakerCode: String): TicketTakerResponse {
+        return withContext(Dispatchers.IO) {
+            try {
+                val ticketTakerRequest = TicketTakerRequest(ticketTakerCode)
+                val response = retrofit.create(EventApiClient::class.java).loginTickerTaker(ticketTakerRequest)
+
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+                response.body() ?: TicketTakerResponse("") // Aquí puedes ajustar según la inicialización de TicketTakerResponse
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
         }
     }
 }
