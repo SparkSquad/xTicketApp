@@ -6,10 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitHelper {
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/")
+            .baseUrl("https://xticket.vadam.xyz/")
+
 
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    // .baseUrl("https://xticket.vadam.xyz/")
+    // .baseUrl("http://10.0.2.2:3000/")
 }

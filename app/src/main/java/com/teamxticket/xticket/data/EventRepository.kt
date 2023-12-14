@@ -1,12 +1,9 @@
 package com.teamxticket.xticket.data
 
 import com.teamxticket.xticket.core.ActiveTicketTaker
-import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.Event
 import com.teamxticket.xticket.data.model.EventsSearchResult
 import com.teamxticket.xticket.data.model.TicketTakerResponse
-import com.teamxticket.xticket.data.model.User
-import com.teamxticket.xticket.data.model.UserResponse
 import com.teamxticket.xticket.data.network.EventService
 
 class EventRepository {

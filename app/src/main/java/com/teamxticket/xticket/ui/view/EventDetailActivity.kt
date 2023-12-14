@@ -141,7 +141,7 @@ class EventDetailActivity : AppCompatActivity() {
                 binding.eventLocation.setText(event.location)
                 binding.musicalGenres.setSelection((binding.musicalGenres.adapter as ArrayAdapter<String>).getPosition(event.genre))
                 binding.etTicketTakerCode.setText(event.ticketTakerCode)
-
+                ticketTakerCode = event.ticketTakerCode
                 BandArtistProvider.bandArtistList.clear()
                 for(artist in event.bandsAndArtists!!) {
                     BandArtistProvider.bandArtistList.add(artist)

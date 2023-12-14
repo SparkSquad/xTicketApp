@@ -51,12 +51,12 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
 
 
             tvPrice.text = buildString {
-                append(Resources.getSystem().getString(R.string.price))
+                append("Precio: ")
                 append(currentSaleDate.price.toString())
             }
 
             tvTotalTickets.text = buildString {
-                append(Resources.getSystem().getString(R.string.availableTickets))
+                append("Entradas disponibles: ")
                 append(currentSaleDate.tickets.toString())
             }
 
@@ -65,7 +65,7 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
             }
 
             tvMaxTickets.text = buildString {
-                append(Resources.getSystem().getString(R.string.max_tickets))
+                append("Maximo de tickets: ")
                 append(currentSaleDate.maxTickets.toString())
             }
 
