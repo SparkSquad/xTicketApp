@@ -66,7 +66,7 @@ class TicketListFragment : Fragment() {
 
     private fun onItemSelected(ticketData: TicketData) {
         val content =
-            "xTicket/${ticketData.ticket.uuid}/EventId/${ticketData.saleDate.eventId}/Date/${ticketData.saleDate.saleDate}${ticketData.ticket.price}/Total/${ticketData.ticket.totalTickets}/Purchase/${ticketData.ticket.purchaseDate}"
+            "xTicket/${ticketData.ticket.uuid}/EventId/${ticketData.saleDate.eventId}/SaleDateId/${ticketData.saleDate.saleDateId}/Tickets/${ticketData.ticket.totalTickets}"
         val fragment = TicketQrFragment.newInstance(content)
         fragment.show(parentFragmentManager, "ticketQrFragment")
     }

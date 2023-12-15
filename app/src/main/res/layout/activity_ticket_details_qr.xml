@@ -178,12 +178,6 @@
                         tools:text="Total tickets:  "
                         android:textSize="20sp"/>
 
-                    <TextView
-                        android:id="@+id/tvMaxTickets"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/max_tickets"
-                        android:textSize="15sp"/>
 
                 </LinearLayout>
 
@@ -191,12 +185,6 @@
 
         </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:layout_gravity="center_horizontal"
-        style="@style/BasicButtonStyle" />
+ 
 
 </LinearLayout>
