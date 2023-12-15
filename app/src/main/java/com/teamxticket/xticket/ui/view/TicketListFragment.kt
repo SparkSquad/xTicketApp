@@ -36,7 +36,10 @@ class TicketListFragment : Fragment() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toast.makeText(requireContext(), errString, Toast.LENGTH_SHORT).show()
+                    val content =
+                        "xTicket/${ticketData!!.ticket.uuid}/EventId/${ticketData!!.saleDate.eventId}/SaleDateId/${ticketData!!.saleDate.saleDateId}/Tickets/${ticketData!!.ticket.totalTickets}"
+                    val fragment = TicketQrFragment.newInstance(content)
+                    fragment.show(parentFragmentManager, "ticketQrFragment")
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -49,7 +52,7 @@ class TicketListFragment : Fragment() {
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Toast.makeText(requireContext(), Resources.getSystem().getString(R.string.Fail_bio_auth), Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Autenticacion fallida", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -132,13 +135,13 @@ class TicketListFragment : Fragment() {
     private fun onItemSelected(ticketData: TicketData) {
         this.ticketData = ticketData
         val biometricPrompt = BiometricPrompt.Builder(requireContext())
-            .setTitle(Resources.getSystem().getString(R.string.bio_auth_title))
-            .setSubtitle(Resources.getSystem().getString(R.string.bio_auth_subtitle))
-            .setDescription(Resources.getSystem().getString(R.string.bio_auth_description))
-            .setNegativeButton(Resources.getSystem().getString(R.string.bio_auth_negative_button), requireActivity().mainExecutor) { _, _ ->
+            .setTitle("Autenticacion requerida")
+            .setSubtitle("Escanee su huella")
+            .setDescription("Para ver su voleo debe comprobar su identidad")
+            .setNegativeButton("Cancelar", requireActivity().mainExecutor) { _, _ ->
                 Toast.makeText(
                     requireContext(),
-                    Resources.getSystem().getString(R.string.Cancel_bio_auth),
+                    "Autenticacion cancelada",
                     Toast.LENGTH_LONG
                 ).show()
             }.build()
