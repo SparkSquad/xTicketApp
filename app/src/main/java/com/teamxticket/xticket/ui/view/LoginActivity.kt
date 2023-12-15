@@ -67,12 +67,12 @@ class LoginActivity : AppCompatActivity() {
                      activeUser.saveSession(this)
                      if(it.user?.type == "assistant" || it.user?.type == "admin") {
                          Intent (this, AssistantMenuActivity::class.java).apply {
-                             finish()
+                             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                              startActivity(this)
                          }
                      } else if (it.user?.type == "eventPlanner") {
                          Intent (this, EventPlannerMenuActivity::class.java).apply {
-                             finish()
+                             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                              startActivity(this)
                          }
                      }
