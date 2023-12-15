@@ -1,19 +1,13 @@
 package com.teamxticket.xticket.ui.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModel
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
-import com.teamxticket.xticket.core.RetrofitHelper
-import com.teamxticket.xticket.data.UserRepository
 import com.teamxticket.xticket.data.model.User
 import com.teamxticket.xticket.databinding.ActivityLoginBinding
 import com.teamxticket.xticket.ui.viewModel.UserViewModel
@@ -21,7 +15,7 @@ import com.thecode.aestheticdialogs.AestheticDialog
 import com.thecode.aestheticdialogs.DialogAnimation
 import com.thecode.aestheticdialogs.DialogStyle
 import com.thecode.aestheticdialogs.DialogType
-import com.thecode.aestheticdialogs.OnDialogClickListener
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
@@ -70,14 +64,15 @@ class LoginActivity : AppCompatActivity() {
          userViewModel.receivedUser.observe(this) {
              if (it.token?.isNotEmpty() == true) {
                  if (it.user?.email?.isEmpty() == false) {
+                     activeUser.saveSession(this)
                      if(it.user?.type == "assistant" || it.user?.type == "admin") {
                          Intent (this, AssistantMenuActivity::class.java).apply {
-                             finish()
+                             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                              startActivity(this)
                          }
                      } else if (it.user?.type == "eventPlanner") {
                          Intent (this, EventPlannerMenuActivity::class.java).apply {
-                             finish()
+                             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                              startActivity(this)
                          }
                      }

@@ -16,6 +16,7 @@ class UserRepository {
         if (result.user != null) {
             val activeUser = ActiveUser.getInstance()
             activeUser.setUser(result.user)
+            activeUser.setToken(result.token)
         }
         return result
     }
@@ -25,6 +26,7 @@ class UserRepository {
         if (result.user != null) {
             val activeUser = ActiveUser.getInstance()
             activeUser.setUser(result.user)
+            activeUser.setToken(result.token)
         }
         return result
     }
