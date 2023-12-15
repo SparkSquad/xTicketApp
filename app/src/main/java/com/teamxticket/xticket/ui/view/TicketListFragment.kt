@@ -36,10 +36,7 @@ class TicketListFragment : Fragment() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    val content =
-                        "xTicket/${ticketData!!.ticket.uuid}/EventId/${ticketData!!.saleDate.eventId}/SaleDateId/${ticketData!!.saleDate.saleDateId}/Tickets/${ticketData!!.ticket.totalTickets}"
-                    val fragment = TicketQrFragment.newInstance(content)
-                    fragment.show(parentFragmentManager, "ticketQrFragment")
+                    Toast.makeText(requireContext(), "Error de autenticacion: $errString", Toast.LENGTH_LONG).show()
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -60,6 +57,7 @@ class TicketListFragment : Fragment() {
     private val binding get() = _binding!!
     private val ticketsViewModel: TicketsViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
+    private var autentication : Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreateView(
@@ -71,7 +69,7 @@ class TicketListFragment : Fragment() {
 
         initListeners()
         initObservables()
-        checkBiometricSupport()
+        autentication = checkBiometricSupport()
         return rootView
     }
 
@@ -105,7 +103,6 @@ class TicketListFragment : Fragment() {
         ticketsViewModel.loadTickets(activeUser!!.userId)
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
     private fun initObservables() {
         ticketsViewModel.ticketsModel.observe(viewLifecycleOwner) { ticketsList ->
             val ticketsData: List<TicketData> = ticketsList ?: emptyList()
@@ -134,18 +131,27 @@ class TicketListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.P)
     private fun onItemSelected(ticketData: TicketData) {
         this.ticketData = ticketData
-        val biometricPrompt = BiometricPrompt.Builder(requireContext())
-            .setTitle("Autenticacion requerida")
-            .setSubtitle("Escanee su huella")
-            .setDescription("Para ver su voleo debe comprobar su identidad")
-            .setNegativeButton("Cancelar", requireActivity().mainExecutor) { _, _ ->
-                Toast.makeText(
-                    requireContext(),
-                    "Autenticacion cancelada",
-                    Toast.LENGTH_LONG
-                ).show()
-            }.build()
-        biometricPrompt.authenticate(getCancellationSignal(), requireActivity().mainExecutor, authenticationCallback)
+
+        if(autentication) {
+            val biometricPrompt = BiometricPrompt.Builder(requireContext())
+                .setTitle("Autenticacion requerida")
+                .setSubtitle("Escanee su huella")
+                .setDescription("Para ver su voleo debe comprobar su identidad")
+                .setNegativeButton("Cancelar", requireActivity().mainExecutor) { _, _ ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Autenticacion cancelada",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }.build()
+            biometricPrompt.authenticate( getCancellationSignal(),
+                requireActivity().mainExecutor, authenticationCallback)
+        }else{
+            val content =
+                "xTicket/${ticketData.ticket.uuid}/EventId/${ticketData.saleDate.eventId}/SaleDateId/${ticketData.saleDate.saleDateId}/Tickets/${ticketData.ticket.totalTickets}"
+            val fragment = TicketQrFragment.newInstance(content)
+            fragment.show(parentFragmentManager, "ticketQrFragment")
+        }
     }
 
     override fun onDestroyView() {
