@@ -26,35 +26,19 @@ import com.teamxticket.xticket.ui.viewModel.EventViewModel
 class ScanQrTicket : AppCompatActivity() {
 
     private lateinit var codeScanner: CodeScanner
-    private lateinit var mainLayout: FrameLayout
     private val eventViewModel : EventViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_qr_ticket)
-        val mainLayout = findViewById<FrameLayout>(R.id.mainLayout)
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
         codeScanner = CodeScanner(this, scannerView)
-        val colorFrom = ContextCompat.getColor(this, R.color.red)
-        val colorTo = ContextCompat.getColor(this, android.R.color.transparent)
-
-        val anim = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
-        anim.duration = 5000 // milliseconds
-
-        anim.addUpdateListener { valueAnimator ->
-            val color = valueAnimator.animatedValue as Int
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mainLayout.setBackgroundColor(color)
-            } else {
-                val colorDrawable = ColorDrawable(color)
-                mainLayout.setBackgroundDrawable(colorDrawable)
-            }
-        }
-
 
 
         // Parameters (default values)
-        codeScanner.camera = CodeScanner.CAMERA_BACK
+        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
+        codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
+        // ex. listOf(BarcodeFormat.QR_CODE)
         codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
         codeScanner.scanMode = ScanMode.CONTINUOUS // or CONTINUOUS or PREVIEW
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
@@ -63,27 +47,29 @@ class ScanQrTicket : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback { result ->
             runOnUiThread {
-
                 if (result.text.startsWith("xTicket")) {
-                    val ticketData = parseTicketData(result.text)
-                    ticketData?.let { event ->
-                        eventViewModel.getEvent(event.eventId)
-                        eventViewModel.eventModel.observe(this) { events ->
-                            if (!events.isNullOrEmpty()) {
-                                val eventId = events[0].eventId
-                                val intent = Intent(this, TicketDetailsQr::class.java)
-                                intent.putExtra("EVENT_ID", eventId)
-                                startActivity(intent)
-                            } else {
-                                // Maneja el caso en que no se obtuvo ningún evento
-                            }
+                    val parts = result.text.split("/")
+                        val eventId = parts[3].toIntOrNull()
+                        val saleDateId = parts[5].toIntOrNull()
+                        val totalTickets = parts[7].toIntOrNull()
+                    Toast.makeText(this, eventId.toString(), Toast.LENGTH_SHORT).show()
+
+                        if (eventId != null && saleDateId != null) {
+                            val intent = Intent(this, TicketDetailsQr::class.java)
+                            intent.putExtra("EVENT_ID", eventId)
+                            intent.putExtra("SALE_DATE_ID", saleDateId)
+                            intent.putExtra("TICKETS", totalTickets)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this, "Invalid Event ID or Sale Date ID", Toast.LENGTH_SHORT).show()
                         }
-                    }
+
                 } else {
                     Toast.makeText(this, "Invalid Ticket", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
             runOnUiThread {
                 Toast.makeText(this, "Camera initialization error: ${it.message}",
@@ -94,26 +80,8 @@ class ScanQrTicket : AppCompatActivity() {
         scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
-
     }
 
-    private fun parseTicketData(ticketText: String): Event? {
-        val parts = ticketText.split("/")
-        val eventIdIndex = parts.indexOf("EventId")
-
-        // Verifica si "EventId" está presente y si hay un índice siguiente
-        if (eventIdIndex != -1 && eventIdIndex + 1 < parts.size) {
-            // Intenta convertir el valor a Int
-            val eventId: Int? = parts[eventIdIndex + 1].toIntOrNull()
-
-            // Verifica si la conversión fue exitosa
-            if (eventId != null) {
-                //return Event(eventId, "", "", "", "", 0, null, null, null)
-            }
-        }
-
-        return null
-    }
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
@@ -123,5 +91,4 @@ class ScanQrTicket : AppCompatActivity() {
         codeScanner.releaseResources()
         super.onPause()
     }
-
 }
