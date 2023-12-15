@@ -106,7 +106,11 @@ class ExploreEventsFragment : Fragment() {
         // update search results when user types in search bar
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                eventsViewModel.searchEvents(s.toString(), lastSelectedGenre, 100, 1)
+                var search = s.toString()
+                if(search.contains(".")) {
+                    search = search.replace(".", "")
+                }
+                eventsViewModel.searchEvents(search, lastSelectedGenre, 100, 1)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
