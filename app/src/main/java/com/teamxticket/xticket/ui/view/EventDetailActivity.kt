@@ -8,6 +8,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -30,11 +31,17 @@ import com.teamxticket.xticket.databinding.ActivityEventDetailBinding
 import com.teamxticket.xticket.databinding.ActivitySignUpTicketTakerBinding
 import com.teamxticket.xticket.ui.view.adapter.BandArtistAdapter
 import com.teamxticket.xticket.ui.viewModel.EventViewModel
+import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
+import com.thecode.aestheticdialogs.AestheticDialog
+import com.thecode.aestheticdialogs.DialogAnimation
+import com.thecode.aestheticdialogs.DialogStyle
+import com.thecode.aestheticdialogs.DialogType
 import java.util.UUID
 
 class EventDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEventDetailBinding
     private val eventViewModel : EventViewModel by viewModels()
+    private val salesViewModel : SaleDateViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
     private var eventId = -1
     private lateinit var ticketTakerCode: String
@@ -127,7 +134,14 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
         binding.btnCancelEvent.setOnClickListener {
-            eventViewModel.deleteEvent(eventId)
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                    .setTitle("Atencion")
+                    .setMessage("Recuerda que no puedes eliminar un evento si ya tiene fechas de venta registradas")
+                    .setCancelable(true)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .show()
+                    eventViewModel.deleteEvent(eventId)
         }
     }
 
