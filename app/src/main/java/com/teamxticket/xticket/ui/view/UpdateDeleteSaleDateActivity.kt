@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ActivityUpdateDeleteSaleDateBinding
 import com.teamxticket.xticket.ui.viewModel.SaleDateViewModel
@@ -31,7 +32,8 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     private val saleDateViewModel : SaleDateViewModel by viewModels()
     private lateinit var binding : ActivityUpdateDeleteSaleDateBinding
     private var saleDate: SaleDate? = null
-    private var selectedDate: Date = Date(0)
+    private var selectedDate: Date = Date()
+    private val darkDialog = ActiveUser.getInstance().getDarkMode()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateDeleteSaleDateBinding.inflate(layoutInflater)
@@ -157,6 +159,10 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.durationError), Toast.LENGTH_SHORT).show()
             return false
         }
+        if (selectedDate.time < Date().time) {
+            Toast.makeText(this, getString(R.string.dateError), Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 
@@ -190,10 +196,13 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
     }
 
     private fun setElementView(editText: EditText, isError: Boolean, message: String) {
-        val errorColor = if (isError) Color.RED else Color.BLACK
-        editText.error = if (isError) message else null
-        editText.setHintTextColor(errorColor)
-        editText.backgroundTintList = ColorStateList.valueOf(errorColor)
+        val darkMode = ActiveUser.getInstance().getDarkMode()
+        val errorColor = if (isError) Color.RED else (if (darkMode) Color.WHITE else Color.BLACK)
+        editText.apply {
+            error = if (isError) message else null
+            setHintTextColor(errorColor)
+            backgroundTintList = ColorStateList.valueOf(errorColor)
+        }
     }
 
     private fun setupValidationOnFocusChange(editText: EditText) {
@@ -211,6 +220,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.success))
                 .setMessage(message)
                 .setCancelable(true)
+                .setDarkMode(darkDialog)
                 .setGravity(Gravity.CENTER)
                 .setAnimation(DialogAnimation.SHRINK)
                 .setOnClickListener(object : OnDialogClickListener {
@@ -225,6 +235,7 @@ class UpdateDeleteSaleDateActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.failure))
                 .setMessage(message)
                 .setCancelable(true)
+                .setDarkMode(darkDialog)
                 .setGravity(Gravity.CENTER)
                 .setAnimation(DialogAnimation.SHRINK)
                 .show()

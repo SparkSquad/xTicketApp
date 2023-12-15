@@ -22,6 +22,7 @@ class TicketListFragment : Fragment() {
     private val binding get() = _binding!!
     private val ticketsViewModel: TicketsViewModel by viewModels()
     private var activeUser = ActiveUser.getInstance().getUser()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {

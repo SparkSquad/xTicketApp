@@ -27,43 +27,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/welcomeBack"
+            android:text="@string/inputOneTimeUseCode"
             android:textSize="24sp"
             android:layout_marginBottom="20dp"
             style="@style/SectionTitle"/>
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etCode"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:hint="@string/email"
+            android:hint="@string/code"
             android:inputType="textEmailAddress"
             android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="12dp"
             android:autofillHints=""
             style="@style/loginFields"/>
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:drawableStart="@drawable/baseline_lock_24"
-            android:drawablePadding="12dp"
-            android:autofillHints=""
-            style="@style/loginFields"/>
 
-        <TextView
-            android:id="@+id/tvLoginError"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:paddingStart="32dp"
-            android:paddingEnd="42dp"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            android:fontFamily="sans-serif"
-            style="@style/SectionField"/>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignInFr"
@@ -74,31 +55,10 @@
             android:text="@string/signIn"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:icon="@drawable/baseline_person_outline_24"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
             app:iconGravity="textEnd"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSignInTicketTaker"
-            android:layout_width="350dp"
-            android:layout_height="64dp"
-            android:backgroundTint="@color/darkBlue"
-            android:letterSpacing="0.3"
-            android:text="@string/forgotTicketTaker"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            app:icon="@drawable/baseline_person_outline_24"
-            app:iconGravity="textEnd"/>
-
-
-
-        <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/forgotPassword"
-            android:textSize="16sp"
-            style="@style/SectionField"/>
 
     </LinearLayout>
 

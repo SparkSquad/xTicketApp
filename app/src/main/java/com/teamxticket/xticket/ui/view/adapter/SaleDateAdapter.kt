@@ -1,14 +1,15 @@
 package com.teamxticket.xticket.ui.view.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.SaleDate
 import com.teamxticket.xticket.databinding.ItemSaleDateBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleDate) -> Unit):
     RecyclerView.Adapter<SaleDateAdapter.ViewHolder>() {
@@ -49,15 +50,24 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
             tvEndHour.text = endTimeFormatted
 
 
-            tvPrice.text = "Precio:" + currentSaleDate.price.toString()
+            tvPrice.text = buildString {
+                append(Resources.getSystem().getString(R.string.price))
+                append(currentSaleDate.price.toString())
+            }
 
-            tvTotalTickets.text = "Boletos disponibles: "+ currentSaleDate.tickets.toString()
+            tvTotalTickets.text = buildString {
+                append(Resources.getSystem().getString(R.string.availableTickets))
+                append(currentSaleDate.tickets.toString())
+            }
 
             if (currentSaleDate.adults == 1) {
                 tvOnlyAdults.visibility = ViewGroup.VISIBLE
             }
 
-            tvMaxTickets.text = "Maximo de tickets por persona: " + currentSaleDate.maxTickets.toString()
+            tvMaxTickets.text = buildString {
+                append(Resources.getSystem().getString(R.string.max_tickets))
+                append(currentSaleDate.maxTickets.toString())
+            }
 
             holder.binding.root.setOnClickListener {
                 onClickListener(currentSaleDate)

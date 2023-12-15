@@ -1,8 +1,10 @@
 package com.teamxticket.xticket.ui.view.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.teamxticket.xticket.R
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.ItemTicketBinding
 import java.text.SimpleDateFormat
@@ -49,12 +51,25 @@ class TicketAdapter(val ticketList: List<TicketData>, val onClickListener: (Tick
             tvStartHour.text = startTimeFormatted
             tvEndHour.text = endTimeFormatted
 
-            tvPrice.text = "Precio: " + currentTicket.ticket.price.toString()
-            tvTicketPurchased.text = "Boletos comprados: " + currentTicket.ticket.totalTickets.toString()
+            tvPrice.text =  buildString {
+                append(Resources.getSystem().getString(R.string.price))
+                append(currentTicket.ticket.price.toString())
+            }
+
+            tvTicketPurchased.text = buildString {
+                append(Resources.getSystem().getString(R.string.tickets_sold))
+                append(currentTicket.ticket.totalTickets.toString())
+            }
+
             if (currentTicket.saleDate.adults == 1) {
                 tvOnlyAdults.visibility = ViewGroup.VISIBLE
             }
-            tvPurchaseDate.text = "Fecha de compra: " + currentTicket.ticket.purchaseDate
+
+            val purchaseDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentTicket.ticket.purchaseDate)
+            tvPurchaseDate.text = buildString {
+                append(Resources.getSystem().getString(R.string.purchase_date))
+                append(purchaseDate.toString() ?: "")
+            }
 
             holder.binding.root.setOnClickListener {
                 onClickListener(currentTicket)
