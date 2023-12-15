@@ -1,16 +1,13 @@
 package com.teamxticket.xticket.domain
 
-import org.junit.Assert.*
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class TicketsUseCaseTest {
+class SaleDatesUseCaseTest {
 
     @Before
     fun setUp() {
-        
     }
 
     @After
@@ -18,22 +15,22 @@ class TicketsUseCaseTest {
     }
 
     @Test
-    fun getTickets() {
+    fun getSaleDates() {
     }
 
     @Test
-    fun postTicket() {
+    fun postSaleDate() {
     }
 
     @Test
-    fun deleteTicket() {
+    fun deleteSaleDate() {
     }
 
     @Test
-    fun getTicketUuid() {
+    fun updateSaleDate() {
     }
 
     @Test
-    fun getRefundTicket() {
+    fun getSaleDate() {
     }
 }
