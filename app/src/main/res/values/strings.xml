@@ -167,4 +167,5 @@
     <string name="Success_bio_auth">Autenticacion exitosa</string>
     <string name="Cancel_bio_auth">Autenticacion cancelada</string>
     <string name="sign_out">Cerrar Sesión</string>
+    <string name="successRefund">Reembolso solicitado</string>
 </resources>

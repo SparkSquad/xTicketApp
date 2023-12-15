@@ -41,7 +41,8 @@ class EventViewModel : ViewModel() {
                 EventProvider.eventsList.addAll(result)
                 eventModel.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoader.postValue(false)
         }
@@ -82,7 +83,8 @@ class EventViewModel : ViewModel() {
                 val result = eventUseCase.postEvent(event)
                 successfulRegister.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderRegister.postValue(false)
         }
@@ -95,7 +97,8 @@ class EventViewModel : ViewModel() {
                 val result = eventUseCase.getGenres()
                 genresModel.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderGenres.postValue(false)
         }
@@ -108,7 +111,8 @@ class EventViewModel : ViewModel() {
                 val result = eventUseCase.putEvent(event)
                 successfulUpdate.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderRegister.postValue(false)
         }
@@ -122,7 +126,8 @@ class EventViewModel : ViewModel() {
                 Log.d("Events", result.bandsAndArtists.toString())
                 eventModel.postValue(mutableListOf(result))
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoader.postValue(false)
         }
@@ -135,7 +140,8 @@ class EventViewModel : ViewModel() {
                 val result = eventUseCase.deleteEvent(eventId)
                 successfulDelete.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderUpdate.postValue(false)
         }
@@ -153,7 +159,8 @@ class EventViewModel : ViewModel() {
                     errorCode.postValue("Error")
                 }
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
                 showLoader.postValue(false)
             }
         }

@@ -17,7 +17,8 @@ class SaleDateAdapter(val datesList: List<SaleDate>, val onClickListener: (SaleD
     inner class ViewHolder(val binding: ItemSaleDateBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemSaleDateBinding = ItemSaleDateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemSaleDateBinding =
+            ItemSaleDateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

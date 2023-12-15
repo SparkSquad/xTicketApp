@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamxticket.xticket.R
+import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.TicketData
 import com.teamxticket.xticket.databinding.ActivityRefundBinding
 import com.teamxticket.xticket.ui.view.adapter.TicketAdapter
@@ -44,6 +45,25 @@ class RefundActivity : AppCompatActivity() {
         ticketsViewModel.showLoader.observe(this) { visible ->
             binding.progressBar.isVisible = visible
             binding.overlayView.isVisible = visible
+        }
+
+        ticketsViewModel.successfulRefund.observe(this) { successful ->
+            if (successful == 200) {
+                AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.SUCCESS)
+                    .setTitle(getString(R.string.success))
+                    .setMessage(getString(R.string.successRefund))
+                    .setCancelable(true)
+                    .setDarkMode(ActiveUser.getInstance().getDarkMode())
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener {
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                            dialog.dismiss()
+                            finish()
+                        }
+                    })
+                    .show()
+            }
         }
 
         ticketsViewModel.error.observe(this) { errorCode ->

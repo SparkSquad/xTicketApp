@@ -68,7 +68,7 @@ class TicketAdapter(val ticketList: List<TicketData>, val onClickListener: (Tick
             val purchaseDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentTicket.ticket.purchaseDate)
             tvPurchaseDate.text = buildString {
                 append("Fecha de compra: ")
-                append(purchaseDate.toString() ?: "")
+                append(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(purchaseDate!!))
             }
 
             holder.binding.root.setOnClickListener {

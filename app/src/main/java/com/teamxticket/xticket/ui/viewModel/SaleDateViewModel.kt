@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 class SaleDateViewModel : ViewModel() {
 
     var saleDateModel = MutableLiveData<List<SaleDate>?>()
-    var saleDateActive = MutableLiveData<SaleDate?>()
     var showLoader = MutableLiveData<Boolean>()
     var showLoaderRegister = MutableLiveData<Boolean>()
     var showLoaderUpdate = MutableLiveData<Boolean>()
@@ -27,7 +26,8 @@ class SaleDateViewModel : ViewModel() {
                 val result = saleDatesUseCase.getSaleDates(eventId)
                 saleDateModel.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoader.postValue(false)
         }
@@ -40,7 +40,8 @@ class SaleDateViewModel : ViewModel() {
                 val result = saleDatesUseCase.postSaleDate(newSaleDate)
                 successfulRegister.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderRegister.postValue(false)
         }
@@ -53,7 +54,8 @@ class SaleDateViewModel : ViewModel() {
                 val result = saleDatesUseCase.deleteSaleDate(saleDateId)
                 successfulDelete.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderUpdate.postValue(false)
         }
@@ -66,7 +68,8 @@ class SaleDateViewModel : ViewModel() {
                 val result = saleDatesUseCase.updateSaleDate(saleDateId, newSaleDate)
                 successfulUpdate.postValue(result)
             } catch (e: Exception) {
-                errorCode.postValue(e.message)
+                val errorMessage = e.localizedMessage ?: "Unknown error occurred"
+                errorCode.postValue(errorMessage)
             }
             showLoaderUpdate.postValue(false)
         }
