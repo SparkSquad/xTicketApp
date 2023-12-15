@@ -1,6 +1,5 @@
 package com.teamxticket.xticket.ui.view
 
-import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +11,7 @@ import android.os.CancellationSignal
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -70,6 +70,12 @@ class TicketListFragment : Fragment() {
         initListeners()
         initObservables()
         autentication = checkBiometricSupport()
+
+        activity?.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
+
         return rootView
     }
 
@@ -103,6 +109,7 @@ class TicketListFragment : Fragment() {
         ticketsViewModel.loadTickets(activeUser!!.userId)
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun initObservables() {
         ticketsViewModel.ticketsModel.observe(viewLifecycleOwner) { ticketsList ->
             val ticketsData: List<TicketData> = ticketsList ?: emptyList()
@@ -135,8 +142,7 @@ class TicketListFragment : Fragment() {
         if(autentication) {
             val biometricPrompt = BiometricPrompt.Builder(requireContext())
                 .setTitle("Autenticacion requerida")
-                .setSubtitle("Escanee su huella")
-                .setDescription("Para ver su voleo debe comprobar su identidad")
+                .setDescription("Para ver su voleto debe comprobar su identidad")
                 .setNegativeButton("Cancelar", requireActivity().mainExecutor) { _, _ ->
                     Toast.makeText(
                         requireContext(),

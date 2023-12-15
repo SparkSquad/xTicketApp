@@ -79,4 +79,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.1.0")
     //material design
     implementation("com.google.android.material:material:1.10.0")
+
+    //biometric
+    implementation("androidx.biometric:biometric:1.0.1")
 }
