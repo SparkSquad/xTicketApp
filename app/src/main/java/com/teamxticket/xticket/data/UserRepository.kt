@@ -48,6 +48,10 @@ class UserRepository {
         api.followEvent(userId, eventId)
     }
 
+    suspend fun unfollowEvent(userId: Int, eventId: Int) {
+        api.unfollowEvent(userId, eventId)
+    }
+
     suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse {
         return api.requestOTUCode(email)
     }

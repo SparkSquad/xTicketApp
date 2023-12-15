@@ -35,6 +35,7 @@ class ExploreEventsFragment : Fragment() {
     private val usersViewModel: UserViewModel by viewModels()
     private val activeUser: ActiveUser = ActiveUser.getInstance()
     private var filterFollowedEvents: Boolean = false
+    private var lastSelectedGenre: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentExploreEventsBinding.inflate(inflater, container, false)
@@ -48,11 +49,23 @@ class ExploreEventsFragment : Fragment() {
         return rootView
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(filterFollowedEvents) {
+            activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvents(it1.userId) }
+        }
+    }
+
     private fun initObservables() {
         val lifecycle = this.viewLifecycleOwner
 
         eventsViewModel.eventModel.observe(lifecycle) { eventsList ->
             var eventsData : MutableList<Event> = eventsList?.toMutableList() ?: arrayListOf()
+            if(filterFollowedEvents) {
+                eventsData = eventsData.filter { event ->
+                    usersViewModel.followedEvents.value?.find { eventFollow -> event.eventId == eventFollow.eventId } != null
+                }.toMutableList()
+            }
             eventsData = eventsData.filter { event -> event.saleDates?.isNotEmpty() ?: false }.toMutableList()
             val adapter = EventAdapter(eventsData) { eventData -> onItemSelected(eventData) }
             binding.rvSearchResults.adapter = adapter
@@ -93,7 +106,7 @@ class ExploreEventsFragment : Fragment() {
         // update search results when user types in search bar
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                eventsViewModel.searchEvents(s.toString(), null, 100, 1)
+                eventsViewModel.searchEvents(s.toString(), lastSelectedGenre, 100, 1)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
@@ -119,7 +132,7 @@ class ExploreEventsFragment : Fragment() {
                 binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.yellow))
                 setTextViewDrawableColor(binding.tvFavoriteEvents, R.color.yellow)
                 filterFollowedEvents = true
-                activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvent(it1.userId) }
+                activeUser.getUser()?.let { it1 -> usersViewModel.loadFollowedEvents(it1.userId) }
             }
             else {
                 binding.tvFavoriteEvents.setTextColor(resources.getColor(R.color.white))
@@ -141,8 +154,10 @@ class ExploreEventsFragment : Fragment() {
             chip.setOnCheckedChangeListener { buttonView, isChecked ->
                 if(isChecked) {
                     eventsViewModel.searchEvents(binding.etSearch.text.toString(), buttonView.text.toString(), 100, 1)
+                    lastSelectedGenre = buttonView.text.toString()
                 } else {
                     eventsViewModel.searchEvents(binding.etSearch.text.toString(), null, 100, 1)
+                    lastSelectedGenre = null
                 }
             }
             binding.cgGenres.addView(chip)

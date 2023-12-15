@@ -9,7 +9,9 @@ import com.teamxticket.xticket.data.model.UserEventFollowsResponse
 import com.teamxticket.xticket.data.model.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -28,8 +30,11 @@ interface UsersApiClient {
     @GET("user/eventFollows/{userId}")
     suspend fun getUserEventFollows(@Path("userId") userId: Int) : Response<UserEventFollowsResponse>
 
-    @POST("user//eventFollow/{userId}")
+    @POST("user/eventFollow/{userId}")
     suspend fun followEvent(@Path("userId") userId: Int, @Body eventId: EventFollow) : Response<ApiResponse>
+
+    @HTTP(method = "DELETE", path = "user/eventFollow/{userId}", hasBody = true)
+    suspend fun unfollowEvent(@Path("userId") userId: Int, @Body eventId: EventFollow) : Response<ApiResponse>
 
     @POST("user/requestOTUCode")
     suspend fun requestOTUCode(@Body email: OneTimeUseCode): Response<OneTimeUseCodeResponse>

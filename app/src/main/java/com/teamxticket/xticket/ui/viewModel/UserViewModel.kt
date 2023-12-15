@@ -83,7 +83,7 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun loadFollowedEvent(userId: Int) {
+    fun loadFollowedEvents(userId: Int) {
         viewModelScope.launch {
             try {
                 val result = UserRepository().getUserEventFollows(userId)
@@ -101,6 +101,17 @@ class UserViewModel : ViewModel() {
                 userUseCase.followEvent(userId, eventId)
             } catch (e: Exception) {
                 Log.d("UserViewModel", "followEvent: {${e.message}}")
+                errorCode.postValue(e.message)
+            }
+        }
+    }
+
+    fun unfollowEvent(userId: Int, eventId: Int) {
+        viewModelScope.launch {
+            try {
+                userUseCase.unfollowEvent(userId, eventId)
+            } catch (e: Exception) {
+                Log.d("UserViewModel", "unfollowEvent: {${e.message}}")
                 errorCode.postValue(e.message)
             }
         }

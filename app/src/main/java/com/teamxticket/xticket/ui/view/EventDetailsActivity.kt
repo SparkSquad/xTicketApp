@@ -1,13 +1,13 @@
 package com.teamxticket.xticket.ui.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.databinding.ActivityEventDetailsBinding
@@ -26,6 +26,7 @@ class EventDetailsActivity : AppCompatActivity() {
     private val eventViewModel: EventViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
     private val activeUser: ActiveUser = ActiveUser.getInstance()
+    private var followed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +37,22 @@ class EventDetailsActivity : AppCompatActivity() {
         saleDateId = intent.extras?.getInt("saleDateId")
 
         eventViewModel.getEvent(eventId!!)
+        userViewModel.loadFollowedEvents(activeUser.getUser()?.userId!!)
+
         initListeners()
         initObservables()
+    }
+
+    private fun setTextViewDrawableColor(textView: TextView, color: Int) {
+        for (drawable in textView.compoundDrawablesRelative) {
+            if (drawable != null) {
+                drawable.colorFilter =
+                    PorterDuffColorFilter(
+                        ContextCompat.getColor(textView.context, color),
+                        PorterDuff.Mode.SRC_IN
+                    )
+            }
+        }
     }
 
     private fun initObservables() {
@@ -88,6 +103,16 @@ class EventDetailsActivity : AppCompatActivity() {
                 }
             }
         }
+
+        userViewModel.followedEvents.observe(this) {
+            followed = it?.find { event -> event.eventId == eventId } != null
+            if(followed) {
+                setTextViewDrawableColor(binding.tvFollowEvent, R.color.yellow)
+            }
+            else {
+                setTextViewDrawableColor(binding.tvFollowEvent, R.color.black)
+            }
+        }
     }
 
     private fun initListeners() {
@@ -99,8 +124,17 @@ class EventDetailsActivity : AppCompatActivity() {
             }
         }
 
-        binding.fbFollowEvent.setOnClickListener {
-            activeUser.getUser()?.let { it1 -> userViewModel.followEvent(it1.userId, eventId!!) }
+        binding.tvFollowEvent.setOnClickListener {
+            if(followed) {
+                userViewModel.unfollowEvent(activeUser.getUser()?.userId!!, eventId!!)
+                setTextViewDrawableColor(binding.tvFollowEvent, R.color.black)
+                followed = false
+            }
+            else {
+                userViewModel.followEvent(activeUser.getUser()?.userId!!, eventId!!)
+                setTextViewDrawableColor(binding.tvFollowEvent, R.color.yellow)
+                followed = true
+            }
         }
     }
 }

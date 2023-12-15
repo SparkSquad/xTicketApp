@@ -115,6 +115,21 @@ class UserService{
         }
     }
 
+    suspend fun unfollowEvent(userId: Int, eventId: Int) {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = retrofit.create(UsersApiClient::class.java).unfollowEvent(userId, EventFollow(eventId, userId))
+                if (response.code() >= 500) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_500))
+                } else if (response.code() >= 400) {
+                    throw Exception(Resources.getSystem().getString(R.string.message_exception_400))
+                }
+            } catch (e: SocketTimeoutException) {
+                throw SocketTimeoutException(Resources.getSystem().getString(R.string.message_can_not_connect_with_server))
+            }
+        }
+    }
+
     suspend fun requestOTUCode(email: OneTimeUseCode): OneTimeUseCodeResponse {
         return withContext(Dispatchers.IO) {
             try {
