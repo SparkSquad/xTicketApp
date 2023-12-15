@@ -16,8 +16,6 @@ class TicketsUseCase {
 
     suspend fun deleteTicket(ticketId: Int): Int = repository.deleteTicket(ticketId)
 
-    suspend fun getTicketUuid(ticketUuid: String): Ticket = repository.getTicketUuid(ticketUuid)
-
     suspend fun getRefundTicket () : List<TicketData>? {
         val validTicketDataList = mutableListOf<TicketData>()
 

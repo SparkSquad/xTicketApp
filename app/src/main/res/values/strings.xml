@@ -164,4 +164,15 @@
     <string name="code">Código</string>
     <string name="dateError">Seleccione una fecha valida</string>
     <string name="empty_tickets">Ingrese la cantidad de tickets</string>
+    <string name="Success_bio_auth">Autenticacion exitosa</string>
+    <string name="Fail_bio_auth">Autenticacion fallida</string>
+    <string name="Cancel_bio_auth">Autenticacion cancelada</string>
+    <string name="bio_auth">Autenticacion requerida</string>
+    <string name="bio_auth_title">Autenticacion requerida</string>
+    <string name="bio_auth_subtitle">Escanee su huella</string>
+    <string name="bio_auth_description">Para ver su voleo debe comprobar su identidad</string>
+    <string name="bio_auth_negative_button">Cancelar</string>
+    <string name="bio_auth_error">Error de autenticacion</string>
+    <string name="bio_auth_error_message">No se ha podido autenticar, intente de nuevo</string>
+
 </resources>

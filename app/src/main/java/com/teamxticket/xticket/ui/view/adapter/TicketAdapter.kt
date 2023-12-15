@@ -52,12 +52,12 @@ class TicketAdapter(val ticketList: List<TicketData>, val onClickListener: (Tick
             tvEndHour.text = endTimeFormatted
 
             tvPrice.text =  buildString {
-                append(Resources.getSystem().getString(R.string.price))
+                append("Precio:")
                 append(currentTicket.ticket.price.toString())
             }
 
             tvTicketPurchased.text = buildString {
-                append(Resources.getSystem().getString(R.string.tickets_sold))
+                append("Entradas compradas: ")
                 append(currentTicket.ticket.totalTickets.toString())
             }
 
@@ -67,7 +67,7 @@ class TicketAdapter(val ticketList: List<TicketData>, val onClickListener: (Tick
 
             val purchaseDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(currentTicket.ticket.purchaseDate)
             tvPurchaseDate.text = buildString {
-                append(Resources.getSystem().getString(R.string.purchase_date))
+                append("Fecha de compra: ")
                 append(purchaseDate.toString() ?: "")
             }
 
