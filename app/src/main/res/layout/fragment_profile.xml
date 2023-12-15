@@ -173,11 +173,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="25dp"
                         android:text="@string/save_profile"
                         app:icon="@drawable/baseline_edit_24"
                         app:iconGravity="textEnd"
                         style="@style/BasicButtonStyle"
+                        android:layout_gravity="center"
+                        />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSignOut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/sign_out"
+                        app:icon="@drawable/baseline_logout_24"
+                        app:iconGravity="textEnd"
+                        style="@style/BadButtonStyle"
                         android:layout_gravity="center"
                         />
                 </LinearLayout>

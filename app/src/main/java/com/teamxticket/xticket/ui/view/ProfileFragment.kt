@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.ui.view
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -39,6 +40,7 @@ class ProfileFragment : Fragment() {
         setupValidationOnFocusChange(binding.userEmail)
         setUserData()
         setUpBtnUpdateProfile()
+        setUpBtnSignOut()
         initObservables()
 
         return rootView
@@ -94,6 +96,16 @@ class ProfileFragment : Fragment() {
                     password = userPassword
                 )
                 userViewModel.updateUser(newUserData)
+            }
+        }
+    }
+
+    private fun setUpBtnSignOut() {
+        binding.btnSignOut.setOnClickListener {
+            ActiveUser.getInstance().clearSession(this.requireContext())
+            Intent(this.requireContext(), LandingActivity::class.java).apply {
+                requireActivity().finish()
+                startActivity(this)
             }
         }
     }

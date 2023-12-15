@@ -1,5 +1,6 @@
 package com.teamxticket.xticket.core
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.ContextWrapper
 import com.google.gson.Gson
@@ -43,7 +44,7 @@ class ActiveUser private constructor() {
         this.darkMode = darkMode
     }
 
-    fun saveSession(context: ContextWrapper) {
+    fun saveSession(context: Context) {
         val preferences = context.getSharedPreferences(ACTIVE_USER_PREFS, MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putString("token", activeUserToken)
@@ -51,7 +52,7 @@ class ActiveUser private constructor() {
         editor.apply()
     }
 
-    fun restoreSession(context: ContextWrapper) {
+    fun restoreSession(context: Context) {
         val preferences = context.getSharedPreferences(ACTIVE_USER_PREFS, MODE_PRIVATE)
         val token = preferences.getString("token", null)
         val activeUserData = preferences.getString("user", null)
@@ -62,14 +63,14 @@ class ActiveUser private constructor() {
         }
     }
 
-    fun sessionExists(context: ContextWrapper): Boolean {
+    fun sessionExists(context: Context): Boolean {
         val preferences = context.getSharedPreferences(ACTIVE_USER_PREFS, MODE_PRIVATE)
         val token = preferences.getString("token", null)
         val activeUserData = preferences.getString("user", null)
         return token != null && activeUserData != null
     }
 
-    fun clearSession(context: ContextWrapper) {
+    fun clearSession(context: Context) {
         val preferences = context.getSharedPreferences(ACTIVE_USER_PREFS, MODE_PRIVATE)
         val editor = preferences.edit()
         editor.clear()
