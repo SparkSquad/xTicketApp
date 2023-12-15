@@ -83,7 +83,7 @@
             android:layout_height="64dp"
             android:backgroundTint="@color/darkBlue"
             android:letterSpacing="0.3"
-            android:text="@string/forgotTicketTaker"
+            android:text="@string/areYouATicketTaker"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"

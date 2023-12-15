@@ -56,8 +56,8 @@
     <string name="signInTicketTaker">INICIAR SESIÓN COMO PORTERO</string>
     <string name="createAccount">CREAR CUENTA</string>
     <string name="email">Correo electrónico</string>
-    <string name="forgotPassword">Olvidaste tu contraseña?</string>
-    <string name="forgotTicketTaker">Eres un portero?</string>
+    <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
+    <string name="areYouATicketTaker">¿ERES PORTERO?</string>
     <string name="add_sale_date">Añadir nueva fecha</string>
     <string name="adults">Adultos</string>
     <string name="RegisterTikerTaker">Registrar Portero</string>
