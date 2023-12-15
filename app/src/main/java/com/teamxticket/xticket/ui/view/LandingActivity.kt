@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.gson.Gson
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.databinding.ActivityLandingBinding
 
@@ -43,13 +42,9 @@ class LandingActivity : AppCompatActivity() {
     }
 
     private fun checkSession() {
-        val preferences = getSharedPreferences("xticketprefs", MODE_PRIVATE)
-        val token = preferences.getString("token", null)
-        val activeUserData = preferences.getString("user", null)
-        if (token != null && activeUserData != null) {
-            val user = Gson().fromJson(activeUserData, com.teamxticket.xticket.data.model.User::class.java)
-            activeUser.setToken(token)
-            activeUser.setUser(user)
+        if (activeUser.sessionExists(this)) {
+            activeUser.restoreSession(this)
+            val user = activeUser.getUser()
             if(user?.type == "assistant" || user?.type == "admin") {
                 Intent (this, AssistantMenuActivity::class.java).apply {
                     startActivity(this)

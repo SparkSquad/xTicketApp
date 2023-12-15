@@ -6,7 +6,6 @@ import android.view.Gravity
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.google.gson.Gson
 import com.teamxticket.xticket.R
 import com.teamxticket.xticket.core.ActiveUser
 import com.teamxticket.xticket.data.model.User
@@ -65,13 +64,7 @@ class LoginActivity : AppCompatActivity() {
          userViewModel.receivedUser.observe(this) {
              if (it.token?.isNotEmpty() == true) {
                  if (it.user?.email?.isEmpty() == false) {
-                     // Save user session
-                     val preferences = getSharedPreferences("xticketprefs", MODE_PRIVATE)
-                     val editor = preferences.edit()
-                     editor.putString("token", it.token)
-                     editor.putString("user", Gson().toJson(it.user))
-                     editor.apply()
-
+                     activeUser.saveSession(this)
                      if(it.user?.type == "assistant" || it.user?.type == "admin") {
                          Intent (this, AssistantMenuActivity::class.java).apply {
                              finish()
@@ -83,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
                              startActivity(this)
                          }
                      }
-
                  }
              } else {
                  AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
